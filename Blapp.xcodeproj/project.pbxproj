@@ -14,6 +14,8 @@
 		4A2E73042BCD2E2500AE877F /* BlappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E73032BCD2E2500AE877F /* BlappTests.swift */; };
 		4A2E730E2BCD2E2500AE877F /* BlappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */; };
 		4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */; };
+		4A2E73232BCD598600AE877F /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E73222BCD598600AE877F /* CameraViewController.swift */; };
+		4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E73242BCD5FF400AE877F /* Info.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		4A2E73092BCD2E2500AE877F /* BlappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITests.swift; sourceTree = "<group>"; };
 		4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4A2E73222BCD598600AE877F /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 		4A2E72E62BCD2E2300AE877F = {
 			isa = PBXGroup;
 			children = (
+				4A2E73242BCD5FF400AE877F /* Info.xcprivacy */,
 				4A2E72F12BCD2E2300AE877F /* Blapp */,
 				4A2E73022BCD2E2500AE877F /* BlappTests */,
 				4A2E730C2BCD2E2500AE877F /* BlappUITests */,
@@ -94,7 +99,10 @@
 		4A2E72F12BCD2E2300AE877F /* Blapp */ = {
 			isa = PBXGroup;
 			children = (
+				4A2E731D2BCD546300AE877F /* Model */,
+				4A2E731C2BCD544F00AE877F /* UI */,
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
+				4A2E73222BCD598600AE877F /* CameraViewController.swift */,
 				4A2E72F42BCD2E2300AE877F /* ContentView.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
 				4A2E72F82BCD2E2500AE877F /* Preview Content */,
@@ -125,6 +133,20 @@
 				4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */,
 			);
 			path = BlappUITests;
+			sourceTree = "<group>";
+		};
+		4A2E731C2BCD544F00AE877F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4A2E731D2BCD546300AE877F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +255,7 @@
 			files = (
 				4A2E72FA2BCD2E2500AE877F /* Preview Assets.xcassets in Resources */,
 				4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */,
+				4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +282,7 @@
 			files = (
 				4A2E72F52BCD2E2300AE877F /* ContentView.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
+				4A2E73232BCD598600AE877F /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,8 +446,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
+				DEVELOPMENT_TEAM = X7WYNNC5KF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs permission camera blabla";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -450,8 +476,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
+				DEVELOPMENT_TEAM = X7WYNNC5KF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs permission camera blabla";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
