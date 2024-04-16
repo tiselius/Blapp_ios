@@ -16,7 +16,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var photoOutput: AVCapturePhotoOutput!
     let depthDataOutput = AVCaptureDepthDataOutput()
     var cameraDevice: AVCaptureDevice!
-    var distanceLbl = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 100, y: 0, width: 200, height: 50))
+    var distanceLbl = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 100, y: 0, width: UIScreen.main.bounds.width, height: 40))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     func setupLabels(){
         distanceLbl.text = "test"
-        distanceLbl.center = CGPoint(x: view.bounds.midX, y: 85)
+        distanceLbl.center = CGPoint(x: view.bounds.midX, y: 55)
+        distanceLbl.textAlignment = .center
         view.addSubview(distanceLbl)
         view.bringSubviewToFront(distanceLbl)
     }
@@ -144,11 +145,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             print("Could not get image data")
             return
         }
+        
         guard let image = UIImage(data: imageData) else {
             print("Could not create image from data")
             return
         }
-
+            
         // Display the image in an ImageView
         DispatchQueue.main.async {
             let imageView = UIImageView(image: image)
