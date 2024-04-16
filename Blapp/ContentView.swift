@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    var distanceLbl = UILabel(frame: CGRect(x: 0, y: 500, width: 200, height: 50))
     var body: some View {
         VStack {
             Image(systemName: "globe")
