@@ -43,20 +43,14 @@ struct ContentView: View {
                 .offset(y: -200)
            
             VStack {
-                Image("Knapp")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .scaledToFit()
                 
-                    
                     Button(action: {
                         self.isCameraPresented.toggle()
                             }) {
-                                Text("Tap Me") // Text displayed on the button
-                                                    .foregroundColor(.white) // Text color
-                                                    .padding() // Add padding around the text
-                                                    .background(Color.blue) // Background color of the button
-                                                    .cornerRadius(10) // Add rounded corners to the button
+                                Image("Knapp")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .scaledToFit()
                                             }
                             .sheet(isPresented: $isCameraPresented) {
                                 // Present the camera view when the flag is true
