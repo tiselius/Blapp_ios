@@ -2,10 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key></key>
+	<array>
+		<dict/>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>use camera</string>
 	<key>Bundle Version</key>
 	<string>1</string>
+	<key>Font</key>
+	<array>
+		<string>mervale-script.ttf</string>
+	</array>
 	<key>Privacy - Camera Usage Description</key>
 	<string>use camera</string>
 </dict>
