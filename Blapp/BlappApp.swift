@@ -21,7 +21,7 @@ struct CameraView: UIViewControllerRepresentable {
 struct BlappApp: App {
     var body: some Scene {
         WindowGroup {
-            CameraView()
+            ContentView()
         }
     }
 }
