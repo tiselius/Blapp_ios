@@ -8,13 +8,25 @@
 import UIKit
 import AVFoundation
 
-class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+protocol CaptureDataReceiver: AnyObject {
+    func onNewData(capturedData: CameraCapturedData)
+}
+
+
+class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureDataOutputSynchronizerDelegate {
+    
 
     // AVCaptureSession and related variables
+    var videoDataOutput : AVCaptureVideoDataOutput!
+    var depthDataOutput : AVCaptureDepthDataOutput!
+    var outputVideoSync : AVCaptureDataOutputSynchronizer!
+    private let videoQueue = DispatchQueue(label: "VideoQueue", qos: .userInteractive)
+    weak var delegate: CaptureDataReceiver?
+    
+    
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var photoOutput: AVCapturePhotoOutput!
-    let depthDataOutput = AVCaptureDepthDataOutput()
     var cameraDevice: AVCaptureDevice!
     var distanceLbl = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 100, y: 0, width: 200, height: 50))
 
@@ -26,9 +38,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
         //initialisera och konfiguera preview layer
         setupPreviewLayer()
-        
-        setupDepth()
-        
+                
         // Add the capture button to the view
         setupCaptureButton()
         
@@ -36,21 +46,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
     }
 
-    func setupDepth(){
-
-        //setup depth stuff
-        captureSession.addOutput(depthDataOutput)
-        depthDataOutput.isFilteringEnabled = false
-        if let connection = depthDataOutput.connection(with: .depthData) {
-            connection.isEnabled = true
-        } else {
-            print("No AVCaptureConnection")
-        }
-        photoOutput.isDepthDataDeliveryEnabled = true
-        let depthFormats = cameraDevice.activeFormat.supportedDepthDataFormats
-        
-        print(depthFormats)
-    }
     func setupLabels(){
         distanceLbl.text = "test"
         distanceLbl.center = CGPoint(x: view.bounds.midX, y: 85)
@@ -72,8 +67,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .high
         
-        // Define the device type you want to search for (e.g., built-in dual camera)
-        let deviceType = AVCaptureDevice.DeviceType.builtInDualWideCamera //Nu tror jag inte att den funkar för alla - finns olika dualcamera
+        let deviceType = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
         print("device type is \(deviceType)")
         
         // Create a discovery session to find devices of the specified type
@@ -81,10 +75,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         // Get the back camera from the discovered devices
         guard let backCamera = discoverySession.devices.first else {
-            print("Unable to access back camera")
+            print("Unable to access lidar")
             return
         }
         cameraDevice = backCamera
+        print("camera is \(cameraDevice!)")
         
         do {
             // Create an input for the back camera
@@ -97,17 +92,33 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 print("Could not add input to the session")
                 return
             }
-
-            // Set up photo output for depth data capture.
-            self.photoOutput = AVCapturePhotoOutput()
-            guard self.captureSession.canAddOutput(photoOutput)
-                else { fatalError("Can't add photo output.") }
-            self.captureSession.addOutput(photoOutput)
-            self.captureSession.sessionPreset = .photo
             
-
             self.captureSession.commitConfiguration()
 
+            
+            // Create an object to output video sample buffers.
+            videoDataOutput = AVCaptureVideoDataOutput()
+            captureSession.addOutput(videoDataOutput)
+
+
+            // Create an object to output depth data.
+            depthDataOutput = AVCaptureDepthDataOutput()
+           // depthDataOutput.isFilteringEnabled = isFilteringEnabled
+            captureSession.addOutput(depthDataOutput)
+
+            // Create an object to synchronize the delivery of depth and video data.
+            outputVideoSync = AVCaptureDataOutputSynchronizer(dataOutputs: [depthDataOutput, videoDataOutput])
+            outputVideoSync.setDelegate(self, queue: videoQueue)
+            
+            // Create an object to output photos.
+            photoOutput = AVCapturePhotoOutput()
+            photoOutput.maxPhotoQualityPrioritization = .quality
+            captureSession.addOutput(photoOutput)
+
+
+            // Enable delivery of depth data after adding the output to the capture session.
+            photoOutput.isDepthDataDeliveryEnabled = true
+            
             // Start the capture session
             captureSession.startRunning()
             print("captureSession started")
@@ -117,6 +128,24 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
 
+    func dataOutputSynchronizer(_ synchronizer: AVCaptureDataOutputSynchronizer,
+                                didOutput synchronizedDataCollection: AVCaptureSynchronizedDataCollection) {
+        // Retrieve the synchronized depth and sample buffer container objects.
+        guard let syncedDepthData = synchronizedDataCollection.synchronizedData(for: depthDataOutput) as? AVCaptureSynchronizedDepthData,
+              let syncedVideoData = synchronizedDataCollection.synchronizedData(for: videoDataOutput) as? AVCaptureSynchronizedSampleBufferData else { return }
+        
+        guard let pixelBuffer = syncedVideoData.sampleBuffer.imageBuffer,
+              let cameraCalibrationData = syncedDepthData.depthData.cameraCalibrationData else { return }
+        
+        // Package the captured data.
+        let data = CameraCapturedData(depth: syncedDepthData.depthData,cameraIntrinsics: cameraCalibrationData.intrinsicMatrix,
+                                      cameraReferenceDimensions: cameraCalibrationData.intrinsicMatrixReferenceDimensions)
+        delegate?.onNewData(capturedData: data)
+ 
+    }
+    
+    
+    
     func setupCaptureButton() {
         let captureButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         captureButton.backgroundColor = .white
@@ -236,10 +265,99 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    func onNewData(capturedData: CameraCapturedData) {
+        videoQueue.async {
+            /*
+            if !self.processingCapturedResult {
+                // Because the views hold a reference to `capturedData`, the app updates each texture separately.
+                self.capturedData.depth = capturedData.depth
+                self.capturedData.colorY = capturedData.colorY
+                self.capturedData.colorCbCr = capturedData.colorCbCr
+                self.capturedData.cameraIntrinsics = capturedData.cameraIntrinsics
+                self.capturedData.cameraReferenceDimensions = capturedData.cameraReferenceDimensions
+                if self.dataAvailable == false {
+                    self.dataAvailable = true
+                }
+            }
+            */
+            let depthData = capturedData.depth
+            let depthDataMap = depthData?.depthDataMap
+            
+            let square_x = 5
+            let square_y = 5
+            let width = CVPixelBufferGetWidth(depthDataMap!)
+            let height = CVPixelBufferGetHeight(depthDataMap!)
+            let x_init = width / 2 - square_x
+            let y_init = height / 2 - square_y
+            let x_end = width / 2 + square_x
+            let y_end = height / 2 + square_y
+            var x = x_init
+            var y = y_init
+            
+            CVPixelBufferLockBaseAddress(depthDataMap!, CVPixelBufferLockFlags(rawValue: 0))
+                    let depthPointer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthDataMap!), to: UnsafeMutablePointer<Float32>.self)
+            
+            
+            var depthValues: [Float32] = []
+
+                   for x in stride(from: x_init, to: x_end, by: 1) {
+                       for y in stride(from: y_init, to: y_end, by: 1) {
+                           let depth = depthPointer[Int(width * y + x)]
+                           depthValues.append(depth)
+                       }
+                   }
+
+                   // Sort the depth values
+                   depthValues.sort()
+
+                   // Find the median
+                   let count = depthValues.count
+                   var median: Float32 = 0
+
+                   if count % 2 == 0 {
+                       // Even number of elements, average the two middle values
+                       let middleIndex1 = count / 2 - 1
+                       let middleIndex2 = count / 2
+                       median = (depthValues[middleIndex1] + depthValues[middleIndex2]) / 2
+                   } else {
+                       // Odd number of elements, take the middle value
+                       let middleIndex = count / 2
+                       median = depthValues[middleIndex]
+                   }
+
+                   print("Median depth: \(median)")
+                       //
+                       // Set UI
+                       //
+                       //let distanceAtXY = "\(distanceAtXYPoint) m" //Returns distance in meters?
+                       let distanceAtXY = "\(median) m"
+            let isFiltered = "\(depthData!.isDepthDataFiltered)"
+                       print("Distance to object at x = \(x), y = \(y) is \(distanceAtXY)")
+                       print("isDepthDataFiltered = \(isFiltered)")
+            self.distanceLbl.text = distanceAtXY
+               }
+        }
+    }
     
-}
+
 /*
 #Preview {
     CameraViewController()
 }
 */
+
+class CameraCapturedData {
+    
+    var depth: AVDepthData?
+    var cameraIntrinsics: matrix_float3x3
+    var cameraReferenceDimensions: CGSize
+
+    init(depth: AVDepthData? = nil,
+         cameraIntrinsics: matrix_float3x3 = matrix_float3x3(),
+         cameraReferenceDimensions: CGSize = .zero) {
+        
+        self.depth = depth
+        self.cameraIntrinsics = cameraIntrinsics
+        self.cameraReferenceDimensions = cameraReferenceDimensions
+    }
+}
