@@ -33,7 +33,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         setupCaptureButton()
         
         setupLabels()
-        
     }
 
     func setupDepth(){
@@ -73,12 +72,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .high
         
-        // Define the device type you want to search for (e.g., built-in dual camera)
-        let deviceType = AVCaptureDevice.DeviceType.builtInDualWideCamera //Nu tror jag inte att den funkar för alla - finns olika dualcamera
-        print("device type is \(deviceType)")
+        let lidar = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
+        let dualCamera = AVCaptureDevice.DeviceType.builtInDualCamera
+        let dualWideCamera = AVCaptureDevice.DeviceType.builtInDualWideCamera
         
         // Create a discovery session to find devices of the specified type
-        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [deviceType], mediaType: .video, position: .back)
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar,dualWideCamera,dualCamera], mediaType: .video, position: .back)
         
         // Get the back camera from the discovered devices
         guard let backCamera = discoverySession.devices.first else {
@@ -86,6 +85,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             return
         }
         cameraDevice = backCamera
+        print("Camera is \(String(describing: cameraDevice))")
         
         do {
             // Create an input for the back camera
