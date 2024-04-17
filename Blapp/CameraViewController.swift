@@ -181,8 +181,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let y_init = height / 2 - square_y
         let x_end = width / 2 + square_x
         let y_end = height / 2 + square_y
-        var x = x_init
-        var y = y_init
         print("x init = \(x_init), x end = \(x_end), y init = \(y_init), y end = \(y_end)")
         print("max width = \(width), max height = \(height)")
         //
@@ -258,13 +256,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
 
         print("Median depth: \(median)")
-            //
-            // Set UI
-            //
-            //let distanceAtXY = "\(distanceAtXYPoint) m" //Returns distance in meters?
+        
             let distanceAtXY = "\(median) m"
             let isFiltered = "\(depthData.isDepthDataFiltered)"
-            print("Distance to object at x = \(x), y = \(y) is \(distanceAtXY)")
+            print("Distance to object at center is \(distanceAtXY)")
             print("isDepthDataFiltered = \(isFiltered)")
             distanceLbl.text = distanceAtXY
     }
