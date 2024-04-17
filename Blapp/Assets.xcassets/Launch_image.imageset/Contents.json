@@ -1,10 +1,12 @@
 {
   "images" : [
     {
+      "filename" : "Start screen@1792h.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Start screen@2688h.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -16,5 +18,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

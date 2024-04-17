@@ -22,14 +22,12 @@ struct CameraUI: View {
                                 Color(red: 1, green: 0.39, blue: 0.39),
                                 Color(red: 1, green: 0.55, blue: 0.63),
                                 Color(red: 1, green: 0.56, blue: 0.64),
-                                Color(red: 1, green: 0.56, blue: 0.65),
-                                Color(red: 1, green: 0.57, blue: 0.66),
-                                Color(red: 1, green: 0.71, blue: 0.87)
+                                Color(red: 1, green: 0.56, blue: 0.65)
                             ]),
                             startPoint: .top,
                             endPoint: .bottom
-                        ), lineWidth: 2)
-                    .padding(2)
+                        ), lineWidth: 3)
+    
             }
             //Buttons
             HStack(spacing: 20){
@@ -38,7 +36,7 @@ struct CameraUI: View {
                 }) {
                     Text("Blood")
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.red)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
@@ -48,7 +46,7 @@ struct CameraUI: View {
                 }) {
                     Text("Water")
                             .padding()
-                            .background(Color.green)
+                            .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
@@ -58,7 +56,7 @@ struct CameraUI: View {
                     }) {
                         Text("Oil")
                             .padding()
-                            .background(Color.orange)
+                            .background(Color.black)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }

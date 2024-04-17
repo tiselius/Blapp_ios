@@ -6,5 +6,12 @@
 	<array>
 		<string>mervale-script.ttf</string>
 	</array>
+	<key>UILaunchImageFile~iphone</key>
+	<string>LaunchImage</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string>LaunchImage</string>
+	</dict>
 </dict>
 </plist>
