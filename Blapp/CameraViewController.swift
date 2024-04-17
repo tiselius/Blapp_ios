@@ -40,7 +40,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
         //setup depth stuff
         captureSession.addOutput(depthDataOutput)
-        depthDataOutput.isFilteringEnabled = false
+        depthDataOutput.isFilteringEnabled = true
         if let connection = depthDataOutput.connection(with: .depthData) {
             connection.isEnabled = true
         } else {
@@ -165,24 +165,29 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    
     func handlePhotoDepthCalculation(point : Int, photo: AVCapturePhoto) {
-
-                
         //
         // Convert Disparity to Depth
         //
         let depthData = (photo.depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
         let depthDataMap = depthData.depthDataMap //AVDepthData -> CVPixelBuffer
         
+        let square_x = 5
+        let square_y = 5
         let width = CVPixelBufferGetWidth(depthDataMap)
         let height = CVPixelBufferGetHeight(depthDataMap)
-        let x = width / 2
-        let y = height / 2
-
+        let x_init = width / 2 - square_x
+        let y_init = height / 2 - square_y
+        let x_end = width / 2 + square_x
+        let y_end = height / 2 + square_y
+        var x = x_init
+        var y = y_init
+        print("x init = \(x_init), x end = \(x_end), y init = \(y_init), y end = \(y_end)")
+        print("max width = \(width), max height = \(height)")
         //
         // Set Accuracy feedback
         //
-        
         let accuracy = depthData.depthDataAccuracy
         let quality = depthData.depthDataQuality
         print("Quality is \(quality)")
@@ -204,8 +209,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         @unknown default:
             print("Accuracy is unknown")
         }
-         
-
         //
         // We convert the data
         //
@@ -215,15 +218,55 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         //
         // Get depth value for image center
         //
-        let distanceAtXYPoint = depthPointer[Int(y * Int(CGFloat(width)) + x)]
-        //
-        // Set UI
-        //
-        let distanceAtXY = "\(distanceAtXYPoint) m" //Returns distance in meters?
-        let isFiltered = "\(depthData.isDepthDataFiltered)"
-        print("Distance to object at x = \(x), y = \(y) is \(distanceAtXY)")
-        print("isDepthDataFiltered = \(isFiltered)")
-        distanceLbl.text = distanceAtXY
+        var distanceTotal : Float32
+        distanceTotal = 0
+/*
+        for x in stride(from: x_init, to: x_end, by: 1){
+            for y in stride(from: y_init, to: y_end, by: 1){
+                distanceTotal +=  depthPointer[Int(width * y + x)]
+                print(distanceTotal)
+            }
+        }
+        let distance = distanceTotal / Float((x_end - x_init) * (y_end - y_init))
+ */
+        
+        var depthValues: [Float32] = []
+
+        for x in stride(from: x_init, to: x_end, by: 1) {
+            for y in stride(from: y_init, to: y_end, by: 1) {
+                let depth = depthPointer[Int(width * y + x)]
+                depthValues.append(depth)
+            }
+        }
+
+        // Sort the depth values
+        depthValues.sort()
+
+        // Find the median
+        let count = depthValues.count
+        var median: Float32 = 0
+
+        if count % 2 == 0 {
+            // Even number of elements, average the two middle values
+            let middleIndex1 = count / 2 - 1
+            let middleIndex2 = count / 2
+            median = (depthValues[middleIndex1] + depthValues[middleIndex2]) / 2
+        } else {
+            // Odd number of elements, take the middle value
+            let middleIndex = count / 2
+            median = depthValues[middleIndex]
+        }
+
+        print("Median depth: \(median)")
+            //
+            // Set UI
+            //
+            //let distanceAtXY = "\(distanceAtXYPoint) m" //Returns distance in meters?
+            let distanceAtXY = "\(median) m"
+            let isFiltered = "\(depthData.isDepthDataFiltered)"
+            print("Distance to object at x = \(x), y = \(y) is \(distanceAtXY)")
+            print("isDepthDataFiltered = \(isFiltered)")
+            distanceLbl.text = distanceAtXY
     }
 
     override func viewDidLayoutSubviews() {
