@@ -54,7 +54,7 @@ struct ContentView: View {
                                             }
                             .sheet(isPresented: $isCameraPresented) {
                                 // Present the camera view when the flag is true
-                                CameraView()
+                                CameraUI()
                             }
                             
                         }

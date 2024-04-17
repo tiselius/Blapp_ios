@@ -22,7 +22,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         setupCameraComponents()
 
         // Add the capture button to the view
-        setupCaptureButton()
+        //setupCaptureButton()
     }
 
     func setupCameraComponents() {
@@ -70,7 +70,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
 
-    func setupCaptureButton() {
+   /* func setupCaptureButton() {
         let captureButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         captureButton.backgroundColor = .white
         captureButton.layer.cornerRadius = 35
@@ -79,7 +79,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         view.addSubview(captureButton)
         view.bringSubviewToFront(captureButton)
     }
-
+*/
     @objc func capturePhoto() {
         let settings = AVCapturePhotoSettings()
         settings.flashMode = .auto  // Adjust flash settings as needed
@@ -108,7 +108,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        previewLayer.frame = view.bounds
+        if let previewLayer = previewLayer {
+            previewLayer.frame = view.bounds
+        } else {
+            print("Preview layer is nil")
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

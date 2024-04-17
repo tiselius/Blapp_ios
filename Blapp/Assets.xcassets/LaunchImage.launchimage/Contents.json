@@ -2,6 +2,7 @@
   "images" : [
     {
       "extent" : "full-screen",
+      "filename" : "Start screen@2688h.png",
       "idiom" : "iphone",
       "minimum-system-version" : "12.0",
       "orientation" : "portrait",
@@ -18,6 +19,7 @@
     },
     {
       "extent" : "full-screen",
+      "filename" : "Start screen@1792h.png",
       "idiom" : "iphone",
       "minimum-system-version" : "12.0",
       "orientation" : "portrait",

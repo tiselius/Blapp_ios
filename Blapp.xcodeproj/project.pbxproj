@@ -21,6 +21,7 @@
 		D0584DC92BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DD12BCEBCCD00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
+		D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				4A2E731C2BCD544F00AE877F /* UI */,
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
 				4A2E73222BCD598600AE877F /* CameraViewController.swift */,
+				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
 				4A2E72F42BCD2E2300AE877F /* ContentView.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
 				4A2E72F82BCD2E2500AE877F /* Preview Content */,
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
 				4A2E72F52BCD2E2300AE877F /* ContentView.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				4A2E73232BCD598600AE877F /* CameraViewController.swift in Sources */,
