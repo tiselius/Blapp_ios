@@ -30,6 +30,9 @@
 		D0AA03832BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
 		D0AA03842BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
 		D0AA03852BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
+		D0AA03872BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
+		D0AA03882BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
+		D0AA03892BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,7 @@
 		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
 		D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCameraView.swift; sourceTree = "<group>"; };
 		D0AA03822BD1166800C4ECC5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 			children = (
 				D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */,
 				D0584DCA2BCE9F3900EFE8A4 /* Info.plist */,
+				D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */,
 				4A2E731D2BCD546300AE877F /* Model */,
 				4A2E731C2BCD544F00AE877F /* UI */,
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
@@ -280,6 +285,7 @@
 				D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */,
 				4A2E72FA2BCD2E2500AE877F /* Preview Assets.xcassets in Resources */,
 				4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */,
+				D0AA03872BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */,
 				4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,6 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0AA03882BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */,
 				D0584DC82BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */,
 				D0584DD12BCEBCCD00EFE8A4 /* Assets.xcassets in Resources */,
 			);
@@ -297,6 +304,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0AA03892BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */,
 				D0584DC92BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */,
 				D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */,
 			);
@@ -481,6 +489,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
@@ -491,6 +500,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera required for preview";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
@@ -521,6 +532,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera required for preview";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
