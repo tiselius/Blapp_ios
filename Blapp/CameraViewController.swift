@@ -7,13 +7,15 @@
 
 import UIKit
 import AVFoundation
+import SwiftUI
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     // AVCaptureSession and related variables
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var photoOutput: AVCapturePhotoOutput!
+    var delegate: AVCapturePhotoCaptureDelegate?
+    var Output: AVCapturePhotoOutput!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +25,18 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
         // Add the capture button to the view
         //setupCaptureButton()
+    
     }
 
+    func setupCaptureButton() {
+            let captureButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+            captureButton.backgroundColor = .white
+            captureButton.layer.cornerRadius = 35
+            captureButton.center = CGPoint(x: view.bounds.midX, y: view.bounds.height - 280)
+            captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchUpInside)
+            view.addSubview(captureButton)
+            view.bringSubviewToFront(captureButton)
+        }
     func setupCameraComponents() {
         // Create a new AVCaptureSession
         captureSession = AVCaptureSession()
@@ -49,9 +61,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             }
 
             // Initialize photoOutput and add it to the session
-            photoOutput = AVCapturePhotoOutput()
-            if captureSession.canAddOutput(photoOutput) {
-                captureSession.addOutput(photoOutput)
+            Output = AVCapturePhotoOutput()
+            if captureSession.canAddOutput(Output) {
+                captureSession.addOutput(Output)
             } else {
                 print("Could not add photo output to the session")
                 return
@@ -70,20 +82,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
 
-   /* func setupCaptureButton() {
-        let captureButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
-        captureButton.backgroundColor = .white
-        captureButton.layer.cornerRadius = 35
-        captureButton.center = CGPoint(x: view.bounds.midX, y: view.bounds.height - 85)
-        captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchUpInside)
-        view.addSubview(captureButton)
-        view.bringSubviewToFront(captureButton)
-    }
-*/
     @objc func capturePhoto() {
         let settings = AVCapturePhotoSettings()
         settings.flashMode = .auto  // Adjust flash settings as needed
-        photoOutput.capturePhoto(with: settings, delegate: self)
+        Output.capturePhoto(with: settings, delegate: self)
     }
 
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
@@ -96,7 +98,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             return
         }
 
-        // Display the image in an ImageView
+       // Display the image in an ImageView
         DispatchQueue.main.async {
             let imageView = UIImageView(image: image)
             imageView.frame = self.view.bounds
@@ -108,9 +110,13 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        // Check if previewLayer is nil or not
         if let previewLayer = previewLayer {
+            // If previewLayer is not nil, set its frame
             previewLayer.frame = view.bounds
         } else {
+            // If previewLayer is nil, print a message to indicate the issue
             print("Preview layer is nil")
         }
     }
