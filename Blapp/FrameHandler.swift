@@ -66,7 +66,7 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let cgImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
         
         // All UI updates should be/ must be performed on the main queue.
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.main.async { //[unowned self] in
             self.frame = cgImage
         }
     }

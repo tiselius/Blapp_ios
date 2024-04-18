@@ -63,9 +63,9 @@ struct CameraUI: View {
                 }
             }
         }
-        .padding() // Add padding to the outer VStack
-            .background( LinearGradient(
-                gradient: Gradient(colors: [
+        //.padding() // Add padding to the outer VStack
+        .background( LinearGradient(
+            gradient: Gradient(colors: [
                     Color(red: 1, green: 0.39, blue: 0.39),
                     Color(red: 1, green: 0.55, blue: 0.63),
                     Color(red: 1, green: 0.56, blue: 0.64),

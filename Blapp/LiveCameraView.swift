@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FrameView: View {
     var image: CGImage?
+    @State private var isLoading = true
     private let label = Text("frame")
     
     var body: some View {
