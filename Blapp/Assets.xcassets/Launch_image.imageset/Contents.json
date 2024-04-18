@@ -20,6 +20,7 @@
     "version" : 1
   },
   "properties" : {
+    "compression-type" : "automatic",
     "preserves-vector-representation" : true
   }
 }

@@ -11,24 +11,23 @@ import SwiftUI
 
 struct CameraUI: View {
     var body: some View {
-    let camera = CameraViewController()
         VStack{
             
             ZStack{
-                CameraView()
-                    .frame(height: UIScreen.main.bounds.height*0.7)
-                
-                Rectangle()
+                ContentView()
+                    .frame(height: UIScreen.main.bounds.height * 0.8)
+               /* Rectangle()
                     .strokeBorder(LinearGradient(
                         gradient: Gradient(colors: [
                             Color(red: 1, green: 0.39, blue: 0.39),
                             Color(red: 1, green: 0.55, blue: 0.63),
                             Color(red: 1, green: 0.56, blue: 0.64),
-                            Color(red: 1, green: 0.56, blue: 0.65)
+                            Color(red: 1, green: 0.56, blue: 0.65),
+                            Color(red: 1, green: 0.57, blue: 0.66)
                         ]),
                         startPoint: .top,
                         endPoint: .bottom
-                    ), lineWidth: 3)
+                    ), lineWidth: 3)*/
                 
             }
             //Buttons
@@ -63,18 +62,6 @@ struct CameraUI: View {
                         .cornerRadius(10)
                 }
             }
-            // Camera Button
-           
-    Button(action: {
-        
-             }) {
-             Image(systemName: "camera.fill")
-             .font(.title)
-             .foregroundColor(.white)
-             }
-             .padding(.top, 20)
-             // Add spacing between buttons and camera button
-             
         }
         .padding() // Add padding to the outer VStack
             .background( LinearGradient(

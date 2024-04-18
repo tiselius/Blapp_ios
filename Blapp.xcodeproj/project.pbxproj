@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E72F22BCD2E2300AE877F /* BlappApp.swift */; };
-		4A2E72F52BCD2E2300AE877F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E72F42BCD2E2300AE877F /* ContentView.swift */; };
+		4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */; };
 		4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		4A2E72FA2BCD2E2500AE877F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F92BCD2E2500AE877F /* Preview Assets.xcassets */; };
 		4A2E73042BCD2E2500AE877F /* BlappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E73032BCD2E2500AE877F /* BlappTests.swift */; };
 		4A2E730E2BCD2E2500AE877F /* BlappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */; };
 		4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */; };
-		4A2E73232BCD598600AE877F /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E73222BCD598600AE877F /* CameraViewController.swift */; };
 		4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E73242BCD5FF400AE877F /* Info.xcprivacy */; };
 		D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC82BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
@@ -22,6 +21,15 @@
 		D0584DD12BCEBCCD00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */; };
+		D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
+		D0AA03782BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
+		D0AA03792BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
+		D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
+		D0AA037C2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
+		D0AA037D2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
+		D0AA03832BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
+		D0AA03842BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
+		D0AA03852BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +52,7 @@
 /* Begin PBXFileReference section */
 		4A2E72EF2BCD2E2300AE877F /* Blapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2E72F22BCD2E2300AE877F /* BlappApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappApp.swift; sourceTree = "<group>"; };
-		4A2E72F42BCD2E2300AE877F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageUI.swift; sourceTree = "<group>"; };
 		4A2E72F62BCD2E2500AE877F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A2E72F92BCD2E2500AE877F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4A2E72FF2BCD2E2500AE877F /* BlappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,11 +60,13 @@
 		4A2E73092BCD2E2500AE877F /* BlappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITests.swift; sourceTree = "<group>"; };
 		4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		4A2E73222BCD598600AE877F /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
+		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
+		D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCameraView.swift; sourceTree = "<group>"; };
+		D0AA03822BD1166800C4ECC5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,9 +123,11 @@
 				4A2E731D2BCD546300AE877F /* Model */,
 				4A2E731C2BCD544F00AE877F /* UI */,
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
-				4A2E73222BCD598600AE877F /* CameraViewController.swift */,
+				D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */,
+				D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */,
+				D0AA03822BD1166800C4ECC5 /* ContentView.swift */,
 				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
-				4A2E72F42BCD2E2300AE877F /* ContentView.swift */,
+				4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
 				4A2E72F82BCD2E2500AE877F /* Preview Content */,
 			);
@@ -298,9 +310,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
-				4A2E72F52BCD2E2300AE877F /* ContentView.swift in Sources */,
+				4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */,
+				D0AA03832BD1166800C4ECC5 /* ContentView.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
-				4A2E73232BCD598600AE877F /* CameraViewController.swift in Sources */,
+				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
+				D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +322,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0AA03782BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
+				D0AA03842BD1166800C4ECC5 /* ContentView.swift in Sources */,
 				4A2E73042BCD2E2500AE877F /* BlappTests.swift in Sources */,
+				D0AA037C2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +335,9 @@
 			files = (
 				4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */,
 				4A2E730E2BCD2E2500AE877F /* BlappUITests.swift in Sources */,
+				D0AA03852BD1166800C4ECC5 /* ContentView.swift in Sources */,
+				D0AA03792BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
+				D0AA037D2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,10 +488,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Blapp/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Blapp needs permission camera blabla";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera required for preview";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -499,10 +518,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Blapp/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Blapp needs permission camera blabla";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera required for preview";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
