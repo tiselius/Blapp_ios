@@ -32,7 +32,6 @@ struct FrameView: View {
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .frame(width: geometry.size.width, height: geometry.size.height)
                 .edgesIgnoringSafeArea(.all)
             }
         }

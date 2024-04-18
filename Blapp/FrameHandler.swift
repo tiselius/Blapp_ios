@@ -48,10 +48,25 @@ class FrameHandler: NSObject, ObservableObject {
     func setupCaptureSession() {
         let videoOutput = AVCaptureVideoDataOutput()
         guard permissionGranted else { return }
-        guard let videoDevice = AVCaptureDevice.default(.builtInDualWideCamera,for: .video, position: .back) else { return }
-        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice) else { return }
+        var cameraDevice: AVCaptureDevice!
+        
+        let lidar = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
+        let dualCamera = AVCaptureDevice.DeviceType.builtInDualCamera
+        let dualWideCamera = AVCaptureDevice.DeviceType.builtInDualWideCamera
+        
+        // Create a discovery session to find devices of the specified type
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar,dualWideCamera,dualCamera], mediaType: .video, position: .back)
+        
+        guard let backCamera = discoverySession.devices.first else {
+                    print("Unable to access back camera")
+                    return
+        }
+        cameraDevice = backCamera
+        //guard let videoDevice = AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: .back) else { return }
+        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: cameraDevice) else { return }
         guard captureSession.canAddInput(videoDeviceInput) else { return }
         captureSession.addInput(videoDeviceInput)
+        
         
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sampleBufferQueue"))
         captureSession.addOutput(videoOutput)

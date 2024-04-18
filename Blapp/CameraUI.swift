@@ -16,7 +16,7 @@ struct CameraUI: View {
             ZStack{
                 ContentView()
                     .frame(height: UIScreen.main.bounds.height * 0.8)
-               /* Rectangle()
+                Rectangle()
                     .strokeBorder(LinearGradient(
                         gradient: Gradient(colors: [
                             Color(red: 1, green: 0.39, blue: 0.39),
@@ -27,7 +27,7 @@ struct CameraUI: View {
                         ]),
                         startPoint: .top,
                         endPoint: .bottom
-                    ), lineWidth: 3)*/
+                    ), lineWidth: 3)
                 
             }
             //Buttons
