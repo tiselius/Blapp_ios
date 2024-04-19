@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
-
+    
     // AVCaptureSession and related variables
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -17,43 +17,58 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     let depthDataOutput = AVCaptureDepthDataOutput()
     var cameraDevice: AVCaptureDevice!
     var distanceLbl = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 100, y: 0, width: UIScreen.main.bounds.width, height: 40))
+    let serialQueue = DispatchQueue(label: "com.example.serialQueue")
+    let concurrentQueue = DispatchQueue(label: "com.example.concurrentQueue",  attributes: .concurrent)
+    var currentDepth: Float32 = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        serialQueue.async{
+            print("")
+        }
         // Initialize and configure the capture session
-        setupCameraComponents()
+        setupCameraAndCaptureSession()
         
         //initialisera och konfiguera preview layer
         setupPreviewLayer()
         
+        //Set up depth related properties etc.
         setupDepth()
         
         // Add the capture button to the view
         setupCaptureButton()
         
+        //Set up label UI-ish
         setupLabels()
         
+        //Verifies OpenCV is installed correctly
         print("\(OpenCVWrapper.getOpenCVVersion())")
     }
     
+    //Set up depth related properties etc.
     func setupDepth(){
         
-        //setup depth stuff
-        captureSession.addOutput(depthDataOutput)
-        depthDataOutput.isFilteringEnabled = true
-        if let connection = depthDataOutput.connection(with: .depthData) {
-            connection.isEnabled = true
-        } else {
-            print("No AVCaptureConnection")
-        }
+        /*
+         ** Not needed for photocapture. **
+         captureSession.addOutput(depthDataOutput)
+         depthDataOutput.isFilteringEnabled = true
+         if let connection = depthDataOutput.connection(with: .depthData) {
+         connection.isEnabled = true
+         } else {
+         print("No AVCaptureConnection")
+         }
+         *** Not sure if creating a connection manually (as here) is necessary because addOutput(...)
+         creates a connection automatically. It seems to be necessary only (for our case) when
+         adding the depthDataOutput because the connection is not created automatically with this type.
+         */
         photoOutput.isDepthDataDeliveryEnabled = true
         let depthFormats = cameraDevice.activeFormat.supportedDepthDataFormats
         
         print(depthFormats)
     }
     func setupLabels(){
-        distanceLbl.text = "test"
+        distanceLbl.text = "*distance*"
         distanceLbl.center = CGPoint(x: view.bounds.midX, y: 55)
         distanceLbl.textAlignment = .center
         view.addSubview(distanceLbl)
@@ -69,7 +84,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         print("Preview layer loaded")
     }
     
-    func setupCameraComponents() {
+    func setupCameraAndCaptureSession() {
         // Create a new AVCaptureSession
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .high
@@ -77,11 +92,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let lidar = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
         let dualCamera = AVCaptureDevice.DeviceType.builtInDualCamera
         let dualWideCamera = AVCaptureDevice.DeviceType.builtInDualWideCamera
+        let tripleCamera = AVCaptureDevice.DeviceType.builtInTripleCamera
         
         // Create a discovery session to find devices of the specified type
-        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar,dualWideCamera,dualCamera], mediaType: .video, position: .back)
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar,dualWideCamera,dualCamera, tripleCamera], mediaType: .video, position: .back)
         
-        
+        //Choosing the first one seems to work fine.     ___
         guard let backCamera = discoverySession.devices.first else {
             
             // If not dual camera is available, try to get the front facing camera with truedepth as a last resort. If it does not have one, throw error.
@@ -92,10 +108,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             cameraDevice = frontCamera
             return
         }
-
+        
+        //Assign the class variable to the setup camera.
         cameraDevice = backCamera
         print("Camera is \(String(describing: cameraDevice))")
         
+        //Create an input with the camera and then add it to the captureSession.
         do {
             // Create an input for the back camera
             let input = try AVCaptureDeviceInput(device: cameraDevice)
@@ -107,29 +125,24 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 print("Could not add input to the session")
                 return
             }
-            
-            // Set up photo output for depth data capture.
-            self.photoOutput = AVCapturePhotoOutput()
-            guard self.captureSession.canAddOutput(photoOutput)
-            else { fatalError("Can't add photo output.") }
-            self.captureSession.addOutput(photoOutput)
-            self.captureSession.sessionPreset = .photo
-            
-            
-            self.captureSession.commitConfiguration()
-            
-            // Start the capture session
-            captureSession.startRunning()
-            print("captureSession started")
-            
         } catch {
             print("Error setting up capture session: \(error)")
         }
+        
+        // Set up photo output for depth data capture.
+        self.photoOutput = AVCapturePhotoOutput()
+        guard self.captureSession.canAddOutput(photoOutput)
+        else { fatalError("Can't add photo output.") }
+        self.captureSession.addOutput(photoOutput)
+        self.captureSession.sessionPreset = .photo
+        
+        self.captureSession.commitConfiguration()
+        
+        // Start the capture session
+        captureSession.startRunning()
+        print("captureSession started")
     }
-    enum CameraError: Error {
-        case noDepthCapturingCameraAvailable
-    }
-
+    
     func getFrontFacing() throws -> AVCaptureDevice {
         let trueDepth = AVCaptureDevice.DeviceType.builtInTrueDepthCamera
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [trueDepth], mediaType: .video, position: .front)
@@ -140,6 +153,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         return backCamera
     }
+    //Create button for capturing photos
     func setupCaptureButton() {
         let captureButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         captureButton.backgroundColor = .white
@@ -151,7 +165,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         print("button added")
     }
     
+    //Gets called when pressing captureButton
     @objc func capturePhoto() {
+        //Setting for the specific photo
         let settings = AVCapturePhotoSettings()
         settings.isDepthDataDeliveryEnabled = true
         settings.flashMode = .auto  // Adjust flash settings as needed
@@ -174,28 +190,36 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
         
         //Get depth
-        DispatchQueue.main.async {
+        serialQueue.async {
             self.handlePhotoDepthCalculation(photo: photo)
-            
         }
-        DispatchQueue.main.async {
-            self.getOpenCVData(image: image)
-            
+        DispatchQueue.main.async{
+            let overlayedImage: (UIImage) = self.getOpenCVData(image: image)
+            self.showImage(image: overlayedImage)
+            self.setLabels()
         }
     }
     
-    func getOpenCVData(image: UIImage) {
+    func setLabels(){
+        distanceLbl.text = "\(currentDepth) m"
+    }
+    
+    func getOpenCVData(image: UIImage) -> UIImage {
         let newImage = OpenCVWrapper().identifyObject(image)
         guard
             let landscapeCGImage = newImage.cgImage
-        else { return }
+        else { print("Couldn't get overlayed image");return newImage }
         let portraitImage = UIImage(cgImage: landscapeCGImage, scale: newImage.scale, orientation: .right)
+        return portraitImage
+    }
+    
+    func showImage(image: UIImage){
         DispatchQueue.main.async {
-            let imageView2 = UIImageView(image: portraitImage)
-            imageView2.frame = self.view.bounds
-            imageView2.contentMode = .scaleAspectFit
-            self.view.addSubview(imageView2)
-            self.view.bringSubviewToFront(imageView2)
+            let imageView = UIImageView(image: image)
+            imageView.frame = self.view.bounds
+            imageView.contentMode = .scaleAspectFit
+            self.view.addSubview(imageView)
+            self.view.bringSubviewToFront(imageView)
             print("image displayed")
         }
     }
@@ -289,14 +313,13 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             let middleIndex = count / 2
             median = depthValues[middleIndex]
         }
-        
+        currentDepth = median
         print("Median depth: \(median)")
         
         let distanceAtXY = "\(median) m"
         let isFiltered = "\(depthData.isDepthDataFiltered)"
         print("Distance to object at center is \(distanceAtXY)")
         print("isDepthDataFiltered = \(isFiltered)")
-        distanceLbl.text = distanceAtXY
     }
     
     override func viewDidLayoutSubviews() {
@@ -311,7 +334,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
     
-    
+    enum CameraError: Error {
+        case noDepthCapturingCameraAvailable
+    }
 }
 /*
  #Preview {

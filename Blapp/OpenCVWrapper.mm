@@ -118,6 +118,4 @@
     return resizedImg;
 }
 
-
-
 @end
