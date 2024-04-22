@@ -41,7 +41,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         //Set up label UI-ish
         setupLabels()
-        
+                
         //Verifies OpenCV is installed correctly
         print("\(OpenCVWrapper.getOpenCVVersion())")
     }
@@ -158,12 +158,28 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let captureButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         captureButton.backgroundColor = .white
         captureButton.layer.cornerRadius = 35
-        captureButton.center = CGPoint(x: view.bounds.midX, y: view.bounds.height - 85)
+        captureButton.center = CGPoint(x: view.bounds.midX, y: view.bounds.height - 285)
         captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchUpInside)
         view.addSubview(captureButton)
         view.bringSubviewToFront(captureButton)
         print("button added")
     }
+    
+    //Gets an image and returns the real life size of one pixel. Formula could be entirely wrong.
+    func getPixelSize(photo : UIImage) -> (Double){
+        // Get the focal length
+        let fieldOfViewDegrees = cameraDevice.activeFormat.videoFieldOfView // in degrees
+        let fieldOfViewRadians = Double(fieldOfViewDegrees) * Double.pi / 180
+        
+        // Adjust for wide field of view
+        let adjustedFieldOfViewRadians = fieldOfViewRadians > Double.pi / 2 ? Double.pi - fieldOfViewRadians : fieldOfViewRadians
+        
+        let realWorldWidth = 2 * Double(tan(Double(adjustedFieldOfViewRadians)) / 2) * Double(currentDepth)
+        let imageWidth = Double(photo.size.width) * Double(photo.scale)
+        let pixelSize = realWorldWidth / imageWidth
+        return pixelSize
+    }
+
     
     //Gets called when pressing captureButton
     @objc func capturePhoto() {
@@ -189,9 +205,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             return
         }
         
-        //Get depth
-        serialQueue.async {
+        //Get depth and pixelsize
+            serialQueue.async {
             self.handlePhotoDepthCalculation(photo: photo)
+            print("Pixel size is: \(self.getPixelSize(photo: image)) m")
         }
         DispatchQueue.main.async{
             let overlayedImage: (UIImage) = self.getOpenCVData(image: image)

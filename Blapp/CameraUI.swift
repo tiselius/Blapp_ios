@@ -64,19 +64,12 @@ struct CameraUI: View {
                 }
             }
             // Camera Button
-           
-    Button(action: {
-        
-             }) {
-             Image(systemName: "camera.fill")
-             .font(.title)
-             .foregroundColor(.white)
-             }
              .padding(.top, 20)
              // Add spacing between buttons and camera button
              
         }
         .padding() // Add padding to the outer VStack
+
             .background( LinearGradient(
                 gradient: Gradient(colors: [
                     Color(red: 1, green: 0.39, blue: 0.39),
