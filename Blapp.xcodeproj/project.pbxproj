@@ -27,9 +27,9 @@
 		D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
 		D0AA037C2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
 		D0AA037D2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
-		D0AA03832BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
-		D0AA03842BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
-		D0AA03852BD1166800C4ECC5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* ContentView.swift */; };
+		D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
+		D0AA03842BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
+		D0AA03852BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
 		D0AA03872BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
 		D0AA03882BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
 		D0AA03892BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
@@ -69,7 +69,7 @@
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
 		D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCameraView.swift; sourceTree = "<group>"; };
-		D0AA03822BD1166800C4ECC5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D0AA03822BD1166800C4ECC5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,7 +130,7 @@
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
 				D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */,
 				D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */,
-				D0AA03822BD1166800C4ECC5 /* ContentView.swift */,
+				D0AA03822BD1166800C4ECC5 /* CameraView.swift */,
 				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
 				4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
@@ -319,7 +319,7 @@
 			files = (
 				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
 				4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */,
-				D0AA03832BD1166800C4ECC5 /* ContentView.swift in Sources */,
+				D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
 				D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
@@ -331,7 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0AA03782BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
-				D0AA03842BD1166800C4ECC5 /* ContentView.swift in Sources */,
+				D0AA03842BD1166800C4ECC5 /* CameraView.swift in Sources */,
 				4A2E73042BCD2E2500AE877F /* BlappTests.swift in Sources */,
 				D0AA037C2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);
@@ -343,7 +343,7 @@
 			files = (
 				4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */,
 				4A2E730E2BCD2E2500AE877F /* BlappUITests.swift in Sources */,
-				D0AA03852BD1166800C4ECC5 /* ContentView.swift in Sources */,
+				D0AA03852BD1166800C4ECC5 /* CameraView.swift in Sources */,
 				D0AA03792BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
 				D0AA037D2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);

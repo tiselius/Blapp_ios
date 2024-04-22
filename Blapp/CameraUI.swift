@@ -14,7 +14,7 @@ struct CameraUI: View {
         VStack{
             
             ZStack{
-                ContentView()
+                CameraView()
                     .frame(height: UIScreen.main.bounds.height * 0.8)
                 Rectangle()
                     .strokeBorder(LinearGradient(
