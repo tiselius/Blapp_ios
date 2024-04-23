@@ -8,6 +8,8 @@
 import AVFoundation
 import CoreImage
 import Combine
+import UIKit
+
 
 class FrameHandler: NSObject, ObservableObject {
     @Published var frame: CGImage?
@@ -15,8 +17,11 @@ class FrameHandler: NSObject, ObservableObject {
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "sessionQueue")
     private let context = CIContext()
+    private var processFrame : ProcessFrame
+    //private var cameraDevice: AVCaptureDevice!
     
     override init() {
+        self.processFrame = ProcessFrame()
         super.init()
         self.checkPermission()
         sessionQueue.async { [unowned self] in
@@ -49,7 +54,6 @@ class FrameHandler: NSObject, ObservableObject {
     func setupCaptureSession() {
         let videoOutput = AVCaptureVideoDataOutput()
         guard permissionGranted else { return }
-        var cameraDevice: AVCaptureDevice!
         
         let lidar = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
         let dualCamera = AVCaptureDevice.DeviceType.builtInDualCamera
@@ -62,7 +66,7 @@ class FrameHandler: NSObject, ObservableObject {
                     print("Unable to access back camera")
                     return
         }
-        cameraDevice = backCamera
+        let cameraDevice = backCamera
         //guard let videoDevice = AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: .back) else { return }
         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: cameraDevice) else { return }
         guard captureSession.canAddInput(videoDeviceInput) else { return }
@@ -80,18 +84,32 @@ class FrameHandler: NSObject, ObservableObject {
 extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let cgImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
-        
-        // All UI updates should be/ must be performed on the main queue.
-        DispatchQueue.main.async { //[unowned self] in
-            self.frame = cgImage
+
+        self.processFrame.findObject(cgImage: cgImage) { processedFrame in
+            DispatchQueue.main.async {
+                self.frame = processedFrame
+            }
+           // print(" \(self.processFrame.getRealArea(cgImage: cgImage)) m")
         }
     }
+        
+
+    
     
     private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> CGImage? {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return nil }
         let ciImage = CIImage(cvPixelBuffer: imageBuffer)
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
         return cgImage
+    }
+    
+//    public func getCameraDevice() -> AVCaptureDevice{
+//        return self.cameraDevice
+//    }
+    
+    public func getCurrentDepth() -> Double{
+        //TODO
+        return 0
     }
     
 }
