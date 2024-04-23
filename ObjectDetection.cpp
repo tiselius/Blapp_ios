@@ -1,88 +1,71 @@
 #include "ObjectDetection.hpp"
 
-void ObjectDetection::writeContourAll(cv::Mat image) {
-    // Convert the image to grayscale
+std::vector<std::vector<cv::Point>> ObjectDetection::getContours(cv::Mat& image) {
     cv::Mat gray;
     cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 
     // Threshold the grayscale image to create a binary mask
     cv::Mat mask;
-    cv::threshold(gray, mask, 0, 255, cv::THRESH_BINARY_INV | cv::THRESH_OTSU);
+    cv::threshold(gray, mask, 100, 255, cv::THRESH_BINARY_INV | cv::THRESH_OTSU);
 
     // Find contours in the mask
     std::vector<std::vector<cv::Point>> contours;
     cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
-    // Create a mask for the contours
-    cv::Mat contourMask = cv::Mat::zeros(image.size(), CV_8UC1);
-    cv::drawContours(contourMask, contours, -1, cv::Scalar(255), cv::FILLED);
-
-    // Apply the mask to the original image to keep only the objects inside the contours
-    cv::Mat result;
-    image.copyTo(result, contourMask);
-
-    // Update the original image with the result
-    image = result;
+    return contours;
 }
 
-void ObjectDetection::writeContourMask(cv::Mat image) {
-    // Convert the image to grayscale
-    cv::Mat gray;
-    cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
+cv::Mat ObjectDetection::findObject(cv::Mat image, int x, int y) {
 
-    // Threshold the grayscale image to create a binary mask
-    cv::Mat mask;
-    cv::threshold(gray, mask, 0, 255, cv::THRESH_BINARY_INV | cv::THRESH_OTSU);
+    // Create a point for the specific pixel
+    cv::Point point(x, y);
 
-    // Find contours in the mask
-    std::vector<std::vector<cv::Point>> contours;
-    cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+    std::vector<std::vector<cv::Point>> contours = getContours(image);
 
-    // Calculate centroids of contours
-    std::vector<cv::Moments> mu(contours.size());
-    for (size_t i = 0; i < contours.size(); i++) {
-        mu[i] = cv::moments(contours[i]);
-    }
-
-    // Find the contour corresponding to the object in the center
-    cv::Point2f imageCenter(static_cast<float>(image.cols / 2), static_cast<float>(image.rows / 2));
-    int centerContourIndex = -1;
-    float minDist = std::numeric_limits<float>::max();
-
-    for (size_t i = 0; i < contours.size(); i++) {
-        cv::Point2f centroid(static_cast<float>(mu[i].m10 / mu[i].m00), static_cast<float>(mu[i].m01 / mu[i].m00));
-        float dist = cv::norm(imageCenter - centroid);
-
-        if (dist < minDist) {
-            minDist = dist;
-            centerContourIndex = static_cast<int>(i);
+    // Check if the specific pixel is within any contour
+    for (const auto& contour : contours) {
+        if (cv::pointPolygonTest(contour, point, false) >= 0) {
+            // Draw the contour containing the specific pixel
+            cv::drawContours(image, std::vector<std::vector<cv::Point>>{contour}, -1, cv::Scalar(0, 255, 0), 2);
+            //cv::circle(image, point, 5, cv::Scalar(255, 0, 0), -1); // Draw the specific pixel
+            break;
         }
     }
 
-    // Create a mask for the largest contour
-    cv::Mat contourMask = cv::Mat::zeros(image.size(), CV_8UC1);
-    cv::drawContours(contourMask, contours, centerContourIndex, cv::Scalar(255), cv::FILLED);
-
-    // Apply the mask to the original image to keep only the part inside the contour
-    cv::Mat result;
-    image.copyTo(result, contourMask);
-
-    // Update the original image with the result
-    image = result;
+    return image;
 }
 
-void ObjectDetection::writeContour(cv::Mat image) {
-    // Convert the image to grayscale
-    cv::Mat gray;
-    cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
+int ObjectDetection::findObjectArea(cv::Mat image, int x, int y) {
+    // Create a point for the specific pixel
+    cv::Point point(x, y);
 
-    // Threshold the grayscale image to create a binary mask
-    cv::Mat mask;
-    cv::threshold(gray, mask, 0, 255, cv::THRESH_BINARY_INV | cv::THRESH_OTSU);
+    std::vector<std::vector<cv::Point>> contours = getContours(image);
+    double area = 0;
 
-    // Find contours in the mask
-    std::vector<std::vector<cv::Point>> contours;
-    cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+    // Check if the specific pixel is within any contour
+    for (const auto& contour : contours) {
+        if (cv::pointPolygonTest(contour, point, false) >= 0) {
+            //Find the area of the object
+            area = cv::contourArea(contour);
+
+            break;
+        }
+    }
+
+    return area;
+}
+
+void ObjectDetection::writeContourAll(cv::Mat& image) {
+
+    std::vector<std::vector<cv::Point>> contours = getContours(image);
+
+    // Draw contours on the original image
+    cv::drawContours(image, contours, -1, cv::Scalar(0, 255, 0), 0);
+}
+
+cv::Mat ObjectDetection::identifyCenterObject(cv::Mat image) {
+
+    std::vector<std::vector<cv::Point>> contours = getContours(image);
 
     // Calculate centroids of contours
     std::vector<cv::Moments> mu(contours.size());
@@ -94,6 +77,8 @@ void ObjectDetection::writeContour(cv::Mat image) {
     cv::Point2f imageCenter(static_cast<float>(image.cols / 2), static_cast<float>(image.rows / 2));
     int centerContourIndex = -1;
     float minDist = std::numeric_limits<float>::max();
+
+    double area = 0;
 
     for (size_t i = 0; i < contours.size(); i++) {
         cv::Point2f centroid(static_cast<float>(mu[i].m10 / mu[i].m00), static_cast<float>(mu[i].m01 / mu[i].m00));
@@ -106,7 +91,39 @@ void ObjectDetection::writeContour(cv::Mat image) {
     }
 
     // Draw the contour of the center object onto the image
-    cv::drawContours(image, contours, centerContourIndex, cv::Scalar(0, 255, 0), 2);
+    cv::drawContours(image, contours, centerContourIndex, cv::Scalar(0, 255, 0), 20);
+
+    return image;
+}
+
+int ObjectDetection::identifyCenterObjectArea(cv::Mat image) {
+
+    std::vector<std::vector<cv::Point>> contours = getContours(image);
+
+    // Calculate centroids of contours
+    std::vector<cv::Moments> mu(contours.size());
+    for (size_t i = 0; i < contours.size(); i++) {
+        mu[i] = cv::moments(contours[i]);
+    }
+
+    // Find the contour corresponding to the object in the center
+    cv::Point2f imageCenter(static_cast<float>(image.cols / 2), static_cast<float>(image.rows / 2));
+    int centerContourIndex = -1;
+    float minDist = std::numeric_limits<float>::max();
+
+    double area = 0;
+
+    for (size_t i = 0; i < contours.size(); i++) {
+        cv::Point2f centroid(static_cast<float>(mu[i].m10 / mu[i].m00), static_cast<float>(mu[i].m01 / mu[i].m00));
+        float dist = cv::norm(imageCenter - centroid);
+
+        if (dist < minDist) {
+            minDist = dist;
+            area = cv::contourArea(contours[i]);
+        }
+    }
+
+    return area;
 }
 
 cv::Mat ObjectDetection::readImage(const std::string& imgPath) {
@@ -121,10 +138,42 @@ cv::Mat ObjectDetection::readImage(const std::string& imgPath) {
     return image;
 }
 
-int ObjectDetection::getAverageHSV(const cv::Mat image) {
+int ObjectDetection::getHSV(const cv::Mat srcImage) {
+
+    if (srcImage.empty()) {
+        std::cerr << "Error: Could not open the image file." << std::endl;
+        return -1;
+    }
+
+    // Get image dimensions
+    int rows = srcImage.rows;
+    int cols = srcImage.cols;
+
+    // Calculate the coordinates of the pixel in the middle of the image
+    int centerX = cols / 2;
+    int centerY = rows / 2;
+
+    // Convert BGR to HSV
+    cv::Mat3b bgrImage(srcImage);
+    cv::Mat3b hsvImage;
+    cv::cvtColor(bgrImage, hsvImage, cv::COLOR_BGR2HSV);
+
+    // Get the HSV values of the pixel in the middle of the image
+    cv::Vec3b hsvColor = hsvImage(centerY, centerX);
+
+    int hsvValue = (hsvColor[0] << 16) | (hsvColor[1] << 8) | hsvColor[2];
+
+    return hsvValue;
+}
+
+int ObjectDetection::getAverageHSV(const cv::Mat& image) {
     // Get image dimensions
     int rows = image.rows;
     int cols = image.cols;
+
+    if (cols < 8 || rows < 8) {
+        return getHSV(image);
+    }
 
     //Should maybe make it dependant on the size of the image
     // Calculate the region of interest (ROI) in the middle of the image
@@ -163,33 +212,6 @@ int ObjectDetection::getAverageHSV(const cv::Mat image) {
 
     // Combine average HSV values into a single integer
     int hsvValue = (avgH << 16) | (avgS << 8) | avgV;
-
-    return hsvValue;
-}
-
-int ObjectDetection::getHSV(const cv::Mat image) {
-    if (image.empty()) {
-        std::cerr << "Error: Could not open the image file." << std::endl;
-        return -1;
-    }
-
-    // Get image dimensions
-    int rows = image.rows;
-    int cols = image.cols;
-
-    // Calculate the coordinates of the pixel in the middle of the image
-    int centerX = cols / 2;
-    int centerY = rows / 2;
-
-    // Convert BGR to HSV
-    cv::Mat3b bgrImage(image);
-    cv::Mat3b hsvImage;
-    cv::cvtColor(bgrImage, hsvImage, cv::COLOR_BGR2HSV);
-
-    // Get the HSV values of the pixel in the middle of the image
-    cv::Vec3b hsvColor = hsvImage(centerY, centerX);
-
-    int hsvValue = (hsvColor[0] << 16) | (hsvColor[1] << 8) | hsvColor[2];
 
     return hsvValue;
 }
@@ -280,110 +302,4 @@ cv::Mat ObjectDetection::identifyObject(cv::Mat image) {
     }
 
     return resultImage;
-}
-
-int ObjectDetection::identifyObjectTest(cv::Mat image) {
-    int range = 4;
-    cv::Mat resultImage;
-    cv::Mat mask;
-
-    //Exists to test the write contour functions
-    if (true) {
-        // Write contour of the central object
-        writeContourAll(image);
-
-        // Display the result
-
-        cv::imshow("Result Image", image);
-        cv::imwrite("C:/Users/Sebastian WL/Desktop/Results/img.png", image);
-        cv::waitKey(0);
-
-        return 0;
-
-    }
-
-    int hsvValue;
-    if (false) {
-        hsvValue = getHSV(image);
-    }
-    else {
-        hsvValue = getAverageHSV(image);
-    }
-
-    if (hsvValue != -1) {
-        int h = (hsvValue >> 16) & 0xFF;
-        int s = (hsvValue >> 8) & 0xFF;
-        int v = hsvValue & 0xFF;
-
-        std::cout << "HSV Color in the middle of the image: "
-            << "H: " << h << ", "
-            << "S: " << s << ", "
-            << "V: " << v << std::endl;
-
-        int minSat = 100, maxSat = 255;
-        int minVal = 0, maxVal = 255;
-
-        cv::Scalar lowerBound;
-        cv::Scalar upperBound;
-
-        if (h < range || h >(180 - range)) {
-
-            cv::Scalar lowerBound2;
-            cv::Scalar upperBound2;
-
-            cv::Mat mask1, mask2;
-
-            if (h < range) {
-                int minHue1 = 0, maxHue1 = h + range;
-                int minHue2 = 179 - (range - h), maxHue2 = 180;
-
-                lowerBound = cv::Scalar(minHue1, minSat, minVal);
-                upperBound = cv::Scalar(maxHue1, maxSat, maxVal);
-
-                lowerBound2 = cv::Scalar(minHue2, minSat, minVal);
-                upperBound2 = cv::Scalar(maxHue2, maxSat, maxVal);
-            }
-            else {
-                int minHue1 = h - range, maxHue1 = 180;
-                int minHue2 = 0, maxHue2 = range - (180 - h);
-
-                lowerBound = cv::Scalar(minHue1, minSat, minVal);
-                upperBound = cv::Scalar(maxHue1, maxSat, maxVal);
-
-                lowerBound2 = cv::Scalar(minHue2, minSat, minVal);
-                upperBound2 = cv::Scalar(maxHue2, maxSat, maxVal);
-            }
-
-            mask1 = createMask(image, lowerBound, upperBound);
-            mask2 = createMask(image, lowerBound2, upperBound2);
-
-            mask = mask1 | mask2;
-
-            resultImage = applyMask(image, mask);
-
-            cv::imshow("Input Image", image);
-            cv::imshow("Result (Masked) Image", resultImage);
-        }
-        else {
-            int minHue = h - range, maxHue = h + range;
-
-            lowerBound = cv::Scalar(minHue, minSat, minVal);
-            upperBound = cv::Scalar(maxHue, maxSat, maxVal);
-
-            mask = createMask(image, lowerBound, upperBound);
-
-            resultImage = applyMask(image, mask);
-
-
-            cv::imshow("Input Image", image);
-            cv::imshow("Result (Masked) Image", resultImage);
-        }
-
-        //writeContour(resultImage);
-
-        cv::imwrite("C:/Users/Sebastian WL/Desktop/Results/img.png", resultImage);
-    }
-    waitKey(0);
-
-    return 0;
 }

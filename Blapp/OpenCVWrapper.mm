@@ -14,6 +14,7 @@
 
 @implementation UIImage (OpenCVWrapper)
 
+
 - (void)convertToMat: (cv::Mat *)pMat: (bool)alphaExists {
     if (self.imageOrientation == UIImageOrientationRight) {
         /*
@@ -46,6 +47,35 @@
 @end
 
 @implementation OpenCVWrapper
+
+
+- (UIImage *) centerObject: (UIImage *) image {
+    // convert uiimage to mat
+    cv::Mat opencvImage;
+    UIImageToMat(image, opencvImage, true);
+    
+    // convert colorspace to the one expected by the lane detector algorithm (RGB)
+    cv::Mat convertedColorSpaceImage;
+    cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_RGBA2RGB);
+    
+    ObjectDetection objectDetection;
+    cv::Mat imageWithObject = objectDetection.identifyCenterObject(convertedColorSpaceImage);
+    
+    return MatToUIImage(imageWithObject);
+}
+
+- (int) centerArea: (UIImage *) image{
+    cv::Mat opencvImage;
+    UIImageToMat(image, opencvImage, true);
+    
+    // convert colorspace to the one expected by the lane detector algorithm (RGB)
+    cv::Mat convertedColorSpaceImage;
+    cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_RGBA2RGB);
+    
+    ObjectDetection objectDetection;
+    int area = objectDetection.identifyCenterObjectArea(convertedColorSpaceImage);
+    return area;
+}
 
 - (UIImage *) identifyObject: (UIImage *) image {
     // convert uiimage to mat

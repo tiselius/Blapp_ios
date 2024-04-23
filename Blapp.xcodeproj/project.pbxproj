@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A1BBE3F2BD1492B00BFEA8B /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4A1BBE3D2BD1492B00BFEA8B /* ObjectDetection.cpp */; };
 		4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E72F22BCD2E2300AE877F /* BlappApp.swift */; };
 		4A2E72F52BCD2E2300AE877F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E72F42BCD2E2300AE877F /* ContentView.swift */; };
 		4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
@@ -23,6 +22,7 @@
 		4A360AE92BD10CF60024EF83 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A360AE82BD10CF60024EF83 /* Accelerate.framework */; };
 		4A360AEB2BD10D050024EF83 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A360AEA2BD10D050024EF83 /* CoreFoundation.framework */; };
 		4A360AED2BD112890024EF83 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A360AEC2BD112890024EF83 /* opencv2.framework */; };
+		4AD966E92BD68F8300CF01DD /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966E82BD68F8300CF01DD /* ObjectDetection.cpp */; };
 		D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC82BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC92BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
@@ -62,8 +62,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4A1BBE3D2BD1492B00BFEA8B /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
-		4A1BBE3E2BD1492B00BFEA8B /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
 		4A2E72EF2BCD2E2300AE877F /* Blapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2E72F22BCD2E2300AE877F /* BlappApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappApp.swift; sourceTree = "<group>"; };
 		4A2E72F42BCD2E2300AE877F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +84,8 @@
 		4A360AEA2BD10D050024EF83 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		4A360AEC2BD112890024EF83 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		4A360AF02BD11B2D0024EF83 /* Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Test.cpp; path = Blapp/Test.cpp; sourceTree = SOURCE_ROOT; };
+		4AD966E72BD68CB200CF01DD /* ObjectDetection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
+		4AD966E82BD68F8300CF01DD /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
@@ -129,8 +129,8 @@
 				4A360ADF2BD107220024EF83 /* Blapp-Bridging-Header.h */,
 				4A360AE02BD107620024EF83 /* PrefixHeader.pch */,
 				4A360ADC2BD106640024EF83 /* OpenCVWrapper.h */,
-				4A1BBE3D2BD1492B00BFEA8B /* ObjectDetection.cpp */,
-				4A1BBE3E2BD1492B00BFEA8B /* ObjectDetection.hpp */,
+				4AD966E82BD68F8300CF01DD /* ObjectDetection.cpp */,
+				4AD966E72BD68CB200CF01DD /* ObjectDetection.hpp */,
 				4A360ADD2BD106640024EF83 /* OpenCVWrapper.mm */,
 				4A2E72F12BCD2E2300AE877F /* Blapp */,
 				4A2E73022BCD2E2500AE877F /* BlappTests */,
@@ -356,11 +356,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AD966E92BD68F8300CF01DD /* ObjectDetection.cpp in Sources */,
 				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
 				4A2E72F52BCD2E2300AE877F /* ContentView.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				4A360ADE2BD106640024EF83 /* OpenCVWrapper.mm in Sources */,
-				4A1BBE3F2BD1492B00BFEA8B /* ObjectDetection.cpp in Sources */,
 				4A2E73232BCD598600AE877F /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

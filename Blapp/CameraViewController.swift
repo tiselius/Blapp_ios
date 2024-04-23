@@ -39,9 +39,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         // Add the capture button to the view
         setupCaptureButton()
         
+        
         //Set up label UI-ish
         setupLabels()
-                
+                        
         //Verifies OpenCV is installed correctly
         print("\(OpenCVWrapper.getOpenCVVersion())")
     }
@@ -49,19 +50,19 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     //Set up depth related properties etc.
     func setupDepth(){
         
-        /*
-         ** Not needed for photocapture. **
-         captureSession.addOutput(depthDataOutput)
-         depthDataOutput.isFilteringEnabled = true
-         if let connection = depthDataOutput.connection(with: .depthData) {
-         connection.isEnabled = true
-         } else {
-         print("No AVCaptureConnection")
-         }
-         *** Not sure if creating a connection manually (as here) is necessary because addOutput(...)
+        
+        /** Not needed for photocapture. **/
+        captureSession.addOutput(depthDataOutput)
+        depthDataOutput.isFilteringEnabled = true
+        if let connection = depthDataOutput.connection(with: .depthData) {
+            connection.isEnabled = true
+        } else {
+            print("No AVCaptureConnection")
+        }
+        /*** Not sure if creating a connection manually (as here) is necessary because addOutput(...)
          creates a connection automatically. It seems to be necessary only (for our case) when
-         adding the depthDataOutput because the connection is not created automatically with this type.
-         */
+         adding the depthDataOutput because the connection is not created automatically with this type. */
+        
         photoOutput.isDepthDataDeliveryEnabled = true
         let depthFormats = cameraDevice.activeFormat.supportedDepthDataFormats
         
@@ -87,7 +88,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     func setupCameraAndCaptureSession() {
         // Create a new AVCaptureSession
         captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .high
+        captureSession.sessionPreset = .low
         
         let lidar = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
         let dualCamera = AVCaptureDevice.DeviceType.builtInDualCamera
@@ -99,8 +100,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         //Choosing the first one seems to work fine.     ___
         guard let backCamera = discoverySession.devices.first else {
-            
-            // If not dual camera is available, try to get the front facing camera with truedepth as a last resort. If it does not have one, throw error.
+//            
+//            // If not dual camera is available, try to get the front facing camera with truedepth as a last resort. If it does not have one, throw error.
             guard let frontCamera = try? getFrontFacing() else {
                 print("Error: Unable to get front-facing camera")
                 return
@@ -108,11 +109,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             cameraDevice = frontCamera
             return
         }
-        
-        //Assign the class variable to the setup camera.
+//        
+//        //Assign the class variable to the setup camera.
         cameraDevice = backCamera
-        print("Camera is \(String(describing: cameraDevice))")
-        
+//        print("Camera is \(String(describing: cameraDevice))")
+//        
         //Create an input with the camera and then add it to the captureSession.
         do {
             // Create an input for the back camera
@@ -134,13 +135,20 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         guard self.captureSession.canAddOutput(photoOutput)
         else { fatalError("Can't add photo output.") }
         self.captureSession.addOutput(photoOutput)
-        self.captureSession.sessionPreset = .photo
+        self.captureSession.sessionPreset = .hd1280x720
         
         self.captureSession.commitConfiguration()
         
         // Start the capture session
         captureSession.startRunning()
         print("captureSession started")
+        
+        let dimensions = CMVideoFormatDescriptionGetDimensions(cameraDevice.activeFormat.formatDescription)
+        
+        // Convert the dimensions to CGFloat and return
+        let width = CGFloat(dimensions.width)
+        let height = CGFloat(dimensions.height)
+        print("height is \(height) and width is \(width)")
     }
     
     func getFrontFacing() throws -> AVCaptureDevice {
@@ -170,16 +178,19 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         // Get the focal length
         let fieldOfViewDegrees = cameraDevice.activeFormat.videoFieldOfView // in degrees
         let fieldOfViewRadians = Double(fieldOfViewDegrees) * Double.pi / 180
+        print(fieldOfViewDegrees)
         
         // Adjust for wide field of view
         let adjustedFieldOfViewRadians = fieldOfViewRadians > Double.pi / 2 ? Double.pi - fieldOfViewRadians : fieldOfViewRadians
+        print(adjustedFieldOfViewRadians)
         
-        let realWorldWidth = 2 * Double(tan(Double(adjustedFieldOfViewRadians)) / 2) * Double(currentDepth)
+        let realWorldWidth = Double(tan(Double(adjustedFieldOfViewRadians)) / 2) * Double(currentDepth) * 2
         let imageWidth = Double(photo.size.width) * Double(photo.scale)
         let pixelSize = realWorldWidth / imageWidth
         return pixelSize
+        
     }
-
+    
     
     //Gets called when pressing captureButton
     @objc func capturePhoto() {
@@ -206,12 +217,15 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
         
         //Get depth and pixelsize
-            serialQueue.async {
+        serialQueue.async {
             self.handlePhotoDepthCalculation(photo: photo)
             print("Pixel size is: \(self.getPixelSize(photo: image)) m")
+            let area = OpenCVWrapper().centerArea(image)
+            print("area is \(area)")
         }
         DispatchQueue.main.async{
-            let overlayedImage: (UIImage) = self.getOpenCVData(image: image)
+            //let overlayedImage: (UIImage) = self.getOpenCVData(image: image)
+            let overlayedImage = OpenCVWrapper().centerObject(image)
             self.showImage(image: overlayedImage)
             self.setLabels()
         }
@@ -303,41 +317,45 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
          }
          let distance = distanceTotal / Float((x_end - x_init) * (y_end - y_init))
          */
+        /*
+         var depthValues: [Float32] = []
+         
+         for x in stride(from: x_init, to: x_end, by: 1) {
+         for y in stride(from: y_init, to: y_end, by: 1) {
+         let depth = depthPointer[Int(width * y + x)]
+         depthValues.append(depth)
+         }
+         }
+         
+         // Sort the depth values
+         depthValues.sort()
+         
+         // Find the median
+         let count = depthValues.count
+         var median: Float32 = 0
+         
+         if count % 2 == 0 {
+         // Even number of elements, average the two middle values
+         let middleIndex1 = count / 2 - 1
+         let middleIndex2 = count / 2
+         median = (depthValues[middleIndex1] + depthValues[middleIndex2]) / 2
+         } else {
+         // Odd number of elements, take the middle value
+         let middleIndex = count / 2
+         median = depthValues[middleIndex]
+         }
+         currentDepth = median
+         print("Median depth: \(median)")
+         */
+        let depth = depthPointer[Int(width * y_init + 5 + x_init + 5)]
+        currentDepth = depth
         
-        var depthValues: [Float32] = []
-        
-        for x in stride(from: x_init, to: x_end, by: 1) {
-            for y in stride(from: y_init, to: y_end, by: 1) {
-                let depth = depthPointer[Int(width * y + x)]
-                depthValues.append(depth)
-            }
-        }
-        
-        // Sort the depth values
-        depthValues.sort()
-        
-        // Find the median
-        let count = depthValues.count
-        var median: Float32 = 0
-        
-        if count % 2 == 0 {
-            // Even number of elements, average the two middle values
-            let middleIndex1 = count / 2 - 1
-            let middleIndex2 = count / 2
-            median = (depthValues[middleIndex1] + depthValues[middleIndex2]) / 2
-        } else {
-            // Odd number of elements, take the middle value
-            let middleIndex = count / 2
-            median = depthValues[middleIndex]
-        }
-        currentDepth = median
-        print("Median depth: \(median)")
-        
-        let distanceAtXY = "\(median) m"
+        // let distanceAtXY = "\(median) m"
         let isFiltered = "\(depthData.isDepthDataFiltered)"
-        print("Distance to object at center is \(distanceAtXY)")
+        //print("Distance to object at center is \(distanceAtXY)")
         print("isDepthDataFiltered = \(isFiltered)")
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
