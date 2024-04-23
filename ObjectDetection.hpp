@@ -11,7 +11,7 @@ public:
     int findObjectArea(cv::Mat image, int x, int y);
 
     cv::Mat identifyObject(cv::Mat image);
-    void writeContourAll(cv::Mat& image);
+    cv::Mat writeContourAll(cv::Mat& image);
     cv::Mat readImage(const std::string& imgPath);
 
 private:
