@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import Vision
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
@@ -20,6 +21,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     let serialQueue = DispatchQueue(label: "com.example.serialQueue")
     let concurrentQueue = DispatchQueue(label: "com.example.concurrentQueue",  attributes: .concurrent)
     var currentDepth: Float32 = 0
+    let detectContourRequest = VNDetectContoursRequest()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +66,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
          adding the depthDataOutput because the connection is not created automatically with this type. */
         
         photoOutput.isDepthDataDeliveryEnabled = true
-        let depthFormats = cameraDevice.activeFormat.supportedDepthDataFormats
-        
-        print(depthFormats)
     }
     func setupLabels(){
         distanceLbl.text = "*distance*"
@@ -85,10 +84,16 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         print("Preview layer loaded")
     }
     
+    func detectContours(){
+        detectContourRequest.contrastAdjustment = 2
+        
+
+    }
+    
     func setupCameraAndCaptureSession() {
         // Create a new AVCaptureSession
         captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .low
+        captureSession.sessionPreset = .high
         
         let lidar = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
         let dualCamera = AVCaptureDevice.DeviceType.builtInDualCamera
@@ -135,7 +140,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         guard self.captureSession.canAddOutput(photoOutput)
         else { fatalError("Can't add photo output.") }
         self.captureSession.addOutput(photoOutput)
-        self.captureSession.sessionPreset = .hd1280x720
+        self.captureSession.sessionPreset = .photo
         
         self.captureSession.commitConfiguration()
         
@@ -176,19 +181,32 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     //Gets an image and returns the real life size of one pixel. Formula could be entirely wrong.
     func getPixelSize(photo : UIImage) -> (Double){
         // Get the focal length
-        let fieldOfViewDegrees = cameraDevice.activeFormat.videoFieldOfView // in degrees
+//        let fieldOfViewDegrees = cameraDevice.activeFormat.videoFieldOfView // in degrees
+        let fieldOfViewDegrees = 67
+        print("field of view is \(fieldOfViewDegrees) degrees")
         let fieldOfViewRadians = Double(fieldOfViewDegrees) * Double.pi / 180
-        print(fieldOfViewDegrees)
-        
+        print("field of view is \(fieldOfViewRadians) rad")
+
         // Adjust for wide field of view
-        let adjustedFieldOfViewRadians = fieldOfViewRadians > Double.pi / 2 ? Double.pi - fieldOfViewRadians : fieldOfViewRadians
-        print(adjustedFieldOfViewRadians)
-        
-        let realWorldWidth = Double(tan(Double(adjustedFieldOfViewRadians)) / 2) * Double(currentDepth) * 2
-        let imageWidth = Double(photo.size.width) * Double(photo.scale)
+//        let adjustedFieldOfViewRadians = fieldOfViewRadians > Double.pi / 2 ? Double.pi - fieldOfViewRadians : fieldOfViewRadians
+//        print("adjusted field of view is \(adjustedFieldOfViewRadians) rad")
+//        
+        print("distance is \(currentDepth)")
+        let realWorldWidth = Double(tan(Double(fieldOfViewRadians) / 2 ) ) * Double(currentDepth) * 2
+        print("real world width is \(realWorldWidth) ")
+        let imageWidth = Double(photo.size.height) * Double(photo.scale) //use height because of landscape vs portrait blabla...
+        print("image width is \(imageWidth) ")
         let pixelSize = realWorldWidth / imageWidth
+        
+//        let realWidth = 0.00423 * Double(currentDepth) / 0.026
+//        let pixelSize = realWidth / imageWidth
+      
         return pixelSize
         
+    }
+    
+    func calculateArea(pixelSize: Double, relativeArea: Double) -> Double{
+        return pixelSize * pixelSize * relativeArea
     }
     
     
@@ -219,9 +237,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         //Get depth and pixelsize
         serialQueue.async {
             self.handlePhotoDepthCalculation(photo: photo)
-            print("Pixel size is: \(self.getPixelSize(photo: image)) m")
-            let area = OpenCVWrapper().centerArea(image)
-            print("area is \(area)")
+            let pixelSize = self.getPixelSize(photo: image)
+            print("Pixel size is: \(pixelSize) m")
+            let relativeArea = OpenCVWrapper().centerArea(image)
+            print("relative area is \(relativeArea) pixels")
+            let realArea = self.calculateArea(pixelSize: pixelSize, relativeArea: Double(relativeArea))
+            print("real area is \(realArea) m2")
         }
         DispatchQueue.main.async{
             //let overlayedImage: (UIImage) = self.getOpenCVData(image: image)
