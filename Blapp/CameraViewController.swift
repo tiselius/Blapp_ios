@@ -17,9 +17,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     let depthDataOutput = AVCaptureDepthDataOutput()
     var cameraDevice: AVCaptureDevice!
     var distanceLbl = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 100, y: 0, width: UIScreen.main.bounds.width, height: 40))
+    var areaLb1 = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 100, y: 0, width: UIScreen.main.bounds.width, height: 60))
     let serialQueue = DispatchQueue(label: "com.example.serialQueue")
     let concurrentQueue = DispatchQueue(label: "com.example.concurrentQueue",  attributes: .concurrent)
     var currentDepth: Float32 = 0
+    var realArea: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +76,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         distanceLbl.textAlignment = .center
         view.addSubview(distanceLbl)
         view.bringSubviewToFront(distanceLbl)
+        areaLb1.text = "*Area*"
+        areaLb1.center = CGPoint(x: view.bounds.midX, y: 75)
+        areaLb1.textAlignment = .center
+        view.addSubview(areaLb1)
+        view.bringSubviewToFront(areaLb1)
     }
     
     func setupPreviewLayer(){
@@ -178,17 +185,20 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         // Get the focal length
         let fieldOfViewDegrees = cameraDevice.activeFormat.videoFieldOfView // in degrees
         let fieldOfViewRadians = Double(fieldOfViewDegrees) * Double.pi / 180
+        print("Pixel:")
         print(fieldOfViewDegrees)
         
         // Adjust for wide field of view
         let adjustedFieldOfViewRadians = fieldOfViewRadians > Double.pi / 2 ? Double.pi - fieldOfViewRadians : fieldOfViewRadians
         print(adjustedFieldOfViewRadians)
         
-        let realWorldWidth = Double(tan(Double(adjustedFieldOfViewRadians)) / 2) * Double(currentDepth) * 2
-        let imageWidth = Double(photo.size.width) * Double(photo.scale)
+        let realWorldWidth = Double(tan(Double(adjustedFieldOfViewRadians) / 2)) * Double(currentDepth) * 2
+        print(realWorldWidth*Double(photo.scale))
+        let imageWidth = Double(photo.size.height) * Double(photo.scale)
+        print(imageWidth)
+
         let pixelSize = realWorldWidth / imageWidth
         return pixelSize
-        
     }
     
     
@@ -219,9 +229,14 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         //Get depth and pixelsize
         serialQueue.async {
             self.handlePhotoDepthCalculation(photo: photo)
-            print("Pixel size is: \(self.getPixelSize(photo: image)) m")
+            let  pixelSize = self.getPixelSize(photo: image)
+            print("Pixel size is: \(pixelSize) m")
             let area = OpenCVWrapper().centerArea(image)
-            print("area is \(area)")
+            print("Number of pixels in area: \(area)")
+            let areaCalc = Double(area) * Double(pixelSize) * Double(pixelSize)
+            self.realArea = areaCalc
+            print("Real area: \(self.realArea) ")
+
         }
         DispatchQueue.main.async{
             //let overlayedImage: (UIImage) = self.getOpenCVData(image: image)
@@ -233,6 +248,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     func setLabels(){
         distanceLbl.text = "\(currentDepth) m"
+        areaLb1.text = "\(realArea) m"
     }
     
     func getOpenCVData(image: UIImage) -> UIImage {
