@@ -15,6 +15,7 @@
 		4A2E730E2BCD2E2500AE877F /* BlappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */; };
 		4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */; };
 		4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E73242BCD5FF400AE877F /* Info.xcprivacy */; };
+		7A4946642BD7F35100F9891C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4946632BD7F35100F9891C /* CameraController.swift */; };
 		D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC82BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC92BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
@@ -70,6 +71,7 @@
 		4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITests.swift; sourceTree = "<group>"; };
 		4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
+		7A4946632BD7F35100F9891C /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
 				D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */,
 				D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */,
+				7A4946632BD7F35100F9891C /* CameraController.swift */,
 				D0AA03822BD1166800C4ECC5 /* CameraView.swift */,
 				D0AA038A2BD6852D00C4ECC5 /* ContourDetectionView.swift */,
 				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
@@ -336,6 +339,7 @@
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
 				D0AA038B2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */,
+				7A4946642BD7F35100F9891C /* CameraController.swift in Sources */,
 				D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
-				DEVELOPMENT_TEAM = J55NJ8X5FG;
+				DEVELOPMENT_TEAM = 6Y922SPX65;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -528,7 +532,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp3;
+				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -545,7 +549,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
-				DEVELOPMENT_TEAM = J55NJ8X5FG;
+				DEVELOPMENT_TEAM = 6Y922SPX65;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -564,7 +568,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp3;
+				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
