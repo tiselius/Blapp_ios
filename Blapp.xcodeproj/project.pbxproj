@@ -16,6 +16,7 @@
 		4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */; };
 		4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E73242BCD5FF400AE877F /* Info.xcprivacy */; };
 		4A831BF02BD7F2B700A1A662 /* ProcessFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */; };
+		4A831BF22BD8EC9B00A1A662 /* FrameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BF12BD8EC9B00A1A662 /* FrameController.swift */; };
 		4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */; };
 		4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */; };
 		D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
@@ -25,18 +26,12 @@
 		D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */; };
 		D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
-		D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
-		D0AA037C2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
-		D0AA037D2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */; };
 		D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
 		D0AA03842BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
 		D0AA03852BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
 		D0AA03872BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
 		D0AA03882BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
 		D0AA03892BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */; };
-		D0AA038B2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA038A2BD6852D00C4ECC5 /* ContourDetectionView.swift */; };
-		D0AA038C2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA038A2BD6852D00C4ECC5 /* ContourDetectionView.swift */; };
-		D0AA038D2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA038A2BD6852D00C4ECC5 /* ContourDetectionView.swift */; };
 		D0AA038F2BD78D3600C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
 		D0AA03902BD78D3900C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
 		D0AA03912BD78D3B00C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
@@ -72,6 +67,7 @@
 		4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
 		4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessFrame.swift; sourceTree = "<group>"; };
+		4A831BF12BD8EC9B00A1A662 /* FrameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameController.swift; sourceTree = "<group>"; };
 		4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
 		4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
 		4AD966EF2BD7EB7900CF01DD /* Blapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Blapp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -82,10 +78,8 @@
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
-		D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCameraView.swift; sourceTree = "<group>"; };
 		D0AA03822BD1166800C4ECC5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		D0AA038A2BD6852D00C4ECC5 /* ContourDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContourDetectionView.swift; sourceTree = "<group>"; };
 		D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -154,11 +148,10 @@
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
 				D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */,
 				4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */,
+				4A831BF12BD8EC9B00A1A662 /* FrameController.swift */,
 				4AD966F22BD7EB8900CF01DD /* OpenCVWrapper.h */,
 				4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */,
-				D0AA037A2BD1038200C4ECC5 /* LiveCameraView.swift */,
 				D0AA03822BD1166800C4ECC5 /* CameraView.swift */,
-				D0AA038A2BD6852D00C4ECC5 /* ContourDetectionView.swift */,
 				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
 				4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
@@ -351,11 +344,10 @@
 				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
 				4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */,
 				4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */,
+				4A831BF22BD8EC9B00A1A662 /* FrameController.swift in Sources */,
 				D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
-				D0AA038B2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */,
-				D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,8 +357,6 @@
 			files = (
 				D0AA03842BD1166800C4ECC5 /* CameraView.swift in Sources */,
 				4A2E73042BCD2E2500AE877F /* BlappTests.swift in Sources */,
-				D0AA037C2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
-				D0AA038C2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,10 +365,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */,
-				D0AA038D2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */,
 				4A2E730E2BCD2E2500AE877F /* BlappUITests.swift in Sources */,
 				D0AA03852BD1166800C4ECC5 /* CameraView.swift in Sources */,
-				D0AA037D2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,7 +535,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp;
+				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp.LiveCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Blapp-Bridging-Header.h";
@@ -587,7 +575,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp;
+				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp.LiveCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Blapp-Bridging-Header";
