@@ -9,18 +9,17 @@ import SwiftUI
 
 struct CameraView: View {
     @StateObject private var model = FrameHandler()
-    @StateObject var frameHandler = FrameHandler()
     
     var body: some View {
         ZStack{
+
             FrameView(image: model.frame)
             //.frame(height: UIScreen.main.bounds.height * 0.8)
                 .aspectRatio(contentMode: .fit) // Ensure the image fits within the frame
                 .ignoresSafeArea()
             
-            ContourDetectionView(frameHandler:  frameHandler)
-                .aspectRatio(contentMode: .fit)
-                .ignoresSafeArea()
+            Text("Mean Value: \(model.meanvalue)")
+                .offset(x: 0,y: -280)
         }
     }
 }

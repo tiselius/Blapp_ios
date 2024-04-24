@@ -11,6 +11,7 @@ class FrameHandler: NSObject, ObservableObject,AVCaptureDepthDataOutputDelegate 
     @Published var frame: CGImage?
     @Published var distance: Float32? // Add a published property for distance
     @Published var meanvalue: Float = 0.0// Add a published property for mean value
+    private var distanceLbl  : UILabel
     
 
     
@@ -29,12 +30,20 @@ class FrameHandler: NSObject, ObservableObject,AVCaptureDepthDataOutputDelegate 
     
     
     override init() {
+        self.distanceLbl = UILabel(frame: CGRect(
+                                    x: UIScreen.main.bounds.width/2 - 100,
+                                   y: 0,
+                                   width: UIScreen.main.bounds.width,
+                                    height: 40))
+        self.distanceLbl.text = "test"
         super.init()
         self.checkPermission()
         sessionQueue.async { [unowned self] in
             self.setupCaptureSession()
             self.captureSession.startRunning()
         }
+
+
     }
 
     func checkPermission() {
@@ -130,7 +139,10 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             DispatchQueue.main.async {
             self.meanvalue = Float(mean)
             print("Current mean value: \(self.meanvalue)") // Print current mean
-                   }
+                DispatchQueue.main.async {
+                    self.distanceLbl.text = "\(self.meanvalue)"
+                }
+            }
                }
     
     // All UI updates should be performed on the main queue.
