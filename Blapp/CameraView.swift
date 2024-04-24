@@ -12,6 +12,7 @@ struct CameraView: View {
     @StateObject var frameHandler = FrameHandler()
     
     var body: some View {
+        
         ZStack{
             FrameView(image: model.frame)
             //.frame(height: UIScreen.main.bounds.height * 0.8)

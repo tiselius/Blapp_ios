@@ -32,7 +32,7 @@ struct ContourDetectionView: View {
         do {
             try handler.perform([request])
             
-            guard let observations = request.results else {
+            guard request.results != nil else {
                 return
             }
             
