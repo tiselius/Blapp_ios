@@ -37,6 +37,8 @@ struct CameraView: View {
                         .edgesIgnoringSafeArea(.all)
                     }
                 }
+        Text("\(frameHandler.meanvalue) meters")
+
             }
 
 

@@ -10,11 +10,8 @@ import UIKit
 
 class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate{
     @Published var frame: CGImage?
-    @Published var distance: Float32? // Add a published property for distance
+    @Published var distance: Float32 = 0// Add a published property for distance
     @Published var meanvalue: Float = 0.0// Add a published property for mean value
-    private var distanceLbl  : UILabel
-    
-
     
     private var distanceArray = [Float]() // Array to store distances , Vi testar den genom att sätta in 9 st element och ser ifall array töms efter 10 då mean value då kommer ändras ifrån 2.98
 
@@ -107,50 +104,55 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
 extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let cgImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
-
-      // we uppdate the array with distancees until we have reached 10 distances in which it prints out the mean distance
-        distanceArray.append(distance!)
         
+        // we uppdate the array with distancees until we have reached 10 distances in which it prints out the mean distance
+        distanceArray.append(distance)
+        
+        if (distanceArray.count == 10) {
+            
+            let sum = distanceArray.reduce(0, +)
+            let mean = sum / (10)
+            distanceArray.removeAll() // Clear the Array
+            
+            // Update mean property
+            DispatchQueue.main.async {
+                self.meanvalue = Float(mean)
+                print("Current mean value: \(self.meanvalue)") // Print current mean
+                
+            }
+        }
         self.processFrame.findObject(cgImage: cgImage) { processedFrame in
             DispatchQueue.main.async {
-            self.meanvalue = Float(mean)
-            print("Current mean value: \(self.meanvalue)") // Print current mean
-                DispatchQueue.main.async {
-                    self.distanceLbl.text = "\(self.meanvalue)"
-                }
+                self.frame = processedFrame
             }
-               }
-    
-    // All UI updates should be performed on the main queue.
-        DispatchQueue.main.async {
-            self.frame = cgImage
+            
+            
+            
+        }
+    }
+        private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> CGImage? {
+            guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return nil }
+            let ciImage = CIImage(cvPixelBuffer: imageBuffer)
+            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
+            return cgImage
         }
         
-    }
-    
-    private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> CGImage? {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return nil }
-        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
-        return cgImage
-    }
-    
-    
-    
-    func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
         
-        // Extract the depth data map
-        let depthData = (depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
-        let depthDataMap = depthData.depthDataMap
         
-        // Calculate depth value at the center of the frame
-        let centerDepth = getDepthAtCenter(from: depthDataMap)
+        func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
+            
+            // Extract the depth data map
+            let depthData = (depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
+            let depthDataMap = depthData.depthDataMap
+            
+            // Calculate depth value at the center of the frame
+            distance = getDepthAtCenter(from: depthDataMap)!
+            
+            // Print the depth value
+            print("Depth at center: \(String(describing: distance))")
+        }
         
-        // Print the depth value
-        print("Depth at center: \(String(describing: centerDepth))")
-    }
-    
-    private func getDepthAtCenter(from depthDataMap: CVPixelBuffer) -> Float? {
+        private func getDepthAtCenter(from depthDataMap: CVPixelBuffer) -> Float? {
             // Lock the pixel buffer and get a pointer to its data
             CVPixelBufferLockBaseAddress(depthDataMap, .readOnly)
             defer { CVPixelBufferUnlockBaseAddress(depthDataMap, .readOnly) }
@@ -215,4 +217,5 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             //let centerDepth = floatBuffer[index]
             
             return distance
-        }   }
+        }
+}

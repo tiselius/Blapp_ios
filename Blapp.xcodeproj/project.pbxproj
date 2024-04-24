@@ -19,7 +19,7 @@
 		4A831BF22BD8EC9B00A1A662 /* FrameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BF12BD8EC9B00A1A662 /* FrameController.swift */; };
 		4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */; };
 		4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */; };
-		7A4946642BD7F35100F9891C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4946632BD7F35100F9891C /* CameraController.swift */; };
+		7A4946642BD7F35100F9891C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC82BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC92BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
@@ -349,9 +349,7 @@
 				D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
-				D0AA038B2BD6852E00C4ECC5 /* ContourDetectionView.swift in Sources */,
-				7A4946642BD7F35100F9891C /* CameraController.swift in Sources */,
-				D0AA037B2BD1038200C4ECC5 /* LiveCameraView.swift in Sources */,
+				7A4946642BD7F35100F9891C /* (null) in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,7 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Y922SPX65;
+				DEVELOPMENT_TEAM = J55NJ8X5FG;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -559,7 +557,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Y922SPX65;
+				DEVELOPMENT_TEAM = J55NJ8X5FG;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
