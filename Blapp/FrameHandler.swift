@@ -11,6 +11,8 @@ class FrameHandler: NSObject, ObservableObject {
     @Published var distance: Float = 0.0 // Add a published property for distance
     @Published var meanvalue: Float = 0.0// Add a published property for mean value
     
+    private var distanceArray = [2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2] // Array to store distances , Vi testar den genom att sätta in 9 st element och ser ifall array töms efter 10 då mean value då kommer ändras ifrån 2.98
+
     
     private var permissionGranted = true
     private let captureSession = AVCaptureSession()
@@ -86,31 +88,27 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let cgImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
 
         
-        // Perform distance calculation (delegate)
+    // Perform distance calculation (delegate)
         let distance = calculateDistance(sampleBuffer: sampleBuffer)
 
         
       // we uppdate the array with distancees until we have reached 10 distances in which it prints out the mean distance
+        distanceArray.append(Double(distance))
         
-       // var distanceArray = [2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2]
-        var distanceArray = [Float]()
-        
-        while(distanceArray.count<10){
-            distanceArray.append(Float(distance))
-        }
-   
-        let foundmean = Double(distanceArray.reduce(0, +)) / Double(10)
-        distanceArray.removeAll()
+        if (distanceArray.count == 10) {
             
-        
-        // Update distance property
-        
-        DispatchQueue.main.async {
-            self.meanvalue = Float(foundmean)
+            let sum = distanceArray.reduce(0, +)
+            let mean = sum / Double(distanceArray.count)
+            distanceArray.removeAll() // Clear the Array
+           
+            // Update mean property
+            DispatchQueue.main.async {
+            self.meanvalue = Float(mean)
             print("Current mean value: \(self.meanvalue)") // Print current mean
-            }
+                   }
+               }
     
-        // All UI updates should be performed on the main queue.
+    // All UI updates should be performed on the main queue.
         DispatchQueue.main.async {
             self.frame = cgImage
         }
@@ -124,12 +122,9 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         return cgImage
     }
     
-    
-    
     private func calculateDistance(sampleBuffer: CMSampleBuffer) -> Float {
         // Implement your distance calculation logic here
         // You can access the depth data from the sample buffer and perform the calculation
-        
         
 //--------------kod för att mäta djup---------------------------------------------------------------------
         
