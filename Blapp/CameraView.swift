@@ -37,10 +37,19 @@ struct CameraView: View {
                         .edgesIgnoringSafeArea(.all)
                     }
                 }
-        Text("\(frameHandler.meanvalue) meters")
-
+        ZStack {
+            VStack {
+                Text("\(frameHandler.meanvalue) meters")
+                    .foregroundColor(Color.black)
+                Text("\(frameHandler.area) m2")
+                    .foregroundColor(Color.black)
             }
-
-
+            .padding(10) // Adjust padding as needed
+            .background(Color.white)
+            .cornerRadius(10) // Adjust corner radius as needed
+            .shadow(radius: 2) // Add shadow if desired
+            .offset(y: -250)
+        }
             }
+}
 

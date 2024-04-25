@@ -36,6 +36,7 @@
 		D0AA03902BD78D3900C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
 		D0AA03912BD78D3B00C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
 		D0AA039A2BDA2F6100C4ECC5 /* PixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */; };
+		D0AA039C2BDA392A00C4ECC5 /* CalculateArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA039B2BDA392A00C4ECC5 /* CalculateArea.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = SOURCE_ROOT; };
 		D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSize.swift; sourceTree = "<group>"; };
+		D0AA039B2BDA392A00C4ECC5 /* CalculateArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateArea.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				4A2E731C2BCD544F00AE877F /* UI */,
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
 				D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */,
+				D0AA039B2BDA392A00C4ECC5 /* CalculateArea.swift */,
 				D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */,
 				4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */,
 				4AD966F22BD7EB8900CF01DD /* OpenCVWrapper.h */,
@@ -346,6 +349,7 @@
 				4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */,
 				4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */,
 				D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */,
+				D0AA039C2BDA392A00C4ECC5 /* CalculateArea.swift in Sources */,
 				D0AA039A2BDA2F6100C4ECC5 /* PixelSize.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,

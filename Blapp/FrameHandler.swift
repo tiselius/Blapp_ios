@@ -12,6 +12,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     @Published var frame: CGImage?
     @Published var distance: Float32 = 0// Add a published property for distance
     @Published var meanvalue: Float = 0.0// Add a published property for mean value
+    @Published var area: Float32 = 0.0
     
     private var distanceArray = [Float]() // Array to store distances , Vi testar den genom att sätta in 9 st element och ser ifall array töms efter 10 då mean value då kommer ändras ifrån 2.98
 
@@ -23,7 +24,8 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     private let context = CIContext()
     private var processFrame : ProcessFrame
     private var depthDataOutput: AVCaptureDepthDataOutput?
-    private var pixelSize: Float32?
+    private var pixelSize: Float32 = 0
+    private var relativeArea : Int32 = 0
     
     override init() {
         self.processFrame = ProcessFrame()
@@ -76,7 +78,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             print("Unable to access back camera")
             return
         }
-        let cameraDevice = backCamera
+        cameraDevice = backCamera
         //guard let videoDevice = AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: .back) else { return }
         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: cameraDevice) else { return }
         guard captureSession.canAddInput(videoDeviceInput) else { return }
@@ -84,7 +86,6 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sampleBufferQueue"))
         captureSession.addOutput(videoOutput)
 
-        
 // otherwise our frame is displayed sideways on screen
         videoOutput.connection(with: .video)?.videoRotationAngle = 90
         
@@ -118,18 +119,13 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             // Update mean property
             DispatchQueue.main.async {
                 self.meanvalue = Float(mean)
-                print("Current mean value: \(self.meanvalue)") // Print current mean
-                
+        
             }
         }
-        self.processFrame.findObject(cgImage: cgImage) { processedFrame in
+        self.processFrame.findObject(cgImage: cgImage) { [self] processedFrame in
             DispatchQueue.main.async {
                 self.frame = processedFrame
             }
-        let uiImage = UIImage(cgImage: cgImage)
-        self.pixelSize = getPixelSize(for: self.cameraDevice,with: uiImage, with: self.distance)
-            
-            
         }
     }
         private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> CGImage? {
@@ -142,19 +138,28 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         
         func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
-            
             // Extract the depth data map
             let depthData = (depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
             let depthDataMap = depthData.depthDataMap
             
+            DispatchQueue.main.async{
+                self.distance = self.getDepthAtCenter(from: depthDataMap)!
+            }
             // Calculate depth value at the center of the frame
-            distance = getDepthAtCenter(from: depthDataMap)!
-            
-            // Print the depth value
-            print("Depth at center: \(String(describing: distance))")
+            DispatchQueue.main.async{
+                if let frame = self.frame { // Check if frame is not nil
+                    let uiImage = UIImage(cgImage: frame)
+                    self.pixelSize = getPixelSize(for: self.cameraDevice, with: uiImage, with: self.distance)
+                    self.relativeArea = OpenCVWrapper().centerArea(uiImage)
+                    self.area = calculateArea(pixelSize: self.pixelSize, relativeArea: self.relativeArea)
+                } else {
+                    // Handle the case where frame is nil
+                    print("Frame is nil. Unable to process.")
+                }
+            }
         }
         
-        private func getDepthAtCenter(from depthDataMap: CVPixelBuffer) -> Float? {
+        private func getDepthAtCenter(from depthDataMap: CVPixelBuffer) -> Float32? {
             // Lock the pixel buffer and get a pointer to its data
             CVPixelBufferLockBaseAddress(depthDataMap, .readOnly)
             defer { CVPixelBufferUnlockBaseAddress(depthDataMap, .readOnly) }
@@ -162,16 +167,12 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             // Get information about the pixel buffer
             let width = CVPixelBufferGetWidth(depthDataMap)
             let height = CVPixelBufferGetHeight(depthDataMap)
-            let bytesPerRow = CVPixelBufferGetBytesPerRow(depthDataMap)
             
             // Get a pointer to the pixel data
-            guard let baseAddress = CVPixelBufferGetBaseAddress(depthDataMap) else {
+            guard CVPixelBufferGetBaseAddress(depthDataMap) != nil else {
                 print("Unable to get base address of the pixel buffer")
                 return nil
             }
-            
-            // Convert the pointer to a type-safe pointer of Float32
-            let floatBuffer = baseAddress.bindMemory(to: Float32.self, capacity: width * height)
             
             // Calculate the center coordinates
             let square_x = 5
@@ -211,12 +212,6 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
             distance = median
             
-            
-            // Calculate the index of the depth value at the center coordinates
-            //let index = centerY * bytesPerRow / MemoryLayout<Float32>.stride + centerX
-            
-            // Access the depth value at the calculated index
-            //let centerDepth = floatBuffer[index]
             
             return distance
         }
