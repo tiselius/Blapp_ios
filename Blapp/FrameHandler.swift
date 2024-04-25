@@ -15,7 +15,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     
     private var distanceArray = [Float]() // Array to store distances , Vi testar den genom att sätta in 9 st element och ser ifall array töms efter 10 då mean value då kommer ändras ifrån 2.98
 
-    private var cameraDevice: AVCaptureDevice?
+    private var cameraDevice: AVCaptureDevice!
 
     private var permissionGranted = true
     private let captureSession = AVCaptureSession()
@@ -23,6 +23,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     private let context = CIContext()
     private var processFrame : ProcessFrame
     private var depthDataOutput: AVCaptureDepthDataOutput?
+    private var pixelSize: Float32?
     
     override init() {
         self.processFrame = ProcessFrame()
@@ -125,7 +126,8 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             DispatchQueue.main.async {
                 self.frame = processedFrame
             }
-            
+        let uiImage = UIImage(cgImage: cgImage)
+        self.pixelSize = getPixelSize(for: self.cameraDevice,with: uiImage, with: self.distance)
             
             
         }
