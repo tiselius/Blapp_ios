@@ -87,6 +87,9 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
 // otherwise our frame is displayed sideways on screen
         videoOutput.connection(with: .video)?.videoRotationAngle = 90
         
+//        let width = CMVideoFormatDescriptionGetDimensions(cameraDevice.activeFormat.formatDescription).width
+//        let height = CMVideoFormatDescriptionGetDimensions(cameraDevice.activeFormat.formatDescription).height
+//        print("Height is \(height), width is \(width)")
         guard let depthDataOutput = depthDataOutput else {
             print("Failed to create AVCaptureDepthDataOutput")
             return
@@ -117,7 +120,7 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             // Update mean property
             DispatchQueue.main.async {
                 self.meanvalue = Float(mean)
-                print("Current mean value: \(self.meanvalue)") // Print current mean
+//                print("Current mean value: \(self.meanvalue)") // Print current mean
                 
             }
         }
@@ -126,10 +129,14 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
                 self.frame = processedFrame
             }
             
-            
-            
         }
     }
+    
+    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        print("dropping frame")
+    }
+    
+    
         private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> CGImage? {
             guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return nil }
             let ciImage = CIImage(cvPixelBuffer: imageBuffer)
@@ -146,10 +153,12 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             let depthDataMap = depthData.depthDataMap
             
             // Calculate depth value at the center of the frame
-            distance = getDepthAtCenter(from: depthDataMap)!
-            
+            //Made it so it dispatches on the main thread, which it should. 
+            DispatchQueue.main.async{
+                self.distance = self.getDepthAtCenter(from: depthDataMap)!
+            }
             // Print the depth value
-            print("Depth at center: \(String(describing: distance))")
+//            print("Depth at center: \(String(describing: distance))")
         }
         
         private func getDepthAtCenter(from depthDataMap: CVPixelBuffer) -> Float? {

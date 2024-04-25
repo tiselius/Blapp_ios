@@ -76,18 +76,20 @@
     return area;
 }
 
-- (UIImage *) identifyObject: (UIImage *) image {
+- (UIImage *) identifyObject: (UIImage *) image :(int) x :(int) y {
     // convert uiimage to mat
     cv::Mat opencvImage;
     UIImageToMat(image, opencvImage, true);
-    
+
     // convert colorspace to the one expected by the lane detector algorithm (RGB)
     cv::Mat convertedColorSpaceImage;
     cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_RGBA2RGB);
     
     ObjectDetection objectDetection;
-    cv::Mat imageWithObject = objectDetection.identifyObject(convertedColorSpaceImage);
-    
+    cv::Mat imageWithObject = objectDetection.findObject(convertedColorSpaceImage, x, y);
+//    NSLog(@"%i", x);
+//    NSLog(@"%i", y);
+
     return MatToUIImage(imageWithObject);
 }
 

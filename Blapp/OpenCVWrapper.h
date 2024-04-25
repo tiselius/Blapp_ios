@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)getOpenCVVersion;
 + (UIImage *)grayscaleImg:(UIImage *)image;
 + (UIImage *)resizeImg:(UIImage *)image :(int)width :(int)height :(int)interpolation;
-- (UIImage *) identifyObject: (UIImage *) image;
+- (UIImage *) identifyObject: (UIImage *) image :(int) x :(int) y;
 - (int) centerArea: (UIImage *) image;
 - (UIImage *) centerObject: (UIImage *) image;
 

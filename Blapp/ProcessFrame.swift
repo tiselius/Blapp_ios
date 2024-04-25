@@ -8,7 +8,7 @@ class ProcessFrame: NSObject, ObservableObject {
     func findObject(cgImage: CGImage, completion: @escaping (CGImage) -> Void) {
         var uiImage = UIImage(cgImage: cgImage)
         frameProcessingQueue.async {
-            uiImage = OpenCVWrapper().centerObject(uiImage)
+            uiImage = OpenCVWrapper().identifyObject(uiImage, Int32(touchX), Int32(touchY))
             if let overlayedImage = uiImage.cgImage {
                 completion(overlayedImage)
             } else {
