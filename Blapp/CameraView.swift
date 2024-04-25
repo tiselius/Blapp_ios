@@ -7,13 +7,18 @@
 
 import SwiftUI
 
+let m3ToDl : Float = 10000
+
 struct CameraView: View {
-    @StateObject var frameHandler = FrameHandler()
+//    @StateObject var frameHandler = FrameHandler()
+    @StateObject var frameHandler : FrameHandler
 //    @StateObject private var frameHandler : FrameHandler
     //    @StateObject private var frameHandler : FrameHandler
         var image: CGImage?
         @State private var isLoading = true
         private let label = Text("frame")
+    
+    
     
     var body: some View {
         if let image = frameHandler.frame {
@@ -41,8 +46,10 @@ struct CameraView: View {
             VStack {
                 Text("\(frameHandler.meanvalue) meters")
                     .foregroundColor(Color.black)
-                Text("\(frameHandler.area) m2")
+                Text("\(currentArea) m2")
                     .foregroundColor(Color.black)
+//                Text("\(currentVolume * m3ToDl) dl")
+//                    .foregroundColor(Color.black)
             }
             .padding(10) // Adjust padding as needed
             .background(Color.white)

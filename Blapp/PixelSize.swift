@@ -20,5 +20,5 @@ func getPixelSize(for cameraDevice: AVCaptureDevice, with photo : UIImage, with 
         let realWorldWidth = Float32(tan(Float32(adjustedFieldOfViewRadians) / 2)) * Float32(currentDepth) * 2
         let imageWidth = Float32(photo.size.height) * Float32(photo.scale)
         let pixelSize = Float32(realWorldWidth / imageWidth)
-return pixelSize
+    return pixelSize
 }

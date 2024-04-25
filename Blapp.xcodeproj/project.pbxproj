@@ -16,6 +16,7 @@
 		4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */; };
 		4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E73242BCD5FF400AE877F /* Info.xcprivacy */; };
 		4A831BF02BD7F2B700A1A662 /* ProcessFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */; };
+		4A831BFB2BDA7F5100A1A662 /* CalculateVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */; };
 		4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */; };
 		4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */; };
 		7A4946642BD7F35100F9891C /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -69,6 +70,7 @@
 		4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
 		4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessFrame.swift; sourceTree = "<group>"; };
+		4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateVolume.swift; sourceTree = "<group>"; };
 		4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
 		4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
 		4AD966EF2BD7EB7900CF01DD /* Blapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Blapp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				4A2E731C2BCD544F00AE877F /* UI */,
 				4A2E72F22BCD2E2300AE877F /* BlappApp.swift */,
 				D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */,
+				4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */,
 				D0AA039B2BDA392A00C4ECC5 /* CalculateArea.swift */,
 				D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */,
 				4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */,
@@ -345,6 +348,7 @@
 			files = (
 				4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */,
 				4A831BF02BD7F2B700A1A662 /* ProcessFrame.swift in Sources */,
+				4A831BFB2BDA7F5100A1A662 /* CalculateVolume.swift in Sources */,
 				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
 				4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */,
 				4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */,
@@ -521,7 +525,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
-				DEVELOPMENT_TEAM = J55NJ8X5FG;
+				DEVELOPMENT_TEAM = X7WYNNC5KF;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -541,7 +545,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp.Peter;
+				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp.Aron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Blapp-Bridging-Header.h";
@@ -561,7 +565,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Blapp/Preview Content\"";
-				DEVELOPMENT_TEAM = J55NJ8X5FG;
+				DEVELOPMENT_TEAM = X7WYNNC5KF;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -581,7 +585,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp.Peter;
+				PRODUCT_BUNDLE_IDENTIFIER = KTH.Korp.Blapp.Aron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Blapp-Bridging-Header";
