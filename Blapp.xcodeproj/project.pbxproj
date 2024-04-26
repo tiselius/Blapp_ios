@@ -18,6 +18,7 @@
 		4A831BF02BD7F2B700A1A662 /* ProcessFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */; };
 		4A831BFB2BDA7F5100A1A662 /* CalculateVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */; };
 		4A831BFD2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4A831BFC2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav */; };
+		4A831BFF2BDBCAB100A1A662 /* Bomboclat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4A831BFE2BDBCAB100A1A662 /* Bomboclat.mp3 */; };
 		4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */; };
 		4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */; };
 		7A4946642BD7F35100F9891C /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -73,6 +74,7 @@
 		4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessFrame.swift; sourceTree = "<group>"; };
 		4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateVolume.swift; sourceTree = "<group>"; };
 		4A831BFC2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 320906__suzenako__ding6.wav; sourceTree = "<group>"; };
+		4A831BFE2BDBCAB100A1A662 /* Bomboclat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bomboclat.mp3; sourceTree = "<group>"; };
 		4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
 		4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
 		4AD966EF2BD7EB7900CF01DD /* Blapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Blapp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */,
 				4AD966F02BD7EB7900CF01DD /* PrefixHeader.pch */,
 				4A831BFC2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav */,
+				4A831BFE2BDBCAB100A1A662 /* Bomboclat.mp3 */,
 				4A2E72F12BCD2E2300AE877F /* Blapp */,
 				4A2E73022BCD2E2500AE877F /* BlappTests */,
 				4A2E730C2BCD2E2500AE877F /* BlappUITests */,
@@ -318,6 +321,7 @@
 				4A2E72FA2BCD2E2500AE877F /* Preview Assets.xcassets in Resources */,
 				4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */,
 				4A831BFD2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav in Resources */,
+				4A831BFF2BDBCAB100A1A662 /* Bomboclat.mp3 in Resources */,
 				D0AA03872BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */,
 				4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */,
 			);

@@ -107,7 +107,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         
         
         
-        let path = Bundle.main.path(forResource: "320906__suzenako__ding6", ofType:"wav")
+        let path = Bundle.main.path(forResource: "Bomboclat", ofType:"mp3")
         let url = URL(fileURLWithPath: path!)
         do {
            if audioPlayer == nil {
