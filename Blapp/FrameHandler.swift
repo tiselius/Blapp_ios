@@ -27,6 +27,9 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     private var pixelSize: Float32 = 0
     private var relativeArea : Int32 = 0
     
+    var audioPlayer: AVAudioPlayer?
+
+    
     override init() {
         self.processFrame = ProcessFrame()
         super.init()
@@ -35,7 +38,6 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             self.setupCaptureSession()
             self.captureSession.startRunning()
         }
-        
         
     }
     
@@ -101,6 +103,21 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         } else {
             print("Failed to add AVCaptureDepthDataOutput to capture session")
         }
+        
+        
+        
+        
+        let path = Bundle.main.path(forResource: "320906__suzenako__ding6", ofType:"wav")
+        let url = URL(fileURLWithPath: path!)
+        do {
+           if audioPlayer == nil {
+           audioPlayer = try AVAudioPlayer(contentsOf: url)
+           }
+//           audioPlayer?.play()
+        } catch let error {
+           print(error.localizedDescription)
+        }
+        
     }
 }
 

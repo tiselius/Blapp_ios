@@ -13,6 +13,8 @@ struct CameraUI: View {
     @StateObject var frameHandler = FrameHandler()
     @State private var textOffset: CGFloat = 250
     @State private var showVolumeText = false // State variable to control text visibility
+
+    
     
     
     var body: some View {
@@ -34,34 +36,34 @@ struct CameraUI: View {
                         endPoint: .bottom
                     ), lineWidth: 3)
                 
-                if showVolumeText {
-                    Text("\(currentVolume * m3ToDl) dl")
+                Text(showVolumeText ? "\(currentVolume * m3ToDl) dl" : "")
+                        .padding(30)
+                        .font(.system(size: 20))
                         .foregroundColor(Color.yellow)
                         .background(Color.red)
                         .cornerRadius(10)
                         .shadow(radius: 2)
-                        .padding(20)
-                }
+                        .offset(x: showVolumeText ? 0 : 1000)
             }
+
             //Buttons
             HStack(spacing: 20){
                 Button(action: {
                     if(frameHandler.captureSession.isRunning){
                         frameHandler.captureSession.stopRunning()
-                        withAnimation(.easeIn) {
-                            showVolumeText = true // Show the volume text
-                        }
+
+                        frameHandler.audioPlayer?.play()
+                        
                     } else {
                         frameHandler.sessionQueue.async{
                             frameHandler.captureSession.startRunning()
                         }
-                        withAnimation(.easeOut) {
-                            showVolumeText = false // Show the volume text
-                        }
-        
                     }
-                    
-                }) {
+                    withAnimation(.easeIn) {
+                        showVolumeText.toggle()
+                    }
+                }
+                ) {
                     Text("Confirm here :)")
                         .padding()
                         .background(Color.red)

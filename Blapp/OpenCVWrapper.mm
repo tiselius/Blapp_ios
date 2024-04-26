@@ -65,7 +65,7 @@
 
 - (int) centerArea: (UIImage *) image{
     cv::Mat opencvImage;
-    UIImageToMat(image, opencvImage, true);
+   UIImageToMat(image, opencvImage, true);
     
     // convert colorspace to the one expected by the lane detector algorithm (RGB)
     cv::Mat convertedColorSpaceImage;
