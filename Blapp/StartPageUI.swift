@@ -17,49 +17,28 @@ struct StartPageUI: View {
     var body: some View {
         ZStack {
             // Background Gradient
-            Rectangle()
-                .foregroundColor(.clear)
-                .background(
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            Color(red: 1, green: 0.39, blue: 0.39),
-                            Color(red: 1, green: 0.55, blue: 0.63),
-                            Color(red: 1, green: 0.56, blue: 0.64),
-                            Color(red: 1, green: 0.56, blue: 0.65),
-                            Color(red: 1, green: 0.57, blue: 0.66),
-                            Color(red: 1, green: 0.71, blue: 0.87)
-                        ]),
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .edgesIgnoringSafeArea(.all) // Adjust for safe area insets
-            
-            // Text
-            Text(" Spilled   ")
-                .font(Font.custom("Mervale Script", size: 121))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.white)
-
-                .frame(width: 700, height: 300, alignment: .center)
-                .padding()
-                .offset(y: -200)
-           
+            Image("Startpage")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
+                
             VStack {
                 
                     Button(action: {
                         self.isCameraPresented.toggle()
                             }) {
-                                Image("Knapp")
+                                Image("Kamera")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .scaledToFit()
+                                    .frame(width: 75, height: 75)
                                             }
                             .sheet(isPresented: $isCameraPresented) {
                                 // Present the camera view when the flag is true
                                 CameraUI()
                             
                             }
+                            .padding(.top, 20)
                             
                         }
             .padding(.top, 400)
