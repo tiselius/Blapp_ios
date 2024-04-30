@@ -113,6 +113,9 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             }
             
         }
+        
+    
+        
     }
 }
 

@@ -5,6 +5,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>mervale-script.ttf</string>
+		<string>YuseiMagic-Regular.ttf</string>
 	</array>
 	<key>UILaunchImageFile~iphone</key>
 	<string>LaunchImage</string>
