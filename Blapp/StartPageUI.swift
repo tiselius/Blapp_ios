@@ -23,8 +23,7 @@ struct StartPageUI: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 .edgesIgnoringSafeArea(.all)
                 
-            VStack {
-                
+            VStack(spacing: -30) {
                     Button(action: {
                         self.isCameraPresented.toggle()
                             }) {
@@ -38,11 +37,32 @@ struct StartPageUI: View {
                                 CameraUI()
                             
                             }
-                            .padding(.top, 20)
-                            
+                            .padding(.top, 100)
+                HStack(spacing: 60){
+                    Button(action: {print("Settings")
+                    }){
+                        Image("Tutorial")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 75, height: 75)
+                                    }
+                    .padding(40)
+                    Button(action: {print("settings")
+                    }){
+                        Image("Settings")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 75, height: 75)
                         }
+                    .padding(40)
+                    }
+                .padding(.bottom,40)
+                }
+            
+            .padding(.bottom, -120)
             .padding(.top, 400)
         }
+        
     }
 }
 
