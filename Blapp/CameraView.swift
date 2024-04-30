@@ -48,10 +48,8 @@ struct CameraView: View {
                     .foregroundColor(Color.black)
                 Text("\(currentArea) m2")
                     .foregroundColor(Color.black)
-//                Text("\(currentVolume * m3ToDl) dl")
-//                    .foregroundColor(Color.black)
             }
-            .padding(10) // Adjust padding as needed
+            .padding(10)
             .background(Color.white)
             .cornerRadius(10) // Adjust corner radius as needed
             .shadow(radius: 2) // Add shadow if desired
