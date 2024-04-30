@@ -63,7 +63,6 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     
     
     func setupCaptureSession() {
-        useReference = true
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.alwaysDiscardsLateVideoFrames = true
         guard permissionGranted else { return }

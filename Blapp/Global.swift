@@ -48,7 +48,7 @@ struct Reference : Identifiable, Equatable {
 }
 
 //Flags
-var useReference : Bool = false
+var useReference : Bool = UserDefaults.standard.bool(forKey: "useReference")
 var noDepthCameraAvailable : Bool = false
 
 //Managers
