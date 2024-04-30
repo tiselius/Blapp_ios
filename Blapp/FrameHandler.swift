@@ -13,7 +13,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     @Published var distance: Float32 = 0// Add a published property for distance
     @Published var meanvalue: Float = 0.0// Add a published property for mean value
     @Published var area: Float32 = 0.0
-    
+
     private var distanceArray = [Float]() // Array to store distances , Vi testar den genom att sätta in 9 st element och ser ifall array töms efter 10 då mean value då kommer ändras ifrån 2.98
     
     private var cameraDevice: AVCaptureDevice!
@@ -27,8 +27,6 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     private var pixelSize: Float32 = 0
     private var relativeArea : Int32 = 0
     
-    var audioPlayer: AVAudioPlayer?
-
     
     override init() {
         self.processFrame = ProcessFrame()
@@ -65,9 +63,9 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     
     
     func setupCaptureSession() {
+        useReference = true
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.alwaysDiscardsLateVideoFrames = true
-        depthDataOutput = AVCaptureDepthDataOutput()
         guard permissionGranted else { return }
         
         let lidar = AVCaptureDevice.DeviceType.builtInLiDARDepthCamera
@@ -77,12 +75,20 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         // Create a discovery session to find devices of the specified type
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar,dualWideCamera,dualCamera], mediaType: .video, position: .back)
         
-        guard let backCamera = discoverySession.devices.first else {
-            print("Unable to access back camera")
+        if(discoverySession.devices.first != nil){
+            cameraDevice = discoverySession.devices.first
+        }
+        else{
+            cameraDevice = AVCaptureDevice.default(for: .video)
+            useReference = true
+            noDepthCameraAvailable = true
+        }
+        
+        guard let _backCamera = cameraDevice else{
+            print("No suitable camera found.")
             return
         }
-        cameraDevice = backCamera
-        //guard let videoDevice = AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: .back) else { return }
+        
         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: cameraDevice) else { return }
         guard captureSession.canAddInput(videoDeviceInput) else { return }
         captureSession.addInput(videoDeviceInput)
@@ -92,32 +98,21 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         // otherwise our frame is displayed sideways on screen
         videoOutput.connection(with: .video)?.videoRotationAngle = 90
         
+        if(!useReference){
+        depthDataOutput = AVCaptureDepthDataOutput()
         guard let depthDataOutput = depthDataOutput else {
             print("Failed to create AVCaptureDepthDataOutput")
             return
         }
-        
-        if captureSession.canAddOutput(depthDataOutput) {
-            captureSession.addOutput(depthDataOutput)
-            depthDataOutput.setDelegate(self, callbackQueue: DispatchQueue(label: "depthDataOutputQueue"))
-        } else {
-            print("Failed to add AVCaptureDepthDataOutput to capture session")
+            
+            if captureSession.canAddOutput(depthDataOutput) {
+                captureSession.addOutput(depthDataOutput)
+                depthDataOutput.setDelegate(self, callbackQueue: DispatchQueue(label: "depthDataOutputQueue"))
+            } else {
+                print("Failed to add AVCaptureDepthDataOutput to capture session")
+            }
+            
         }
-        
-        
-        
-        
-        let path = Bundle.main.path(forResource: "Bomboclat", ofType:"mp3")
-        let url = URL(fileURLWithPath: path!)
-        do {
-           if audioPlayer == nil {
-           audioPlayer = try AVAudioPlayer(contentsOf: url)
-           }
-//           audioPlayer?.play()
-        } catch let error {
-           print(error.localizedDescription)
-        }
-        
     }
 }
 
@@ -125,19 +120,21 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let cgImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
         
-        // we uppdate the array with distancees until we have reached 10 distances in which it prints out the mean distance
-        distanceArray.append(distance)
-        
-        if (distanceArray.count == 10) {
+        if(!useReference){
+            // we uppdate the array with distancees until we have reached 10 distances in which it prints out the mean distance
+            distanceArray.append(distance)
             
-            let sum = distanceArray.reduce(0, +)
-            let mean = sum / (10)
-            distanceArray.removeAll() // Clear the Array
-            
-            // Update mean property
-            DispatchQueue.main.async {
-                self.meanvalue = Float(mean)
+            if (distanceArray.count == 10) {
                 
+                let sum = distanceArray.reduce(0, +)
+                let mean = sum / (10)
+                distanceArray.removeAll() // Clear the Array
+                
+                // Update mean property
+                DispatchQueue.main.async {
+                    self.meanvalue = Float(mean)
+                    
+                }
             }
         }
         self.processFrame.findObject(cgImage: cgImage) { [self] processedFrame in
@@ -172,8 +169,8 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             if let frame = self.frame { // Check if frame is not nil
                 let uiImage = UIImage(cgImage: frame)
                 self.pixelSize = getPixelSize(for: self.cameraDevice, with: uiImage, with: self.distance)
-                self.relativeArea = OpenCVWrapper().centerArea(uiImage)
-                calculateArea(pixelSize: self.pixelSize, relativeArea: self.relativeArea)
+                relativeAreaOfObject = OpenCVWrapper().centerArea(uiImage)
+                calculateArea(pixelSize: self.pixelSize, relativeArea: relativeAreaOfObject)
                 calculateVolume()
             } else {
                 // Handle the case where frame is nil

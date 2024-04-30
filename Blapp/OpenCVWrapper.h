@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImage *) identifyObject: (UIImage *) image;
 - (int) centerArea: (UIImage *) image;
 - (UIImage *) centerObject: (UIImage *) image;
+- (UIImage *) referenceObjectOverlay: (UIImage *) image :(int) x :(int) y;
+- (int) referenceObjectArea: (UIImage *) image :(int) x :(int) y;
 
 @end
 

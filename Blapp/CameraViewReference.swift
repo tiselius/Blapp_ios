@@ -9,9 +9,7 @@ import SwiftUI
 
 
 
-struct CameraView: View {
-    
-    
+struct CameraViewReference: View {
     
     //    @StateObject var frameHandler = FrameHandler()
     @StateObject var frameHandler : FrameHandler
@@ -61,6 +59,24 @@ struct CameraView: View {
                 .offset(y: -250)
             }
         }
+        .onTapGesture { location in
+            touchY = Int32(location.y * (1920 / screenHeight))
+            touchX = Int32(location.x * (1080 / screenWidth))
+            frameHandler.captureSession.stopRunning()
+            print("You touched me at x = \(String(describing: touchX)), y = \(String(describing: touchY))")
+
+            referenceImage = getReferenceOverlay(image: frameHandler.frame!)
+            let cgreference = referenceImage?.cgImage
+            
+            frameHandler.frame = cgreference
+
+            relativeAreaOfObject = OpenCVWrapper().centerArea(referenceImage!)
+
+            
+            let referenceArea = getReferenceArea(image: frameHandler.frame!)
+            let pixelSize = referenceAreaReal / Float(referenceArea)
+            let finalArea = pixelSize * Float(relativeAreaOfObject)
+            print(finalArea)
+        }
     }
 }
-

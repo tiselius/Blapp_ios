@@ -15,14 +15,17 @@ struct CameraUI: View {
     @State private var showVolumeText = false // State variable to control text visibility
 
     
-    
-    
     var body: some View {
         VStack{
-            
             ZStack{
-                CameraView(frameHandler: frameHandler)
-                    .frame(height: UIScreen.main.bounds.height * 0.8)
+                if(!useReference){
+                    CameraView(frameHandler: frameHandler)
+                        .frame(height: UIScreen.main.bounds.height * 0.8)
+                }
+                else{
+                    CameraViewReference(frameHandler: frameHandler)
+                        .frame(height: UIScreen.main.bounds.height * 0.8)
+                }
                 Rectangle()
                     .strokeBorder(LinearGradient(
                         gradient: Gradient(colors: [
@@ -52,7 +55,6 @@ struct CameraUI: View {
                     if(frameHandler.captureSession.isRunning){
                         frameHandler.captureSession.stopRunning()
 
-                        frameHandler.audioPlayer?.play()
                         
                     } else {
                         frameHandler.sessionQueue.async{

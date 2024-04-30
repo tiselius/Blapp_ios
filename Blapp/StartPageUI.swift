@@ -13,6 +13,7 @@ import SwiftUI
 struct StartPageUI: View {
     let image = Image("Knapp")
     @State private var isCameraPresented = false
+    @State private var isSettingsPresented = false
     
     var body: some View {
         ZStack {
@@ -40,28 +41,43 @@ struct StartPageUI: View {
                 .font(Font.custom("Mervale Script", size: 121))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white)
-
+            
                 .frame(width: 700, height: 300, alignment: .center)
                 .padding()
                 .offset(y: -200)
-           
+            
             VStack {
                 
-                    Button(action: {
-                        self.isCameraPresented.toggle()
-                            }) {
-                                Image("Knapp")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .scaledToFit()
-                                            }
-                            .sheet(isPresented: $isCameraPresented) {
-                                // Present the camera view when the flag is true
-                                CameraUI()
-                            
-                            }
-                            
-                        }
+                Button(action: {
+                    self.isCameraPresented.toggle()
+                }) {
+                    Image("Knapp")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .scaledToFit()
+                }
+                .sheet(isPresented: $isCameraPresented) {
+                    // Present the camera view when the flag is true
+                    CameraUI()
+                    
+                }
+                Button(action: {
+                    self.isSettingsPresented.toggle()
+                }) {
+                    Image("questionMark")
+                        .resizable()
+                        .foregroundColor(.white)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 40, height: 40) // Adjust the size as needed
+                        .padding()
+                        .clipShape(Circle())
+                }
+                .sheet(isPresented: $isSettingsPresented) {
+                    // Present the camera view when the flag is true
+                    SettingsView()
+                }
+                .offset(x: -155, y: 370)
+            }
             .padding(.top, 400)
         }
     }
