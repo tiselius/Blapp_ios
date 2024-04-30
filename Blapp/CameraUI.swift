@@ -13,9 +13,6 @@ struct CameraUI: View {
     @StateObject var frameHandler = FrameHandler()
     @State private var textOffset: CGFloat = 250
     @State private var showVolumeText = false // State variable to control text visibility
-
-    
-    
     
     var body: some View {
         VStack{

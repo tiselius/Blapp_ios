@@ -26,6 +26,7 @@
 		D0584DD12BCEBCCD00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D09887BA2BE0DC36007EA91E /* YuseiMagic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */; };
+		D09887BC2BE0E69F007EA91E /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09887BB2BE0E69F007EA91E /* TutorialView.swift */; };
 		D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */; };
 		D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
 		D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
@@ -81,6 +82,7 @@
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "YuseiMagic-Regular.ttf"; path = "../../../Downloads/Yusei_Magic/YuseiMagic-Regular.ttf"; sourceTree = "<group>"; };
+		D09887BB2BE0E69F007EA91E /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
 		D0AA03822BD1166800C4ECC5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
 				D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */,
 				4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */,
+				D09887BB2BE0E69F007EA91E /* TutorialView.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
 				4A2E72F82BCD2E2500AE877F /* Preview Content */,
 			);
@@ -360,6 +363,7 @@
 				D0AA039C2BDA392A00C4ECC5 /* CalculateArea.swift in Sources */,
 				D0AA039A2BDA2F6100C4ECC5 /* PixelSize.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
+				D09887BC2BE0E69F007EA91E /* TutorialView.swift in Sources */,
 				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
 				7A4946642BD7F35100F9891C /* (null) in Sources */,
 			);

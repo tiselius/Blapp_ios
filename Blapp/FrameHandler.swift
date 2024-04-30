@@ -104,19 +104,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             print("Failed to add AVCaptureDepthDataOutput to capture session")
         }
         
-        
-        
-        
-        let path = Bundle.main.path(forResource: "Bomboclat", ofType:"mp3")
-        let url = URL(fileURLWithPath: path!)
-        do {
-           if audioPlayer == nil {
-           audioPlayer = try AVAudioPlayer(contentsOf: url)
-           }
-//           audioPlayer?.play()
-        } catch let error {
-           print(error.localizedDescription)
-        }
+    
         
     }
 }

@@ -13,6 +13,7 @@ import SwiftUI
 struct StartPageUI: View {
     let image = Image("Knapp")
     @State private var isCameraPresented = false
+    @State private var isShowingTutorial = false
     
     var body: some View {
         ZStack {
@@ -22,30 +23,33 @@ struct StartPageUI: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 .edgesIgnoringSafeArea(.all)
-                
+            
             VStack(spacing: -30) {
-                    Button(action: {
-                        self.isCameraPresented.toggle()
-                            }) {
-                                Image("Kamera")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 75, height: 75)
-                                            }
-                            .sheet(isPresented: $isCameraPresented) {
-                                // Present the camera view when the flag is true
-                                CameraUI()
-                            
-                            }
-                            .padding(.top, 100)
+                Button(action: {
+                    self.isCameraPresented.toggle()
+                }) {
+                    Image("Kamera")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 75, height: 75)
+                }
+                .sheet(isPresented: $isCameraPresented) {
+                    // Present the camera view when the flag is true
+                    CameraUI()
+                    
+                }
+                .padding(.top, 100)
                 HStack(spacing: 60){
-                    Button(action: {print("Settings")
+                    Button(action: {self.isShowingTutorial = true
                     }){
                         Image("Tutorial")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 75, height: 75)
-                                    }
+                    }
+                    .sheet(isPresented: $isShowingTutorial) {
+                        TutorialView(isPresented: $isShowingTutorial)
+                    }
                     .padding(40)
                     Button(action: {print("settings")
                     }){
@@ -53,19 +57,16 @@ struct StartPageUI: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 75, height: 75)
-                        }
-                    .padding(40)
                     }
-                .padding(.bottom,40)
+                    .padding(40)
                 }
-            
+                .padding(.bottom,40)
+            }
             .padding(.bottom, -120)
             .padding(.top, 400)
         }
-        
     }
 }
-
 
 
 #Preview {
