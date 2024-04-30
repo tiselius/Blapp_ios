@@ -14,7 +14,8 @@ struct StartPageUI: View {
     let image = Image("Knapp")
     @State private var isCameraPresented = false
     @State private var isShowingTutorial = false
-    
+    @State private var isSettingsViewPresented = false
+
     var body: some View {
         ZStack {
             // Background Gradient
@@ -51,12 +52,16 @@ struct StartPageUI: View {
                         TutorialView(isPresented: $isShowingTutorial)
                     }
                     .padding(40)
-                    Button(action: {print("settings")
+                    Button(action: {isSettingsViewPresented.toggle()
                     }){
                         Image("Settings")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 75, height: 75)
+                    }
+                    .fullScreenCover(isPresented: $isSettingsViewPresented) {
+                        // Present the camera view when the flag is true
+                        SettingsView()
                     }
                     .padding(40)
                 }

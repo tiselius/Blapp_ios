@@ -11,8 +11,6 @@ import SwiftUI
 
 struct CameraView: View {
     
-    
-    
     //    @StateObject var frameHandler = FrameHandler()
     @StateObject var frameHandler : FrameHandler
     //    @StateObject private var frameHandler : FrameHandler
