@@ -17,8 +17,6 @@
 		4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E73242BCD5FF400AE877F /* Info.xcprivacy */; };
 		4A831BF02BD7F2B700A1A662 /* ProcessFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */; };
 		4A831BFB2BDA7F5100A1A662 /* CalculateVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */; };
-		4A831BFD2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4A831BFC2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav */; };
-		4A831BFF2BDBCAB100A1A662 /* Bomboclat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4A831BFE2BDBCAB100A1A662 /* Bomboclat.mp3 */; };
 		4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */; };
 		4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */; };
 		7A4946642BD7F35100F9891C /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -27,6 +25,7 @@
 		D0584DC92BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DD12BCEBCCD00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
+		D09887BA2BE0DC36007EA91E /* YuseiMagic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */; };
 		D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */; };
 		D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
 		D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
@@ -73,8 +72,6 @@
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
 		4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessFrame.swift; sourceTree = "<group>"; };
 		4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateVolume.swift; sourceTree = "<group>"; };
-		4A831BFC2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 320906__suzenako__ding6.wav; sourceTree = "<group>"; };
-		4A831BFE2BDBCAB100A1A662 /* Bomboclat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bomboclat.mp3; sourceTree = "<group>"; };
 		4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
 		4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
 		4AD966EF2BD7EB7900CF01DD /* Blapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Blapp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -83,6 +80,7 @@
 		4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "YuseiMagic-Regular.ttf"; path = "../../../Downloads/Yusei_Magic/YuseiMagic-Regular.ttf"; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
 		D0AA03822BD1166800C4ECC5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -129,8 +127,6 @@
 				4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */,
 				4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */,
 				4AD966F02BD7EB7900CF01DD /* PrefixHeader.pch */,
-				4A831BFC2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav */,
-				4A831BFE2BDBCAB100A1A662 /* Bomboclat.mp3 */,
 				4A2E72F12BCD2E2300AE877F /* Blapp */,
 				4A2E73022BCD2E2500AE877F /* BlappTests */,
 				4A2E730C2BCD2E2500AE877F /* BlappUITests */,
@@ -166,6 +162,7 @@
 				4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */,
 				D0AA03822BD1166800C4ECC5 /* CameraView.swift */,
 				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
+				D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */,
 				4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
 				4A2E72F82BCD2E2500AE877F /* Preview Content */,
@@ -318,10 +315,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */,
+				D09887BA2BE0DC36007EA91E /* YuseiMagic-Regular.ttf in Resources */,
 				4A2E72FA2BCD2E2500AE877F /* Preview Assets.xcassets in Resources */,
 				4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */,
-				4A831BFD2BDAA0C400A1A662 /* 320906__suzenako__ding6.wav in Resources */,
-				4A831BFF2BDBCAB100A1A662 /* Bomboclat.mp3 in Resources */,
 				D0AA03872BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */,
 				4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */,
 			);
