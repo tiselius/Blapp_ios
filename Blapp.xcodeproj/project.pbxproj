@@ -35,11 +35,6 @@
 		D0584DC92BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DD12BCEBCCD00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
-		D09887BC2BE0E69F007EA91E /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09887BB2BE0E69F007EA91E /* TutorialView.swift */; };
-		D09887BE2BE113FE007EA91E /* TutorialStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09887BD2BE113FE007EA91E /* TutorialStoryboard.storyboard */; };
-		D09887C02BE11BD3007EA91E /* TutorialSlides.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09887BF2BE11BD3007EA91E /* TutorialSlides.swift */; };
-		D09887C22BE11C4B007EA91E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09887C12BE11C4B007EA91E /* TutorialViewController.swift */; };
-		D09887C42BE12021007EA91E /* TutorialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09887C32BE12021007EA91E /* TutorialCollectionViewCell.swift */; };
 		D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */; };
 		D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
 		D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
@@ -102,11 +97,6 @@
 		4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		D09887BB2BE0E69F007EA91E /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
-		D09887BD2BE113FE007EA91E /* TutorialStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorialStoryboard.storyboard; sourceTree = "<group>"; };
-		D09887BF2BE11BD3007EA91E /* TutorialSlides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialSlides.swift; sourceTree = "<group>"; };
-		D09887C12BE11C4B007EA91E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
-		D09887C32BE12021007EA91E /* TutorialCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
 		D0AA03822BD1166800C4ECC5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -174,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				4A831C472BE139AD00A1A662 /* Settings */,
-				D09887C62BE13456007EA91E /* Tutorial  */,
 				D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */,
 				D0584DCA2BCE9F3900EFE8A4 /* Info.plist */,
 				D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */,
@@ -259,18 +248,6 @@
 			children = (
 			);
 			path = "New Group";
-			sourceTree = "<group>";
-		};
-		D09887C62BE13456007EA91E /* Tutorial  */ = {
-			isa = PBXGroup;
-			children = (
-				D09887BB2BE0E69F007EA91E /* TutorialView.swift */,
-				D09887BD2BE113FE007EA91E /* TutorialStoryboard.storyboard */,
-				D09887C32BE12021007EA91E /* TutorialCollectionViewCell.swift */,
-				D09887BF2BE11BD3007EA91E /* TutorialSlides.swift */,
-				D09887C12BE11C4B007EA91E /* TutorialViewController.swift */,
-			);
-			path = "Tutorial ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,7 +356,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */,
-				D09887BE2BE113FE007EA91E /* TutorialStoryboard.storyboard in Resources */,
 				4A2E72FA2BCD2E2500AE877F /* Preview Assets.xcassets in Resources */,
 				4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */,
 				4A831C3B2BE1377D00A1A662 /* YuseiMagic-Regular.ttf in Resources */,
@@ -427,17 +403,13 @@
 				4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */,
 				4A831C2B2BDFB98800A1A662 /* SettingsView.swift in Sources */,
 				D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */,
-				D09887C22BE11C4B007EA91E /* TutorialViewController.swift in Sources */,
 				4A831C452BE138DB00A1A662 /* ChooseLiquidView.swift in Sources */,
 				D0AA039C2BDA392A00C4ECC5 /* CalculateArea.swift in Sources */,
 				4A831C3F2BE138AC00A1A662 /* ReferenceObjectView.swift in Sources */,
 				4A831C3D2BE1386F00A1A662 /* AboutUsView.swift in Sources */,
 				D0AA039A2BDA2F6100C4ECC5 /* PixelSize.swift in Sources */,
-				D09887C42BE12021007EA91E /* TutorialCollectionViewCell.swift in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				4A831C432BE138CD00A1A662 /* ChooseLanguageView.swift in Sources */,
-				D09887BC2BE0E69F007EA91E /* TutorialView.swift in Sources */,
-				D09887C02BE11BD3007EA91E /* TutorialSlides.swift in Sources */,
 				D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */,
 				7A4946642BD7F35100F9891C /* (null) in Sources */,
 			);
