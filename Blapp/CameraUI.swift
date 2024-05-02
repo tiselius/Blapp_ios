@@ -13,12 +13,12 @@ struct CameraUI: View {
     @StateObject var frameHandler = FrameHandler()
     @State private var textOffset: CGFloat = 250
     @State private var showVolumeText = false // State variable to control text visibility
-
+    @State private var useReference = UserDefaults.standard.bool(forKey: "useReference")
     
     var body: some View {
         VStack{
             ZStack{
-                if(!useReference){
+                if(!self.useReference){
                     CameraView(frameHandler: frameHandler)
                         .frame(height: UIScreen.main.bounds.height * 0.8)
                 }
