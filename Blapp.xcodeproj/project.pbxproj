@@ -31,7 +31,6 @@
 		D0584DD22BCEBCCE00EFE8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E72F62BCD2E2500AE877F /* Assets.xcassets */; };
 		D09887BA2BE0DC36007EA91E /* YuseiMagic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */; };
 		D09887BC2BE0E69F007EA91E /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09887BB2BE0E69F007EA91E /* TutorialView.swift */; };
-		D09887BE2BE113FE007EA91E /* TutorialStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09887BD2BE113FE007EA91E /* TutorialStoryboard.storyboard */; };
 		D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */; };
 		D0AA03772BD102C000C4ECC5 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */; };
 		D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03822BD1166800C4ECC5 /* CameraView.swift */; };
@@ -92,7 +91,6 @@
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D09887B92BE0DC36007EA91E /* YuseiMagic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "YuseiMagic-Regular.ttf"; path = "../../../Downloads/Yusei_Magic/YuseiMagic-Regular.ttf"; sourceTree = "<group>"; };
 		D09887BB2BE0E69F007EA91E /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
-		D09887BD2BE113FE007EA91E /* TutorialStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorialStoryboard.storyboard; sourceTree = "<group>"; };
 		D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 		D0AA03762BD102BF00C4ECC5 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
 		D0AA03822BD1166800C4ECC5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				D09887BB2BE0E69F007EA91E /* TutorialView.swift */,
-				D09887BD2BE113FE007EA91E /* TutorialStoryboard.storyboard */,
 			);
 			path = "Tutorial ";
 			sourceTree = "<group>";
@@ -350,7 +347,6 @@
 			files = (
 				D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */,
 				D09887BA2BE0DC36007EA91E /* YuseiMagic-Regular.ttf in Resources */,
-				D09887BE2BE113FE007EA91E /* TutorialStoryboard.storyboard in Resources */,
 				4A2E72FA2BCD2E2500AE877F /* Preview Assets.xcassets in Resources */,
 				4A2E72F72BCD2E2500AE877F /* Assets.xcassets in Resources */,
 				D0AA03872BD1676700C4ECC5 /* Launch Screen.storyboard in Resources */,
