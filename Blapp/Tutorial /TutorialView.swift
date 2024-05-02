@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct TutorialView: View {
-    @Binding var isPresented: Bool
+    //@Binding var isPresented: Bool
     var body: some View {
         ZStack(){
             Image("Tutorial_background")
@@ -33,7 +33,7 @@ struct TutorialView: View {
                 // Add more slides as needed
                 
                 Button("Close") {
-                    isPresented = false
+                   // isPresented = false
                     
                 }
                 .foregroundColor(.white)
@@ -52,4 +52,8 @@ struct TutorialView: View {
         }
         
     }
+}
+
+#Preview {
+    TutorialView()
 }
