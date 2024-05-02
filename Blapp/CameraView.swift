@@ -10,7 +10,10 @@ import SwiftUI
 
 
 struct CameraView: View {
+<<<<<<< HEAD
     
+=======
+>>>>>>> LiveCameraTutorialPage
     //    @StateObject var frameHandler = FrameHandler()
     @StateObject var frameHandler : FrameHandler
     //    @StateObject private var frameHandler : FrameHandler

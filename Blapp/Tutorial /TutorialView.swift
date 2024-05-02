@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct TutorialView: View {
-    @Binding var isPresented: Bool
+   @Binding var isPresented: Bool
     var body: some View {
         ZStack(){
             Image("Tutorial_background")
@@ -17,39 +17,49 @@ struct TutorialView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 .edgesIgnoringSafeArea(.all)
-        
-            
-            VStack {
-                Text("Slide 1!")
-                    .font(.custom("YuseiMagic-Regular", size: 20))
-                    .foregroundColor(.white)
-                    .padding(20)
-                
-                Text("This is slide 1. You can describe the functions of your app here.")
-                    .font(.custom("YuseiMagic-Regular", size: 10))
-                    .foregroundColor(.white)
-                    .padding()
-                
-                // Add more slides as needed
-                
-                Button("Close") {
-                    isPresented = false
+            VStack{
+                Text("Tutorial")
+                    .font(.custom("YuseiMagic-Regular", size: 30))
+                    .foregroundColor(.black)
+                    .offset(y: -120)
                     
+                
+                ScrollView(.horizontal) {
+                    HStack(spacing:20) {
+                        TutorialCards(title:"👁️")
+                        TutorialCards(title:"🫦")
+                        TutorialCards(title:"👁️")
+                    }
+                    .padding(.bottom, 20)
+                    .padding(.horizontal, 20)
                 }
-                .foregroundColor(.white)
-                .padding()
+                .background(Color.clear)
+                .offset(y: -50)
             }
-            .frame(width: 300, height: 200)
-            .background(Color(red: 1.0, green: 0.71, blue: 0.87))
-            .cornerRadius(20)
-            .shadow(radius: 10)
-            .padding(.bottom, 200)
-            
-            Text("Tutorial")
-                    .font(.custom("YuseiMagic-Regular", size: 36))
-                    .foregroundColor(Color(red: 1.0, green: 0.71, blue: 0.87))
-                    .padding(.bottom, 700) // Adjust the padding as needed
+            Button(action: {
+                isPresented = false
+                       }) {
+                           Image("Return")
+                               .resizable()
+                               .frame(width: 120, height: 120)
+                               .foregroundColor(.black) // Set the color of the return button
+                       }
+                       .offset(x: -150, y: 370) // Adjust the offset to position the button
+                   }
         }
-        
+}
+
+struct TutorialCards: View{
+    let title: String
+    var body: some View {
+        VStack {
+            Text(title)
+                .font(.system(size: 200))
+        }
+        .frame(width:300, height: 300)
+        .background(Color(red: 1.0, green: 0.71, blue: 0.87))
+        .cornerRadius(25)
     }
 }
+
+
