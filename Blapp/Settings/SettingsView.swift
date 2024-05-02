@@ -13,68 +13,95 @@ struct SettingsView: View {
     @State private var isChooseLanguageViewChosen = false
     @State private var isAboutUsPresented = false
     @State private var liquidLabel = UserDefaults.standard.string(forKey: "selectedLiquidOption") ?? "Blood"
-    @State private var languageLabel = UserDefaults.standard.string(forKey: "selectedLanguageOption") ?? "Svenska"
     @State private var referenceLabel = UserDefaults.standard.string(forKey: "selectedReferenceOption") ?? "Plastic card"
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        
         NavigationStack {
-            List {
-                Section() {
-                    NavigationLink(destination: ReferenceObjectView( referenceLabel: $referenceLabel))
-                    {
-                        HStack{
-                            Image(systemName: "square.dashed")
-                            Text("Reference object")
+            ZStack{
+                Image("Settings_background")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .edgesIgnoringSafeArea(.all)
+                VStack{
+                    List {
+                        Section() {
+                            NavigationLink(destination: ReferenceObjectView( referenceLabel: $referenceLabel))
+                            {
+                                HStack{
+                                    Image("Reference_object")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 200, height: 80)
+                                }
+                            }
                         }
-                    }
-                }
-                Section(header: Text("Liquids")){
-                    NavigationLink(destination: ChooseLiquidView(liquidLabel: $liquidLabel)) {
-                        HStack{
-                            Image(systemName: "drop.circle")
-                            Text("Liquid")
-                            Spacer()
-                            Text(liquidLabel)
-                                .foregroundColor(.gray)
+                        Section(){
+                            NavigationLink(destination: ChooseLiquidView(liquidLabel: $liquidLabel)) {
+                                HStack{
+                                    Image("Liquid")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 200, height: 80)
+                                    Spacer()
+                                    Text(liquidLabel)
+                                        .foregroundColor(.gray)
+                                }
+                            }
                         }
-                    }
-                }
-                
-                Section(header: Text("Language")){
-                    NavigationLink( destination: ChooseLanguageView(languageLabel: $languageLabel)) {
-                        HStack{
-                            Image(systemName: "globe")
-                            Text("Language")
-                            Spacer()
-                            Text(languageLabel)
-                                .foregroundColor(.gray)
+                        Section(){
+                            NavigationLink(destination:
+                                            AboutUsView()) {
+                                HStack{
+                                    Image("Units")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 200, height: 80)
+                                    Spacer()
+                                        .foregroundColor(.gray)
+                                }
+                            }
                         }
-                    }
-                }
-                Section(header: Text("About us")) {
-                    NavigationLink(destination: AboutUsView()) {
-                        HStack{
-                            Image(systemName: "figure.wave.circle")
-                            Text("About us")
-                        }
-                    }
-                }
-            }.navigationTitle("Settings")
-                .toolbar(content: {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Label("Dismiss", systemImage: "chevron.left")
-                        }
-                    }
-                })
-            
-            
-        }
-    }
-}
+                        Section() {
+                            NavigationLink(destination: AboutUsView()) {
+                                HStack{
+                                    Image("AboutUs")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 200, height: 80)
+                                }
+                            }
+                        }//Section
+                    }//List
+                    .navigationTitle("Settings")
+                    .listStyle(PlainListStyle()) //
+                    .background(Color.clear) // Set background color of the List to clear
+                    .toolbar(content: {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Label("Dismiss", systemImage: "chevron.left")
+                            }
+                        }//ToolbarItem
+                    })//Toolbar
+                }//VStack
+                Button(action: {
+                        dismiss()
+                           }) {
+                               Image("Return")
+                                   .resizable()
+                                   .frame(width: 120, height: 120)
+                                   .foregroundColor(.black) // Set the color of the return button
+                           }
+                           .offset(x: -140, y: 320) // Adjust the offset to position the button
+            }//ZStack
+        }//NavigationStack
+        .navigationViewStyle(.stack)
+    }//View
+}//End Struct
 #Preview {
     SettingsView()
 }
