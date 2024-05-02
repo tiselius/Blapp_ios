@@ -20,60 +20,66 @@ struct ReferenceObjectView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text("Reference object"), footer: Text("Uses a reference object to get a real-life scale. \nCan only be turned off if a camera with depth capture is available.")) {
-                    Toggle(
-                        "Use reference object",
-                        systemImage: "skew", isOn: noDepthCameraAvailable ? .constant(true): $useReference)
-                    .onChange(of: useReference, perform: { value in
-                        UserDefaults.standard.set(value, forKey: "useReference")
-                    })
-                }
-                .foregroundColor(.primary)
-                
-                if useReference {
-                    ForEach(referenceManager.references) { reference in
-                        Button(action: {
-                            referenceLabel = reference.name
-                            applyReferenceSetting(for: reference)
-                            
-                        }) {
-                            HStack {
-                                Image(systemName: reference.image)
-                                Text(reference.name)
-                                Spacer()
-                                if(reference.removeable == true){
-                                    Button(action: {
-                                        referenceManager.removeReference(reference)
-                                        referenceLabel = referenceManager.references[0].name
-                                        applyReferenceSetting(for: referenceManager.references[0])
-                                    }){Text("Remove").foregroundColor(.red)}
-                                }
-                                if referenceLabel == reference.name {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(.blue)
+            ZStack{
+                Image("Settings_background")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .edgesIgnoringSafeArea(.all)
+                List {
+                    Section(header: Text("Reference object"), footer: Text("Uses a reference object to get a real-life scale. \nCan only be turned off if a camera with depth capture is available.")) {
+                        Toggle(
+                            "Use reference object",
+                            systemImage: "skew", isOn: noDepthCameraAvailable ? .constant(true): $useReference)
+                        .onChange(of: useReference, perform: { value in
+                            UserDefaults.standard.set(value, forKey: "useReference")
+                        })
+                    }
+                    .foregroundColor(.primary)
+                    
+                    if useReference {
+                        ForEach(referenceManager.references) { reference in
+                            Button(action: {
+                                referenceLabel = reference.name
+                                applyReferenceSetting(for: reference)
+                                
+                            }) {
+                                HStack {
+                                    Image(systemName: reference.image)
+                                    Text(reference.name)
+                                    Spacer()
+                                    if(reference.removeable == true){
+                                        Button(action: {
+                                            referenceManager.removeReference(reference)
+                                            referenceLabel = referenceManager.references[0].name
+                                            applyReferenceSetting(for: referenceManager.references[0])
+                                        }){Text("Remove").foregroundColor(.red)}
+                                    }
+                                    if referenceLabel == reference.name {
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(.blue)
+                                    }
                                 }
                             }
-                        }
-                    }.foregroundColor(.primary)
-                    
-                    if(referenceManager.references.count < 5){
-                        Section{
-                            VStack {
-                                TextField(
-                                    "Name",
-                                    text: $temporaryNameForNewReference
-                                ).onSubmit {
-                                    secondTextFieldFocused = true
-                                }
-                                .disableAutocorrection(true)
-                                TextField(
-                                    "Area in m^2",
-                                    text: $newReferenceArea
-                                    
-                                )
-                                .focused($secondTextFieldFocused)
-                                .submitLabel(.done)
+                        }.foregroundColor(.primary)
+                        
+                        if(referenceManager.references.count < 5){
+                            Section{
+                                VStack {
+                                    TextField(
+                                        "Name",
+                                        text: $temporaryNameForNewReference
+                                    ).onSubmit {
+                                        secondTextFieldFocused = true
+                                    }
+                                    .disableAutocorrection(true)
+                                    TextField(
+                                        "Area in m^2",
+                                        text: $newReferenceArea
+                                        
+                                    )
+                                    .focused($secondTextFieldFocused)
+                                    .submitLabel(.done)
                                     .onSubmit {
                                         if temporaryNameForNewReference != "" && referenceManager.nameExists(referenceName: temporaryNameForNewReference) == false{
                                             newReferenceName = temporaryNameForNewReference
@@ -87,31 +93,32 @@ struct ReferenceObjectView: View {
                                             }
                                         }
                                     }
-                            }
-                            .textFieldStyle(.roundedBorder)
-                            
-                            if(couldAddReference == true){
-                                Button(action: {let newRef = Reference(name: newReferenceName, image: "ladybug", area: newReferenceAreaParsed, removeable: true)
-                                    referenceManager.addReference(newRef)
-                                    referenceLabel = newRef.name
-                                    applyReferenceSetting(for: newRef)
-                                    print("added reference")
-                                    couldAddReference = false
-                                    newReferenceArea = ""
-                                    temporaryNameForNewReference = ""
-                                    newReferenceAreaParsed = 0
                                 }
-                                )
-                                {
-                                    HStack{
-                                        Image(systemName: "")
-                                        Text("add new reference")
+                                .textFieldStyle(.roundedBorder)
+                                
+                                if(couldAddReference == true){
+                                    Button(action: {let newRef = Reference(name: newReferenceName, image: "ladybug", area: newReferenceAreaParsed, removeable: true)
+                                        referenceManager.addReference(newRef)
+                                        referenceLabel = newRef.name
+                                        applyReferenceSetting(for: newRef)
+                                        print("added reference")
+                                        couldAddReference = false
+                                        newReferenceArea = ""
+                                        temporaryNameForNewReference = ""
+                                        newReferenceAreaParsed = 0
+                                    }
+                                    )
+                                    {
+                                        HStack{
+                                            Image(systemName: "")
+                                            Text("add new reference")
+                                        }
                                     }
                                 }
                             }
                         }
+                        
                     }
-                    
                 }
             }
         }

@@ -52,8 +52,7 @@ struct SettingsView: View {
                             }
                         }
                         Section(){
-                            NavigationLink(destination:
-                                            AboutUsView()) {
+                            NavigationLink(destination: AboutUsView()) {
                                 HStack{
                                     Image("Units")
                                         .resizable()
@@ -78,15 +77,7 @@ struct SettingsView: View {
                     .navigationTitle("Settings")
                     .listStyle(PlainListStyle()) //
                     .background(Color.clear) // Set background color of the List to clear
-                    .toolbar(content: {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button {
-                                dismiss()
-                            } label: {
-                                Label("Dismiss", systemImage: "chevron.left")
-                            }
-                        }//ToolbarItem
-                    })//Toolbar
+
                 }//VStack
                 Button(action: {
                         dismiss()
