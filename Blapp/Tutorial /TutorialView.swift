@@ -31,12 +31,22 @@ struct TutorialView: View {
                         TutorialCards(title:"👁️")
                     }
                     .padding(.bottom, 20)
+                    .padding(.horizontal, 20)
                 }
+                .background(Color.clear)
                 .offset(y: -50)
             }
+            Button(action: {
+                isPresented = false
+                       }) {
+                           Image("Return")
+                               .resizable()
+                               .frame(width: 120, height: 120)
+                               .foregroundColor(.black) // Set the color of the return button
+                       }
+                       .offset(x: -150, y: 370) // Adjust the offset to position the button
+                   }
         }
-        
-    }
 }
 
 struct TutorialCards: View{
