@@ -11,8 +11,8 @@ import Foundation
                          Surface Tension
  Depth = 2 * root of ( -------------------  )
                         Density * Gravity             */
-let surfaceTensionBlood : Float = 0.058 //Newton per meter
-let densityBlood : Float = 1060 //kg / m^3
+let surfaceTensionBlood : Float = 0.0728 //Newton per meter
+let densityBlood : Float = 997 //kg / m^3
 let gravity : Float = 9.82
 
 func calculateVolume() {
