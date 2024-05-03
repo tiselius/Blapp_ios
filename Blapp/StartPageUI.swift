@@ -12,6 +12,7 @@ import SwiftUI
 
 struct StartPageUI: View {
     let image = Image("Knapp")
+//    @StateObject var frameHandler = FrameHandler()
     @State private var isCameraPresented = false
     @State private var isShowingTutorial = false
     @State private var isSettingsViewPresented = false
@@ -36,8 +37,7 @@ struct StartPageUI: View {
                 }
                 .sheet(isPresented: $isCameraPresented) {
                     // Present the camera view when the flag is true
-                    CameraUI()
-                    
+                    CameraUI(frameHandler: FrameHandler())
                 }
                 .padding(.top, 100)
                 HStack(spacing: 60){

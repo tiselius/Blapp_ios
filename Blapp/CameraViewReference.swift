@@ -11,10 +11,7 @@ import SwiftUI
 
 struct CameraViewReference: View {
     
-    //    @StateObject var frameHandler = FrameHandler()
     @StateObject var frameHandler : FrameHandler
-    //    @StateObject private var frameHandler : FrameHandler
-    //    @StateObject private var frameHandler : FrameHandler
     var image: CGImage?
     @State private var isLoading = true
     private let label = Text("frame")
@@ -72,9 +69,8 @@ struct CameraViewReference: View {
 
             relativeAreaOfObject = OpenCVWrapper().centerArea(referenceImage!)
 
-            
             let referenceArea = getReferenceArea(image: frameHandler.frame!)
-            let pixelSize = referenceAreaReal / Float(referenceArea)
+            let pixelSize = currentReference.area / Float(referenceArea)
             let finalArea = pixelSize * Float(relativeAreaOfObject)
             print(finalArea)
         }

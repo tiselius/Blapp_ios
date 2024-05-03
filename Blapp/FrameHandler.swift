@@ -13,6 +13,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     @Published var distance: Float32 = 0// Add a published property for distance
     @Published var meanvalue: Float = 0.0// Add a published property for mean value
     @Published var area: Float32 = 0.0
+    @Published private var useReference = UserDefaults.standard.bool(forKey: "useReference")
 
     private var distanceArray = [Float]() // Array to store distances , Vi testar den genom att sätta in 9 st element och ser ifall array töms efter 10 då mean value då kommer ändras ifrån 2.98
     
@@ -76,10 +77,11 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         
         if(discoverySession.devices.first != nil){
             cameraDevice = discoverySession.devices.first
+            noDepthCameraAvailable = false
         }
         else{
             cameraDevice = AVCaptureDevice.default(for: .video)
-            useReference = true
+            UserDefaults.standard.set(true, forKey: "usereference")
             noDepthCameraAvailable = true
         }
         
@@ -97,6 +99,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         // otherwise our frame is displayed sideways on screen
         videoOutput.connection(with: .video)?.videoRotationAngle = 90
         
+        print("useReference = \(useReference)")
         if(!useReference){
         depthDataOutput = AVCaptureDepthDataOutput()
         guard let depthDataOutput = depthDataOutput else {

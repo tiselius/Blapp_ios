@@ -10,7 +10,7 @@ import AVFoundation
 import SwiftUI
 
 struct CameraUI: View {
-    @StateObject var frameHandler = FrameHandler()
+    @StateObject var frameHandler : FrameHandler
     @State private var textOffset: CGFloat = 250
     @State private var showVolumeText = false // State variable to control text visibility
     @State private var useReference = UserDefaults.standard.bool(forKey: "useReference")
