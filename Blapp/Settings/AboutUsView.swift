@@ -39,7 +39,17 @@ struct AboutUsView: View {
                         .cornerRadius(25)
                         .offset(y: -120)
                 }//ZStack
-            }
+                
+                Text("URL TO WEBSITE")
+                    .font(.custom("YuseiMagic-Regular", size: 15))
+                    .foregroundColor(.white)
+                    .frame(width:325, height: 50)
+                    .background(Color(red: 255.0/255.0, green: 124.0/255.0, blue: 136.0/255.0))
+                    .cornerRadius(25)
+                    .offset(y: -120)
+                    .padding(.bottom,20)
+                
+            }//VStack
         }//ZStack
     }//Body
 }//Struct
