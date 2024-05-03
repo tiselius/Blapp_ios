@@ -16,15 +16,22 @@ var relativeAreaOfObject : Int32 = 0
 
 //Constants
 let m3ToDl : Float = 10000
-let surfaceTensionOfBlood = 3.1
-let densityOfBlood = 2.1
-let surfaceTensionOfWater = 3.0
-let densityOfWater = 2.2
-let surfaceTensionOfLiquidLava = 3.123
-let densityOfLiquidLava = 2.123
+let surfaceTensionOfBlood : Double = 0.060
+let densityOfBlood : Double = 1060
+let surfaceTensionOfWater : Double = 0.0725
+let densityOfWater : Double = 998
+let surfaceTensionOfLiquidLava : Double = 0.360
+let densityOfLiquidLava : Double = 2500
 
 
-var currentLiquid : String = "Blood"
+var currentLiquid: Liquid = {
+    if let savedLiquidOption = UserDefaults.standard.string(forKey: "selectedLiquidOption"),
+       let index = liquidManager.liquids.firstIndex(where: { $0.id.uuidString == savedLiquidOption }) {
+        return liquidManager.liquids[index]
+    } else {
+        return liquidManager.liquids[0]
+    }
+}()
 var currentLanguage : String = "Svenska"
 var currentReference: Reference = {
     if let savedReferenceOption = UserDefaults.standard.string(forKey: "selectedReferenceOption"),
@@ -34,8 +41,8 @@ var currentReference: Reference = {
         return referenceManager.references[0]
     }
 }()
-var densityOfCurrentLiquid = 0.5
-var surfaceTensionOfCurrentLiquid = 1.2
+var surfaceTensionOfCurrentLiquid : Double = 0.060
+var densityOfCurrentLiquid : Double = 1060
 
 //Structs
 
@@ -47,12 +54,21 @@ struct Reference : Identifiable, Equatable {
     let removeable : Bool
 }
 
+struct Liquid : Identifiable, Equatable {
+    let id = UUID()
+    let name : String
+    let surfaceTension : Double
+    let density : Double
+    let removeable : Bool
+}
+
 //Flags
 var useReference : Bool = UserDefaults.standard.bool(forKey: "useReference")
 var noDepthCameraAvailable : Bool = false
 
 //Managers
 var referenceManager = ReferenceManager.shared
+var liquidManager = LiquidManager.shared
 
 //Functions
 
@@ -66,23 +82,23 @@ public var screenHeight: CGFloat {
     return UIScreen.main.bounds.height * 0.8
 }
 
-func applyLiquidSetting(for option: String) {
-    UserDefaults.standard.set(option, forKey: "selectedLiquidOption")
-    switch option {
-    case "Blood":
-        surfaceTensionOfCurrentLiquid = surfaceTensionOfBlood
-        densityOfCurrentLiquid = surfaceTensionOfBlood
-        currentLiquid = option
+func applyLiquidSetting(for liquid: Liquid ) {
+    UserDefaults.standard.set(liquid.name, forKey: "selectedLiquidOption")
+    switch liquid {
+    case liquidManager.liquids[0]:
+        surfaceTensionOfCurrentLiquid = liquid.surfaceTension
+        densityOfCurrentLiquid = liquid.density
+        currentLiquid = liquid
         break
-    case "Water":
-        surfaceTensionOfCurrentLiquid = surfaceTensionOfWater
-        densityOfCurrentLiquid = surfaceTensionOfWater
-        currentLiquid = option
+    case liquidManager.liquids[1]:
+        surfaceTensionOfCurrentLiquid = liquid.surfaceTension
+        densityOfCurrentLiquid = liquid.density
+        currentLiquid = liquid
         break
-    case "Liquid Lava":
-        surfaceTensionOfCurrentLiquid = surfaceTensionOfLiquidLava
-        densityOfCurrentLiquid = surfaceTensionOfLiquidLava
-        currentLiquid = option
+    case liquidManager.liquids[2]:
+        surfaceTensionOfCurrentLiquid = liquid.surfaceTension
+        densityOfCurrentLiquid = liquid.density
+        currentLiquid = liquid
         break
     default:
         break

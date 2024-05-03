@@ -15,6 +15,7 @@
 		4A2E730E2BCD2E2500AE877F /* BlappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */; };
 		4A2E73102BCD2E2500AE877F /* BlappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */; };
 		4A2E73252BCD663500AE877F /* Info.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4A2E73242BCD5FF400AE877F /* Info.xcprivacy */; };
+		4A7AD0AB2BE3BF15002E4532 /* LiquidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7AD0AA2BE3BF15002E4532 /* LiquidManager.swift */; };
 		4A831BF02BD7F2B700A1A662 /* ProcessFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */; };
 		4A831BFB2BDA7F5100A1A662 /* CalculateVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */; };
 		4A831C252BDF8C5E00A1A662 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831C242BDF8C5E00A1A662 /* Global.swift */; };
@@ -82,6 +83,7 @@
 		4A2E730D2BCD2E2500AE877F /* BlappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITests.swift; sourceTree = "<group>"; };
 		4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
+		4A7AD0AA2BE3BF15002E4532 /* LiquidManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidManager.swift; sourceTree = "<group>"; };
 		4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessFrame.swift; sourceTree = "<group>"; };
 		4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateVolume.swift; sourceTree = "<group>"; };
 		4A831C242BDF8C5E00A1A662 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				4A831C3C2BE1386F00A1A662 /* AboutUsView.swift */,
 				4A831C422BE138CD00A1A662 /* ChooseLanguageView.swift */,
 				4A831C442BE138DB00A1A662 /* ChooseLiquidView.swift */,
+				4A7AD0AA2BE3BF15002E4532 /* LiquidManager.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				4A831BFB2BDA7F5100A1A662 /* CalculateVolume.swift in Sources */,
 				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
 				4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */,
+				4A7AD0AB2BE3BF15002E4532 /* LiquidManager.swift in Sources */,
 				4A831C272BDF8E2000A1A662 /* CameraViewReference.swift in Sources */,
 				4A831C252BDF8C5E00A1A662 /* Global.swift in Sources */,
 				4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */,

@@ -53,12 +53,8 @@ struct SettingsView: View {
                     }
                 }
                 Section(header: Text("About us")) {
-                    NavigationLink(destination: AboutUsView()) {
-                        HStack{
-                            Image(systemName: "figure.wave.circle")
-                            Text("About us")
-                        }
-                    }
+                    Link("About us", destination: URL(string: "https://spilledowner.wixsite.com/spilled")!)
+
                 }
             }.navigationTitle("Settings")
                 .toolbar(content: {
