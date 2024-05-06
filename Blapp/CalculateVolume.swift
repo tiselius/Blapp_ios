@@ -23,17 +23,24 @@ func calculateVolume() {
     currentVolume = Float(depth) * currentArea
 }
 
-func calculateVolume_DL_to_Ounces(){
-    let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity )
-    let depth = 2 * Double.squareRoot(innerArg)()
-    currentVolumeDL = Float(depth) * currentArea
-    currentVolume = currentVolumeDL/0.295735296
-}
-
-
 func calculateVolume2(area: Float) -> Float {
-    let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity )
+    let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity)
     let depth = 2 * Double.squareRoot(innerArg)()
-    currentVolume = Float(depth) * area
-    return currentVolume
+    let volumeInDeciliters = Float(depth) * area
+    
+    switch selectedVolumeUnit {
+    case .deciliters:
+        return volumeInDeciliters
+    case .ounces:
+        return volumeInDeciliters / 0.295735296 // Conversion factor from deciliters to ounces
+    }
 }
+
+
+
+//func calculateVolume2(area: Float) -> Float {
+  //  let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity )
+    //let depth = 2 * Double.squareRoot(innerArg)()
+    //currentVolume = Float(depth) * area
+    //return currentVolume
+//}

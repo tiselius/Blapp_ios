@@ -16,6 +16,10 @@ struct SettingsView: View {
     @State private var referenceLabel = UserDefaults.standard.string(forKey: "selectedReferenceOption") ?? "Plastic card"
     @Environment(\.dismiss) var dismiss
     
+    @State private var selectedVolumeUnit = VolumeUnit(rawValue: UserDefaults.standard.string(forKey: "selectedVolumeUnit") ?? VolumeUnit.deciliters.rawValue) ?? .deciliters
+
+
+    
     var body: some View {
         
         NavigationStack {
@@ -52,14 +56,15 @@ struct SettingsView: View {
                             }
                         }
                         Section(){
-                            NavigationLink(destination: AboutUsView()) {
+                            NavigationLink(destination: ChooseUnitView(selectedVolumeUnit: $selectedVolumeUnit)) {
                                 HStack{
                                     Image("Units")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 200, height: 80)
                                     Spacer()
-                                        .foregroundColor(.gray)
+                                    Text(selectedVolumeUnit.rawValue == VolumeUnit.deciliters.rawValue ? "Deciliters" : "Ounces")
+                                                                            .foregroundColor(.gray)
                                 }
                             }
                         }

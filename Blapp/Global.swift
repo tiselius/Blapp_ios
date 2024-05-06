@@ -41,6 +41,42 @@ var currentReference: Reference = {
         return referenceManager.references[0]
     }
 }()
+
+
+
+
+
+// Define an enumeration for the volume unit
+enum VolumeUnit: String {
+    case deciliters = "Deciliters"
+    case ounces = "Ounces"
+    // Add more volume units as needed
+}
+
+// Create a variable to hold the current selected volume unit
+var selectedVolumeUnit: VolumeUnit = {
+    if let savedUnitString = UserDefaults.standard.string(forKey: "selectedVolumeUnit"),
+       let savedUnit = VolumeUnit(rawValue: savedUnitString) {
+        return savedUnit
+    } else {
+        return .deciliters // Default to deciliters if no saved unit found
+    }
+}()
+
+// Update UserDefaults when the selected volume unit changes
+func updateSelectedVolumeUnit(_ unit: VolumeUnit) {
+    UserDefaults.standard.set(unit.rawValue, forKey: "selectedVolumeUnit")
+}
+
+
+
+
+
+
+
+
+
+
 var surfaceTensionOfCurrentLiquid : Double = 0.060
 var densityOfCurrentLiquid : Double = 1060
 
@@ -61,6 +97,13 @@ struct Liquid : Identifiable, Equatable {
     let density : Double
     let removeable : Bool
 }
+
+struct Unit : Identifiable, Equatable {
+    let id = UUID()
+    let Ounces : Bool
+    let Deciliter : Bool
+}
+
 
 //Flags
 var useReference : Bool = UserDefaults.standard.bool(forKey: "useReference")
