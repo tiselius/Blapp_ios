@@ -11,7 +11,7 @@ import Foundation
 var touchX : Int32?
 var touchY : Int32?
 var referenceImage : UIImage?
-let referenceAreaReal : Float = 0.00461488
+let referenceAreaReal : Float = 0.004518791
 var relativeAreaOfObject : Int32 = 0
 
 //Constants

@@ -15,6 +15,7 @@ struct CameraViewReference: View {
     var image: CGImage?
     @State private var isLoading = true
     private let label = Text("frame")
+    @State private var showVolumeText = false
     
     
     var body: some View {
@@ -46,6 +47,8 @@ struct CameraViewReference: View {
                         .foregroundColor(Color.black)
                     Text("\(currentArea) m2")
                         .foregroundColor(Color.black)
+                    Text("\(currentVolume * m3ToDl) dL")
+                        .foregroundColor(Color.black)
                     //                Text("\(currentVolume * m3ToDl) dl")
                     //                    .foregroundColor(Color.black)
                 }
@@ -72,7 +75,9 @@ struct CameraViewReference: View {
             let referenceArea = getReferenceArea(image: frameHandler.frame!)
             let pixelSize = currentReference.area / Float(referenceArea)
             let finalArea = pixelSize * Float(relativeAreaOfObject)
-            print(finalArea)
+            currentVolume = calculateVolume2(area: Float(finalArea))
+
+            print(currentVolume)
         }
     }
 }

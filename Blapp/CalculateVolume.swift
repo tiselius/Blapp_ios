@@ -20,3 +20,11 @@ func calculateVolume() {
     let depth = 2 * Double.squareRoot(innerArg)()
     currentVolume = Float(depth) * currentArea
 }
+
+
+func calculateVolume2(area: Float) -> Float {
+    let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity )
+    let depth = 2 * Double.squareRoot(innerArg)()
+    currentVolume = Float(depth) * area
+    return currentVolume
+}
