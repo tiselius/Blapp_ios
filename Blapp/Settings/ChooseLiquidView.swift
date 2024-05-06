@@ -77,7 +77,7 @@ struct ChooseLiquidView: View {
                                 }
                                 //.padding()
                             }//If BUTTON
-                        }//Vstack
+                        }//Section
                     }//List
                     .listStyle(PlainListStyle())
                     .background(Color.clear)
