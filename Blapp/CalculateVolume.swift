@@ -5,7 +5,9 @@
 //  Created by Aron Tiselius on 2024-04-25.
 //
 
+var currentVolumeDL : Float = 0
 var currentVolume : Float = 0
+
 import Foundation
 /*
                          Surface Tension
@@ -19,6 +21,13 @@ func calculateVolume() {
     let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity )
     let depth = 2 * Double.squareRoot(innerArg)()
     currentVolume = Float(depth) * currentArea
+}
+
+func calculateVolume_DL_to_Ounces(){
+    let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity )
+    let depth = 2 * Double.squareRoot(innerArg)()
+    currentVolumeDL = Float(depth) * currentArea
+    currentVolume = currentVolumeDL/0.295735296
 }
 
 
