@@ -27,6 +27,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     private var depthDataOutput: AVCaptureDepthDataOutput?
     private var pixelSize: Float32 = 0
     private var relativeArea : Int32 = 0
+    private var counter : Int = 0
     
     
     override init() {
@@ -116,9 +117,12 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             
         }
         
+        print("Device is: ")
+        print(cameraDevice as Any)
+        print(captureSession.inputs)
     
-        
     }
+    
 }
 
 extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -126,19 +130,18 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let cgImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
         
         if(!useReference){
-            // we uppdate the array with distancees until we have reached 10 distances in which it prints out the mean distance
+            // we update the array with distances until we have reached 10 distances in which it prints out the mean distance
             distanceArray.append(distance)
-            
-            if (distanceArray.count == 10) {
+            let countWhenFull : Int = 10
+            if (distanceArray.count == countWhenFull) {
                 
                 let sum = distanceArray.reduce(0, +)
-                let mean = sum / (10)
+                let mean = sum / (Float(countWhenFull))
                 distanceArray.removeAll() // Clear the Array
                 
                 // Update mean property
                 DispatchQueue.main.async {
                     self.meanvalue = Float(mean)
-                    
                 }
             }
         }
@@ -148,6 +151,7 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
         }
     }
+    
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print("Dropped frame")
     }
@@ -162,24 +166,26 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     
     func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
-        // Extract the depth data map
-        let depthData = (depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
-        let depthDataMap = depthData.depthDataMap
-        
-        DispatchQueue.main.async{
-            self.distance = self.getDepthAtCenter(from: depthDataMap)!
-        }
-        // Calculate depth value at the center of the frame
-        DispatchQueue.main.async{
-            if let frame = self.frame { // Check if frame is not nil
-                let uiImage = UIImage(cgImage: frame)
-                self.pixelSize = getPixelSize(for: self.cameraDevice, with: uiImage, with: self.distance)
-                relativeAreaOfObject = OpenCVWrapper().centerArea(uiImage)
-                calculateArea(pixelSize: self.pixelSize, relativeArea: relativeAreaOfObject)
-                calculateVolume()
-            } else {
-                // Handle the case where frame is nil
-                print("Frame is nil. Unable to process.")
+        if counter % 2 == 0{
+            // Extract the depth data map
+            let depthData = (depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
+            let depthDataMap = depthData.depthDataMap
+            
+            DispatchQueue.main.async{
+                self.distance = self.getDepthAtCenter(from: depthDataMap)!
+            }
+            // Calculate depth value at the center of the frame
+            DispatchQueue.main.async{
+                if let frame = self.frame { // Check if frame is not nil
+                    let uiImage = UIImage(cgImage: frame)
+                    self.pixelSize = getPixelSize(for: self.cameraDevice, with: uiImage, with: self.distance)
+                    relativeAreaOfObject = OpenCVWrapper().centerArea(uiImage)
+                    calculateArea(pixelSize: self.pixelSize, relativeArea: relativeAreaOfObject)
+                    calculateVolume()
+                } else {
+                    // Handle the case where frame is nil
+                    print("Frame is nil. Unable to process.")
+                }
             }
         }
     }
@@ -205,12 +211,12 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         // Calculate the center coordinates
-        let square_x = 5
-        let square_y = 5
-        let x_init = width / 2 - square_x
-        let y_init = height / 2 - square_y
-        let x_end = width / 2 + square_x
-        let y_end = height / 2 + square_y
+        let size_x = 5
+        let size_y = 5
+        let x_init = (width / 2) - size_x
+        let y_init = (height / 2) - size_y
+        let x_end = (width / 2) + size_x
+        let y_end = (height / 2) + size_y
         
         CVPixelBufferLockBaseAddress(depthDataMap, CVPixelBufferLockFlags(rawValue: 0))
         let depthPointer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthDataMap), to: UnsafeMutablePointer<Float32>.self)
@@ -241,7 +247,6 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             median = depthValues[middleIndex]
         }
         distance = median
-        
         
         return distance
     }
