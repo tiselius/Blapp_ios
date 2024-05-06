@@ -11,9 +11,9 @@ class LiquidManager: ObservableObject {
     static let shared = LiquidManager() // Singleton instance
     
     @Published var liquids: [Liquid] = [
-        Liquid(name: "Blood", surfaceTension: surfaceTensionOfBlood, density: densityOfBlood, removeable: false),
-        Liquid(name: "Water", surfaceTension: surfaceTensionOfWater, density: densityOfWater, removeable: false),
-        Liquid(name: "Liquid lava", surfaceTension: surfaceTensionOfLiquidLava, density: densityOfLiquidLava, removeable: false)
+        Liquid(name: "Blood",surfaceTension: surfaceTensionOfBlood, density: densityOfBlood, removeable: false, image: "Blood_Liquid" ),
+        Liquid(name: "Water", surfaceTension: surfaceTensionOfWater, density: densityOfWater, removeable: false,image: "Water_Liquid" ),
+        Liquid(name: "Coffee", surfaceTension: surfaceTensionOfLiquidLava, density: densityOfLiquidLava, removeable: false,image: "Water_Liquid")
     ]
     
     private init() {} // Private initializer to enforce singleton

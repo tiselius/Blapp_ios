@@ -60,6 +60,7 @@ struct Liquid : Identifiable, Equatable {
     let surfaceTension : Double
     let density : Double
     let removeable : Bool
+    let image : String
 }
 
 //Flags
