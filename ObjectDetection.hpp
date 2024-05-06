@@ -1,9 +1,5 @@
-#ifndef OBJECTDETECTION_HPP
-#define OBJECTDETECTION_HPP
-
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include "ObjectInfo.hpp"
 using namespace cv;
 
 class ObjectDetection {
@@ -15,20 +11,18 @@ public:
     cv::Mat findObject(cv::Mat image, int x, int y);
     int findObjectArea(cv::Mat image, int x, int y);
 
-    cv::Mat getEdges(cv::Mat image);
-
-    double getArea();
-    cv::Mat getImage();
-    cv::Point getCenter();
-
-    void findObjectInfo(cv::Mat image, int x, int y);
-    void centerObjectInfo(cv::Mat image);
+    cv::Mat identifyColor(cv::Mat image);
+    cv::Mat identifyColor(cv::Mat image, int x, int y);
+    cv::Mat identifyAllObjects(cv::Mat& image, int invert);
+    int identifyAllObjectAreas(cv::Mat& image, int invert);
+    void removeBackground(cv::Mat& image);
+    cv::Mat readImage(const std::string& imgPath);
 
 private:
-    ObjectInfo info;
-    cv::Scalar contourColor = cv::Scalar(222, 181, 255);
-    void drawWeightedContour(cv::Mat image, std::vector<cv::Point> contour);
-    std::vector<std::vector<cv::Point>> getContours(cv::Mat& image);
+    int contourThickness(cv::Mat image);
+    std::vector<std::vector<cv::Point>> getContours(cv::Mat& image, int invert, int retr);
+    int getAverageHSV(const cv::Mat& image, int x, int y);
+    int getHSV(const cv::Mat image);
+    cv::Mat createMask(const cv::Mat& inputImage, const cv::Scalar& lowerBound, const cv::Scalar& upperBound);
+    cv::Mat applyMask(const cv::Mat& image, const cv::Mat& mask);
 };
-
-#endif // OBJECTDETECTION_HPP
