@@ -32,21 +32,20 @@ struct ChooseLiquidView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack{
                     List {
-                            Section() {
-                                ForEach(liquidManager.liquids) { liquid in
-                                    Button(action: {
-                                        applyLiquidSetting(for: liquid)
-                                        liquidLabel = liquid.name
-                                    }, label: {
-                                        HStack {
-                                            Image(liquid.image)
-                                                .resizable()
-                                                .frame(width: 40, height: 40)
-
-                                            Text(liquid.name)
-                                                .font(.custom("YuseiMagic-Regular", size: 17))
-                                                .foregroundColor(.black)
-                                            if(liquid.removeable == true){
+                        Section() {
+                            ForEach(liquidManager.liquids) { liquid in
+                                Button(action: {
+                                    applyLiquidSetting(for: liquid)
+                                    liquidLabel = liquid.name
+                                }, label: {
+                                    HStack {
+                                        Image(liquid.image)
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
+                                        Text(liquid.name)
+                                            //.font(.custom("YuseiMagic-Regular", size: 17))
+                                            .foregroundColor(.black)
+                                        if(liquid.removeable == true){
                                                 Button(action: {
                                                     liquidManager.removeLiquid(liquid)
                                                     liquidLabel = liquidManager.liquids[0].name
@@ -72,12 +71,13 @@ struct ChooseLiquidView: View {
                                         .frame(width: 45, height: 45)
                                         .foregroundColor(.black)
                                         Text("Add a new liquid")
-                                            .font(.custom("YuseiMagic-Regular", size: 17))
+                                           // .font(.custom("YuseiMagic-Regular", size: 17))
                                     }//Hstack
                                 }//Button
                             }//If BUTTON
                         }//Section
                     }//List
+                    .navigationTitle("Liquids")
                     .listStyle(PlainListStyle())
                     .background(Color.clear)
                 }//VStack
