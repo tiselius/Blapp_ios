@@ -73,9 +73,8 @@ struct ChooseLiquidView: View {
                                         .foregroundColor(.black)
                                         Text("Add a new liquid")
                                             .font(.custom("YuseiMagic-Regular", size: 17))
-                                    }
-                                }
-                                //.padding()
+                                    }//Hstack
+                                }//Button
                             }//If BUTTON
                         }//Section
                     }//List

@@ -25,7 +25,7 @@ var selectedVolumeUnit: VolumeUnit = {
        let savedUnit = VolumeUnit(rawValue: savedUnitString) {
         return savedUnit
     } else {
-        return .deciliters // Default to deciliters if no saved unit found
+        return .metric // Default to deciliters if no saved unit found
     }
 }()
 
@@ -41,9 +41,9 @@ func calculateVolume() {
     let volumeInDeciliters = Float(depth) * currentArea * m3ToDl
     
     switch selectedVolumeUnit {
-    case .deciliters:
+    case .metric:
         currentVolume = volumeInDeciliters
-    case .ounces:
+    case .imperial:
         currentVolume = volumeInDeciliters / 0.295735296 // Conversion factor from deciliters to ounces
     }
 }
@@ -54,9 +54,9 @@ func calculateVolume2(area: Float) -> Float {
     let volumeInDeciliters = Float(depth) * area * m3ToDl
     
     switch selectedVolumeUnit {
-    case .deciliters:
+    case .metric:
         currentVolume = volumeInDeciliters
-    case .ounces:
+    case .imperial:
         currentVolume = volumeInDeciliters / 0.295735296 // Conversion factor from deciliters to ounces
     }
     return currentVolume

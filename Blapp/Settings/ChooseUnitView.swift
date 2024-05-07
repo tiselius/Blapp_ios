@@ -9,21 +9,6 @@
 
 import SwiftUI
 
-struct ChooseUnitView: View {
-    @Binding var selectedVolumeUnit: VolumeUnit
-
-    var body: some View {
-        Toggle(isOn: Binding<Bool>(
-            get: { self.selectedVolumeUnit == .ounces },
-            set: { newValue in
-                self.selectedVolumeUnit = newValue ? .ounces : .deciliters
-                updateSelectedVolumeUnit(self.selectedVolumeUnit)
-            }
-        )) {
-            Text("Use Ounces")
-        }
-    }
-}
 
 
 

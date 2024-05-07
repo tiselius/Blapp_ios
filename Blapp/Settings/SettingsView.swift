@@ -16,8 +16,10 @@ struct SettingsView: View {
     @State private var referenceLabel = UserDefaults.standard.string(forKey: "selectedReferenceOption") ?? "Plastic card"
     @Environment(\.dismiss) var dismiss
     
-    @State private var selectedVolumeUnit = VolumeUnit(rawValue: UserDefaults.standard.string(forKey: "selectedVolumeUnit") ?? VolumeUnit.deciliters.rawValue) ?? .deciliters
-
+    @State private var selectedVolumeUnit = VolumeUnit(rawValue: UserDefaults.standard.string(forKey: "selectedVolumeUnit") ?? VolumeUnit.metric.rawValue) ?? .metric
+    @State private var showUnit = false
+    @State private var useMetricUnits: Bool = false
+    @State private var useImperialUnits: Bool = false
 
     
     var body: some View {
@@ -56,18 +58,20 @@ struct SettingsView: View {
                             }
                         }
                         Section(){
-                            NavigationLink(destination: ChooseUnitView(selectedVolumeUnit: $selectedVolumeUnit)) {
+                            Button(action: {
+                                showUnit = true
+                            }){
                                 HStack{
                                     Image("Units")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 200, height: 80)
                                     Spacer()
-                                    Text(selectedVolumeUnit.rawValue == VolumeUnit.deciliters.rawValue ? "Deciliters" : "Ounces")
-                                                                            .foregroundColor(.gray)
-                                }
-                            }
-                        }
+                                    Text(selectedVolumeUnit.rawValue == VolumeUnit.metric.rawValue ? "Metric" : "Imperial")
+                                        .foregroundColor(.gray)
+                                }//Hstack
+                            }//Button
+                        }//Section
                         Section() {
                             NavigationLink(destination: AboutUsView()) {
                                 HStack{
@@ -82,17 +86,56 @@ struct SettingsView: View {
                     .navigationTitle("Settings")
                     .listStyle(PlainListStyle()) //
                     .background(Color.clear) // Set background color of the List to clear
-
+                    
                 }//VStack
                 Button(action: {
-                        dismiss()
-                           }) {
-                               Image("Return")
-                                   .resizable()
-                                   .frame(width: 120, height: 120)
-                                   .foregroundColor(.black) // Set the color of the return button
-                           }
-                           .offset(x: -140, y: 320) // Adjust the offset to position the button
+                    dismiss()
+                }) {
+                    Image("Return")
+                        .resizable()
+                        .frame(width: 120, height: 120)
+                        .foregroundColor(.black) // Set the color of the return button
+                }
+                .offset(x: -140, y: 320) // Adjust the offset to position the button
+                .sheet(isPresented: $showUnit) {
+                    // Pop-up view
+                    GeometryReader { geometry in
+                        ZStack {
+                            Color(red: 1, green: 0.49, blue: 0.53).edgesIgnoringSafeArea(.all)
+                            VStack(spacing: 20) {
+                                Text("Chose Unit")
+                                    .font(.custom("YuseiMagic-Regular", size: 20))
+                                    .foregroundColor(Color.white)
+                                Toggle("Metric Units", isOn: Binding<Bool>(
+                                               get: { selectedVolumeUnit == .metric },
+                                               set: { newValue in
+                                                   if newValue {
+                                                       selectedVolumeUnit = .metric
+                                                       UserDefaults.standard.set(VolumeUnit.metric.rawValue, forKey: "selectedVolumeUnit")
+                                                   }
+                                                   showUnit = false
+                                               }
+                                           ))
+                                .foregroundColor(.white)
+                                .padding()
+                                            
+                                Toggle("Imperial Units", isOn: Binding<Bool>(
+                                    get: { selectedVolumeUnit == .imperial },
+                                    set: { newValue in
+                                        if newValue {
+                                            selectedVolumeUnit = .imperial
+                                            UserDefaults.standard.set(VolumeUnit.imperial.rawValue, forKey: "selectedVolumeUnit")
+                                        }
+                                        showUnit = false
+                                    }
+                                ))
+                                .foregroundColor(.white)
+                                .padding()
+                            }//Vstack
+                        }//ZStackSheet
+                    }//Gemoetry Reader
+                    .presentationDetents([.medium])
+                }//Sheet
             }//ZStack
         }//NavigationStack
         .navigationViewStyle(.stack)

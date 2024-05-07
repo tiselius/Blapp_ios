@@ -48,12 +48,12 @@ var currentReference: Reference = {
 
 // Define an enumeration for the volume unit
 enum VolumeUnit: String {
-    case deciliters = "Deciliters"
-    case ounces = "Ounces"
+    case metric = "Metric"
+    case imperial = "Imperial"
     // Add more volume units as needed
 }
 
-
+let useOunces: Bool = false
 
 
 var surfaceTensionOfCurrentLiquid : Double = 0.060
