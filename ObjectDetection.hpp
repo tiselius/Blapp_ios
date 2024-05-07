@@ -16,7 +16,7 @@ public:
 
     cv::Mat getEdges(cv::Mat image);
 
-    double getArea();
+    int getArea();
     cv::Mat getImage();
     cv::Point getCenter();
 
@@ -24,7 +24,7 @@ public:
     void centerObjectInfo(cv::Mat image);
 
 private:
-    double areaInfo;
+    int areaInfo;
     cv::Mat imageInfo;
     cv::Point centerInfo;
 

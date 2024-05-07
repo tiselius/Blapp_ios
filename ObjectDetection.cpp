@@ -1,6 +1,6 @@
 #include "ObjectDetection.hpp"
 
-double ObjectDetection::getArea() {
+int ObjectDetection::getArea() {
     return areaInfo;
 }
 
@@ -26,7 +26,7 @@ void ObjectDetection::drawWeightedContour(cv::Mat image, std::vector<cv::Point> 
     // Blend the overlayed image with the original image
     double alpha = 0.4;
     cv::addWeighted(overlayedImage, alpha, image, 1.0 - alpha, 0, image);
-    cv::drawContours(image, contours, -1, contourColor, 1 + ((image.rows + image.cols) / 400));
+    cv::drawContours(image, contours, -1, contourColor, 2 + ((image.rows + image.cols) / 200));
 }
 
 cv::Mat ObjectDetection::getEdges(cv::Mat image) {
@@ -64,11 +64,11 @@ std::vector<std::vector<cv::Point>> ObjectDetection::getContours(cv::Mat& image)
     cv::dilate(edges, dilatedEdges, cv::Mat(), cv::Point(-1, -1), 2 + ((image.rows + image.cols) / 1500));
 
     // Find contours in the mask
-    std::vector<std::vector<cv::Point>> contours; 
+    std::vector<std::vector<cv::Point>> contours;
     cv::findContours(dilatedEdges, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
     std::vector<std::vector<cv::Point>> filteredContours;
-    int minArea = 2000;
+    int minArea = 1000;
 
     for (const auto& contour : contours) {
         double area = contourArea(contour);
@@ -97,7 +97,7 @@ void ObjectDetection::findObjectInfo(cv::Mat image, int x, int y) {
 
             // Draw the contour containing the specific pixel
             //drawWeightedContour(image, contour);
-            cv::drawContours(image, contour, -1, contourColor, 1 + ((image.rows + image.cols) / 400));
+            cv::drawContours(image, contours, -1, contourColor, 2 + ((image.rows + image.cols) / 200));
             cv::circle(image, point, 5, cv::Scalar(0, 0, 255), -1); // Draw the specific pixel
 
             // Calculate center
@@ -141,19 +141,18 @@ void ObjectDetection::centerObjectInfo(cv::Mat image) {
         if (dist < minDist) {
             minDist = dist;
             centerContourIndex = static_cast<int>(i);
-            center.x = mu[i].m10 / mu[i].m00;
-            center.y = mu[i].m01 / mu[i].m00;
+//            center.x = mu[i].m10 / mu[i].m00;
+//            center.y = mu[i].m01 / mu[i].m00;
             area = cv::contourArea(contours[i]);
         }
     }
 
     // Draw the contour of the center object onto the image
-    drawWeightedContour(image, contours[centerContourIndex]);
-    //cv::drawContours(image, contours, centerContourIndex, contourColor, 1 + ((image.rows + image.cols) / 400));
-
+    //drawWeightedContour(image, contours[centerContourIndex]);
+    cv::drawContours(image, contours, centerContourIndex, cv::Scalar(0, 255, 0), 10);
     areaInfo = area;
     imageInfo = image;
-    centerInfo = center;
+//    centerInfo = center;
 }
 
 cv::Mat ObjectDetection::findObject(cv::Mat image, int x, int y) {
@@ -168,7 +167,6 @@ cv::Mat ObjectDetection::findObject(cv::Mat image, int x, int y) {
         if (cv::pointPolygonTest(contour, point, false) >= 0) {
             // Draw the contour containing the specific pixel
             drawWeightedContour(image, contour);
-            //cv::drawContours(image, contours, -1, contourColor, 1 + ((image.rows + image.cols) / 400));
             cv::circle(image, point, 5, cv::Scalar(0, 0, 255), -1); // Draw the specific pixel
             break;
         }
@@ -242,8 +240,6 @@ cv::Mat ObjectDetection::identifyCenterObject(cv::Mat image) {
     int centerContourIndex = -1;
     float minDist = std::numeric_limits<float>::max();
 
-    double area = 0;
-
     for (size_t i = 0; i < contours.size(); i++) {
         cv::Point2f centroid(static_cast<float>(mu[i].m10 / mu[i].m00), static_cast<float>(mu[i].m01 / mu[i].m00));
         float dist = cv::norm(imageCenter - centroid);
@@ -254,8 +250,8 @@ cv::Mat ObjectDetection::identifyCenterObject(cv::Mat image) {
         }
     }
 
-    //Draw the contour of the center object onto the image
-    drawWeightedContour(image, contours[centerContourIndex]);
+    // Draw the contour of the center object onto the image
+    cv::drawContours(image, contours, centerContourIndex, cv::Scalar(0, 255, 0), 10);
 
     return image;
 }

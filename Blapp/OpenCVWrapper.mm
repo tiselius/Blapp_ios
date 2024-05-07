@@ -107,20 +107,42 @@
     return area;
 }
 
-- (UIImage *) identifyObject: (UIImage *) image {
-    // convert uiimage to mat
+
+- (void) centerObjectNew: (UIImage *) image{
     cv::Mat opencvImage;
     UIImageToMat(image, opencvImage, true);
     
-    // convert colorspace to the one expected by the lane detector algorithm (RGB)
     cv::Mat convertedColorSpaceImage;
     cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_RGBA2RGB);
     
     ObjectDetection objectDetection;
-    cv::Mat imageWithObject = objectDetection.identifyCenterObject(convertedColorSpaceImage);
+    objectDetection.centerObjectInfo(convertedColorSpaceImage);
     
-    return MatToUIImage(imageWithObject);
+    self.area = objectDetection.getArea();
+    self.image = MatToUIImage(objectDetection.getImage());
 }
+
+- (UIImage *) getObjectImage {
+    return self.image;
+}
+- (int) getObjectArea {
+    return self.area;
+}
+
+//- (UIImage *) identifyObject: (UIImage *) image {
+//    // convert uiimage to mat
+//    cv::Mat opencvImage;
+//    UIImageToMat(image, opencvImage, true);
+//
+//    // convert colorspace to the one expected by the lane detector algorithm (RGB)
+//    cv::Mat convertedColorSpaceImage;
+//    cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_RGBA2RGB);
+//
+//    ObjectDetection objectDetection;
+//    cv::Mat imageWithObject = objectDetection.identifyObject(convertedColorSpaceImage);
+//
+//    return MatToUIImage(imageWithObject);
+//}
 
 + (NSString *)getOpenCVVersion {
     return [NSString stringWithFormat:@"OpenCV Version %s",  CV_VERSION];
