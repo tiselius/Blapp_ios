@@ -21,27 +21,29 @@ struct CameraView: View {
     
     
     var body: some View {
-        if let image = frameHandler.frame {
-                    Image(image, scale: 1.0, orientation: .up, label: label)
-                        .resizable()
-
-                } else {
-                    GeometryReader { geometry in
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color(red: 1, green: 0.39, blue: 0.39),
-                                Color(red: 1, green: 0.55, blue: 0.63),
-                                Color(red: 1, green: 0.56, blue: 0.64),
-                                Color(red: 1, green: 0.56, blue: 0.65),
-                                Color(red: 1, green: 0.57, blue: 0.66),
-                                Color(red: 1, green: 0.71, blue: 0.87)
-                            ]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .edgesIgnoringSafeArea(.all)
-                    }
+        ZStack{
+            if let image = frameHandler.frame {
+                Image(image, scale: 1.0, orientation: .up, label: label)
+                    .resizable()
+                
+            } else {
+                GeometryReader { geometry in
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color(red: 1, green: 0.39, blue: 0.39),
+                            Color(red: 1, green: 0.55, blue: 0.63),
+                            Color(red: 1, green: 0.56, blue: 0.64),
+                            Color(red: 1, green: 0.56, blue: 0.65),
+                            Color(red: 1, green: 0.57, blue: 0.66),
+                            Color(red: 1, green: 0.71, blue: 0.87)
+                        ]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .edgesIgnoringSafeArea(.all)
                 }
+            }
+        }
         ZStack {
             VStack {
                 Text("\(frameHandler.meanvalue) meters")

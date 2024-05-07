@@ -28,7 +28,6 @@
 		4A831C412BE138BF00A1A662 /* ReferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831C402BE138BF00A1A662 /* ReferenceManager.swift */; };
 		4A831C432BE138CD00A1A662 /* ChooseLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831C422BE138CD00A1A662 /* ChooseLanguageView.swift */; };
 		4A831C452BE138DB00A1A662 /* ChooseLiquidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831C442BE138DB00A1A662 /* ChooseLiquidView.swift */; };
-		4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */; };
 		4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */; };
 		7A4946642BD7F35100F9891C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7AF4DDFD2BE90036006626AA /* ChooseUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4DDFC2BE90036006626AA /* ChooseUnitView.swift */; };
@@ -47,8 +46,9 @@
 		D0AA038F2BD78D3600C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
 		D0AA03902BD78D3900C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
 		D0AA03912BD78D3B00C4ECC5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */; };
-		D0AA039A2BDA2F6100C4ECC5 /* PixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */; };
+		D0AA039A2BDA2F6100C4ECC5 /* getPixelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA03992BDA2F6100C4ECC5 /* getPixelSize.swift */; };
 		D0AA039C2BDA392A00C4ECC5 /* CalculateArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA039B2BDA392A00C4ECC5 /* CalculateArea.swift */; };
+		D0B9B1EE2BEA55FE000A0704 /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B9B1EC2BEA55FE000A0704 /* ObjectDetection.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,8 +93,6 @@
 		4A831C402BE138BF00A1A662 /* ReferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceManager.swift; sourceTree = "<group>"; };
 		4A831C422BE138CD00A1A662 /* ChooseLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLanguageView.swift; sourceTree = "<group>"; };
 		4A831C442BE138DB00A1A662 /* ChooseLiquidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLiquidView.swift; sourceTree = "<group>"; };
-		4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
-		4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
 		4AD966EF2BD7EB7900CF01DD /* Blapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Blapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AD966F02BD7EB7900CF01DD /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		4AD966F22BD7EB8900CF01DD /* OpenCVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
@@ -108,8 +106,10 @@
 		D0AA03822BD1166800C4ECC5 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		D0AA03862BD1676600C4ECC5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = SOURCE_ROOT; };
-		D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSize.swift; sourceTree = "<group>"; };
+		D0AA03992BDA2F6100C4ECC5 /* getPixelSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getPixelSize.swift; sourceTree = "<group>"; };
 		D0AA039B2BDA392A00C4ECC5 /* CalculateArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateArea.swift; sourceTree = "<group>"; };
+		D0B9B1EC2BEA55FE000A0704 /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
+		D0B9B1ED2BEA55FE000A0704 /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,8 +146,8 @@
 				4A2E73242BCD5FF400AE877F /* Info.xcprivacy */,
 				D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */,
 				4AD966EF2BD7EB7900CF01DD /* Blapp-Bridging-Header.h */,
-				4AD966ED2BD7EB7900CF01DD /* ObjectDetection.cpp */,
-				4AD966EE2BD7EB7900CF01DD /* ObjectDetection.hpp */,
+				D0B9B1EC2BEA55FE000A0704 /* ObjectDetection.cpp */,
+				D0B9B1ED2BEA55FE000A0704 /* ObjectDetection.hpp */,
 				4AD966F02BD7EB7900CF01DD /* PrefixHeader.pch */,
 				4A2E72F12BCD2E2300AE877F /* Blapp */,
 				4A2E73022BCD2E2500AE877F /* BlappTests */,
@@ -182,7 +182,7 @@
 				4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */,
 				D0AA039B2BDA392A00C4ECC5 /* CalculateArea.swift */,
 				4A831C282BDF96BD00A1A662 /* getReferenceArea.swift */,
-				D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */,
+				D0AA03992BDA2F6100C4ECC5 /* getPixelSize.swift */,
 				4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */,
 				4AD966F22BD7EB8900CF01DD /* OpenCVWrapper.h */,
 				4A831C3A2BE1377600A1A662 /* YuseiMagic-Regular.ttf */,
@@ -427,14 +427,14 @@
 				4A831C272BDF8E2000A1A662 /* CameraViewReference.swift in Sources */,
 				4A831C252BDF8C5E00A1A662 /* Global.swift in Sources */,
 				D05585152BE3962F00380496 /* TutorialView.swift in Sources */,
-				4AD966F12BD7EB7900CF01DD /* ObjectDetection.cpp in Sources */,
 				4A831C2B2BDFB98800A1A662 /* SettingsView.swift in Sources */,
 				D0AA03832BD1166800C4ECC5 /* CameraView.swift in Sources */,
 				4A831C452BE138DB00A1A662 /* ChooseLiquidView.swift in Sources */,
 				D0AA039C2BDA392A00C4ECC5 /* CalculateArea.swift in Sources */,
 				4A831C3F2BE138AC00A1A662 /* ReferenceObjectView.swift in Sources */,
 				4A831C3D2BE1386F00A1A662 /* AboutUsView.swift in Sources */,
-				D0AA039A2BDA2F6100C4ECC5 /* PixelSize.swift in Sources */,
+				D0AA039A2BDA2F6100C4ECC5 /* getPixelSize.swift in Sources */,
+				D0B9B1EE2BEA55FE000A0704 /* ObjectDetection.cpp in Sources */,
 				4A2E72F32BCD2E2300AE877F /* BlappApp.swift in Sources */,
 				7AF4DDFD2BE90036006626AA /* ChooseUnitView.swift in Sources */,
 				4A831C432BE138CD00A1A662 /* ChooseLanguageView.swift in Sources */,

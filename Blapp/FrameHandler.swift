@@ -65,6 +65,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     
     func setupCaptureSession() {
         let videoOutput = AVCaptureVideoDataOutput()
+        print(videoOutput)
         videoOutput.alwaysDiscardsLateVideoFrames = true
         guard permissionGranted else { return }
         
@@ -90,12 +91,11 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             return
         }
         
-        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: cameraDevice) else { return }
+        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: cameraDevice) else{ return }
         guard captureSession.canAddInput(videoDeviceInput) else { return }
         captureSession.addInput(videoDeviceInput)
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sampleBufferQueue"))
         captureSession.addOutput(videoOutput)
-        
         // otherwise our frame is displayed sideways on screen
         videoOutput.connection(with: .video)?.videoRotationAngle = 90
         
@@ -106,18 +106,13 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             print("Failed to create AVCaptureDepthDataOutput")
             return
         }
-            
             if captureSession.canAddOutput(depthDataOutput) {
                 captureSession.addOutput(depthDataOutput)
                 depthDataOutput.setDelegate(self, callbackQueue: DispatchQueue(label: "depthDataOutputQueue"))
             } else {
                 print("Failed to add AVCaptureDepthDataOutput to capture session")
             }
-            
         }
-        
-    
-        
     }
 }
 
@@ -142,10 +137,12 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
             }
         }
+        
+        
         self.processFrame.findObject(cgImage: cgImage) { [self] processedFrame in
             DispatchQueue.main.async {
                 self.frame = processedFrame
-            }
+          }
         }
     }
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -158,8 +155,6 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
         return cgImage
     }
-    
-    
     
     func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
         // Extract the depth data map
@@ -241,7 +236,6 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             median = depthValues[middleIndex]
         }
         distance = median
-        
         
         return distance
     }

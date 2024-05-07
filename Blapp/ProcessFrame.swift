@@ -8,7 +8,7 @@ class ProcessFrame: NSObject, ObservableObject {
     func findObject(cgImage: CGImage, completion: @escaping (CGImage) -> Void) {
         var uiImage = UIImage(cgImage: cgImage)
         frameProcessingQueue.async {
-            uiImage = OpenCVWrapper().centerObject(uiImage)
+          uiImage = OpenCVWrapper().centerObject(uiImage)
             if let overlayedImage = uiImage.cgImage {
                 completion(overlayedImage)
             } else {
@@ -16,28 +16,9 @@ class ProcessFrame: NSObject, ObservableObject {
             }
         }
     }
-    
-    func getDistance(){
-        
-    }
-    
-    func findRelativeArea(cgImage: CGImage) -> Double {
-        let uiImage = UIImage(cgImage: cgImage)
-        let area = OpenCVWrapper().centerArea(uiImage)
-        return Double(area)
-    }
-    
-    func getRealArea(cgImage: CGImage, cameraDevice: AVCaptureDevice, currentDepth: Double) -> Double{
-        let relativeArea = findRelativeArea(cgImage: cgImage)
-        let pixelSize = findPixelSize(cameraDevice: cameraDevice, currentDepth: currentDepth)
-        let realArea = calculateRealArea(pixelSize: pixelSize, relativeArea: relativeArea)
-        return realArea
-    }
-    
     private func findPixelSize(cameraDevice: AVCaptureDevice, currentDepth: Double) -> Double{
 //        let cameraDevice = frameHandler.getCameraDevice()
-//        let fieldOfViewDegrees = cameraDevice.activeFormat.videoFieldOfView // in degrees
-        let fieldOfViewDegrees = 67
+        let fieldOfViewDegrees = cameraDevice.activeFormat.videoFieldOfView // in degrees
 //        print("field of view is \(fieldOfViewDegrees) degrees")
         let fieldOfViewRadians = Double(fieldOfViewDegrees) * Double.pi / 180
 //        print("field of view is \(fieldOfViewRadians) rad")
