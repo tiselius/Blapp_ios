@@ -29,6 +29,7 @@
 		4A831C432BE138CD00A1A662 /* ChooseLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831C422BE138CD00A1A662 /* ChooseLanguageView.swift */; };
 		4A831C452BE138DB00A1A662 /* ChooseLiquidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A831C442BE138DB00A1A662 /* ChooseLiquidView.swift */; };
 		4AD966F72BD7EB8A00CF01DD /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */; };
+		4AE951D42BE8D32F00AEA4A3 /* ObjectDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4AE951D32BE8D32F00AEA4A3 /* ObjectDetection.cpp */; };
 		7A4946642BD7F35100F9891C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D0584DC52BCE920400EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
 		D0584DC82BCE9DFE00EFE8A4 /* mervale-script.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */; };
@@ -83,9 +84,6 @@
 		4A2E730F2BCD2E2500AE877F /* BlappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4A2E73242BCD5FF400AE877F /* Info.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.xcprivacy; sourceTree = "<group>"; };
 		4A7AD0AA2BE3BF15002E4532 /* LiquidManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidManager.swift; sourceTree = "<group>"; };
-		4A7AD0AC2BE8C4F6002E4532 /* ObjectDetection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
-		4A7AD0AD2BE8C4F6002E4532 /* ObjectDetection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
-		4A7AD0AE2BE8C833002E4532 /* ObjectInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ObjectInfo.hpp; sourceTree = "<group>"; };
 		4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessFrame.swift; sourceTree = "<group>"; };
 		4A831BFA2BDA7F5100A1A662 /* CalculateVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateVolume.swift; sourceTree = "<group>"; };
 		4A831C242BDF8C5E00A1A662 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
@@ -102,6 +100,8 @@
 		4AD966F02BD7EB7900CF01DD /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		4AD966F22BD7EB8900CF01DD /* OpenCVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		4AE951D22BE8D32F00AEA4A3 /* ObjectDetection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectDetection.hpp; sourceTree = "<group>"; };
+		4AE951D32BE8D32F00AEA4A3 /* ObjectDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetection.cpp; sourceTree = "<group>"; };
 		D0584DC42BCE920400EFE8A4 /* mervale-script.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mervale-script.ttf"; sourceTree = "<group>"; };
 		D0584DCA2BCE9F3900EFE8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D09887BB2BE0E69F007EA91E /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
@@ -153,9 +153,8 @@
 				D0AA038E2BD78D3400C4ECC5 /* opencv2.framework */,
 				4AD966EF2BD7EB7900CF01DD /* Blapp-Bridging-Header.h */,
 				4AD966F02BD7EB7900CF01DD /* PrefixHeader.pch */,
-				4A7AD0AC2BE8C4F6002E4532 /* ObjectDetection.cpp */,
-				4A7AD0AD2BE8C4F6002E4532 /* ObjectDetection.hpp */,
-				4A7AD0AE2BE8C833002E4532 /* ObjectInfo.hpp */,
+				4AE951D32BE8D32F00AEA4A3 /* ObjectDetection.cpp */,
+				4AE951D22BE8D32F00AEA4A3 /* ObjectDetection.hpp */,
 				4A2E72F12BCD2E2300AE877F /* Blapp */,
 				4A2E73022BCD2E2500AE877F /* BlappTests */,
 				4A2E730C2BCD2E2500AE877F /* BlappUITests */,
@@ -191,7 +190,6 @@
 				D0AA03992BDA2F6100C4ECC5 /* PixelSize.swift */,
 				4A831BEF2BD7F2B700A1A662 /* ProcessFrame.swift */,
 				4AD966F22BD7EB8900CF01DD /* OpenCVWrapper.h */,
-				4A831C3A2BE1377600A1A662 /* YuseiMagic-Regular.ttf */,
 				4AD966F52BD7EB8A00CF01DD /* OpenCVWrapper.mm */,
 				D0AA03822BD1166800C4ECC5 /* CameraView.swift */,
 				4A831C262BDF8E2000A1A662 /* CameraViewReference.swift */,
@@ -199,6 +197,7 @@
 				D0AA03702BCFA36E00C4ECC5 /* CameraUI.swift */,
 				4A2E72F42BCD2E2300AE877F /* StartPageUI.swift */,
 				4A2E72F62BCD2E2500AE877F /* Assets.xcassets */,
+				4A831C3A2BE1377600A1A662 /* YuseiMagic-Regular.ttf */,
 				4A2E72F82BCD2E2500AE877F /* Preview Content */,
 			);
 			path = Blapp;
@@ -427,6 +426,7 @@
 				D0AA03712BCFA36E00C4ECC5 /* CameraUI.swift in Sources */,
 				4A2E72F52BCD2E2300AE877F /* StartPageUI.swift in Sources */,
 				4A7AD0AB2BE3BF15002E4532 /* LiquidManager.swift in Sources */,
+				4AE951D42BE8D32F00AEA4A3 /* ObjectDetection.cpp in Sources */,
 				4A831C272BDF8E2000A1A662 /* CameraViewReference.swift in Sources */,
 				4A831C252BDF8C5E00A1A662 /* Global.swift in Sources */,
 				4A831C2B2BDFB98800A1A662 /* SettingsView.swift in Sources */,
@@ -622,8 +622,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -662,8 +662,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

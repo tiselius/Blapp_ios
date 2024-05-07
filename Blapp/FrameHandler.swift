@@ -1,7 +1,3 @@
-
-
-
-
 import AVFoundation
 import CoreImage
 import Combine
@@ -14,7 +10,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     @Published var meanvalue: Float = 0.0// Add a published property for mean value
     @Published var area: Float32 = 0.0
     @Published private var useReference = UserDefaults.standard.bool(forKey: "useReference")
-
+    
     private var distanceArray = [Float]() // Array to store distances , Vi testar den genom att sätta in 9 st element och ser ifall array töms efter 10 då mean value då kommer ändras ifrån 2.98
     
     private var cameraDevice: AVCaptureDevice!
@@ -74,19 +70,31 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         let dualWideCamera = AVCaptureDevice.DeviceType.builtInDualWideCamera
         
         // Create a discovery session to find devices of the specified type
-        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar,dualWideCamera,dualCamera], mediaType: .video, position: .back)
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar, dualWideCamera, dualCamera], mediaType: .video, position: .back)
         
         if(discoverySession.devices.first != nil){
             cameraDevice = discoverySession.devices.first
             noDepthCameraAvailable = false
+            /**Unfatomable bug fix here: If this line is removed, the camera is sometimes ultra wide if useReference is true.*/
+            if(useReference){
+                cameraDevice = cameraDevice.constituentDevices.last //Make sure it is not ultra wide angle
+            }
+            print("Device is: ")
+            print(cameraDevice as Any)
+            print(discoverySession.devices)
+            /*
+             [[Back Dual Wide Camera][com.apple.avfoundation.avcapturedevice.built-in_video:6]]
+             [[Back Dual Wide Camera][com.apple.avfoundation.avcapturedevice.built-in_video:6]]
+             */
         }
         else{
+            print("Didnt find a camera from discoverysession.")
             cameraDevice = AVCaptureDevice.default(for: .video)
             UserDefaults.standard.set(true, forKey: "usereference")
             noDepthCameraAvailable = true
         }
         
-        guard let _backCamera = cameraDevice else{
+        guard cameraDevice != nil else{
             print("No suitable camera found.")
             return
         }
@@ -102,25 +110,23 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         
         print("useReference = \(useReference)")
         if(!useReference){
-        depthDataOutput = AVCaptureDepthDataOutput()
-        guard let depthDataOutput = depthDataOutput else {
-            print("Failed to create AVCaptureDepthDataOutput")
-            return
-        }
+            depthDataOutput = AVCaptureDepthDataOutput()
+            guard let depthDataOutput = depthDataOutput else {
+                print("Failed to create AVCaptureDepthDataOutput")
+                return
+            }
             
             if captureSession.canAddOutput(depthDataOutput) {
                 captureSession.addOutput(depthDataOutput)
+                
                 depthDataOutput.setDelegate(self, callbackQueue: DispatchQueue(label: "depthDataOutputQueue"))
+                
             } else {
                 print("Failed to add AVCaptureDepthDataOutput to capture session")
             }
-            
         }
-        
-        print("Device is: ")
-        print(cameraDevice as Any)
-        print(captureSession.inputs)
-    
+        else{
+        }
     }
     
 }
@@ -134,7 +140,6 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             distanceArray.append(distance)
             let countWhenFull : Int = 10
             if (distanceArray.count == countWhenFull) {
-                
                 let sum = distanceArray.reduce(0, +)
                 let mean = sum / (Float(countWhenFull))
                 distanceArray.removeAll() // Clear the Array
@@ -162,15 +167,12 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
         return cgImage
     }
-    
-    
-    
+
     func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
-        if counter % 2 == 0{
+        if counter % 2 == 0 {
             // Extract the depth data map
             let depthData = (depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
             let depthDataMap = depthData.depthDataMap
-            
             DispatchQueue.main.async{
                 self.distance = self.getDepthAtCenter(from: depthDataMap)!
             }
@@ -179,7 +181,7 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
                 if let frame = self.frame { // Check if frame is not nil
                     let uiImage = UIImage(cgImage: frame)
                     self.pixelSize = getPixelSize(for: self.cameraDevice, with: uiImage, with: self.distance)
-                    relativeAreaOfObject = OpenCVWrapper().centerArea(uiImage)
+                    
                     calculateArea(pixelSize: self.pixelSize, relativeArea: relativeAreaOfObject)
                     calculateVolume()
                 } else {
@@ -188,12 +190,12 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
             }
         }
+        counter += 1
     }
     
     func depthDataOutput(_ output: AVCaptureDepthDataOutput, didDrop depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
         print("Dropped depthFrame")
     }
-    
     
     private func getDepthAtCenter(from depthDataMap: CVPixelBuffer) -> Float32? {
         // Lock the pixel buffer and get a pointer to its data
@@ -211,8 +213,8 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         // Calculate the center coordinates
-        let size_x = 5
-        let size_y = 5
+        let size_x = 1
+        let size_y = 1
         let x_init = (width / 2) - size_x
         let y_init = (height / 2) - size_y
         let x_end = (width / 2) + size_x
