@@ -75,6 +75,7 @@ struct CameraViewReference: View {
             let referenceArea = getReferenceArea(image: frameHandler.frame!)
             let pixelSize = currentReference.area / Float(referenceArea)
             let finalArea = pixelSize * Float(relativeAreaOfObject)
+            currentArea = finalArea
             currentVolume = calculateVolume2(area: Float(finalArea))
 
             print(currentVolume)

@@ -117,7 +117,7 @@
     cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_RGBA2RGB);
     
     ObjectDetection objectDetection;
-    cv::Mat imageWithObject = objectDetection.identifyObject(convertedColorSpaceImage);
+    cv::Mat imageWithObject = objectDetection.identifyCenterObject(convertedColorSpaceImage);
     
     return MatToUIImage(imageWithObject);
 }

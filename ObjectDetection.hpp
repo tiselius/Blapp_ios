@@ -1,3 +1,6 @@
+#ifndef OBJECTDETECTION_HPP
+#define OBJECTDETECTION_HPP
+
 #include <opencv2/opencv.hpp>
 #include <iostream>
 using namespace cv;
@@ -6,18 +9,28 @@ class ObjectDetection {
 public:
     cv::Mat identifyCenterObject(cv::Mat image);
     int identifyCenterObjectArea(cv::Mat image);
+    std::string findCenterOfObject(cv::Mat image);
 
     cv::Mat findObject(cv::Mat image, int x, int y);
     int findObjectArea(cv::Mat image, int x, int y);
 
-    cv::Mat identifyObject(cv::Mat image);
-    cv::Mat writeContourAll(cv::Mat& image);
-    cv::Mat readImage(const std::string& imgPath);
+    cv::Mat getEdges(cv::Mat image);
+
+    double getArea();
+    cv::Mat getImage();
+    cv::Point getCenter();
+
+    void findObjectInfo(cv::Mat image, int x, int y);
+    void centerObjectInfo(cv::Mat image);
 
 private:
+    double areaInfo;
+    cv::Mat imageInfo;
+    cv::Point centerInfo;
+
+    cv::Scalar contourColor = cv::Scalar(222, 181, 255);
+    void drawWeightedContour(cv::Mat image, std::vector<cv::Point> contour);
     std::vector<std::vector<cv::Point>> getContours(cv::Mat& image);
-    int getAverageHSV(const cv::Mat& image);
-    int getHSV(const cv::Mat image);
-    cv::Mat createMask(const cv::Mat& inputImage, const cv::Scalar& lowerBound, const cv::Scalar& upperBound);
-    cv::Mat applyMask(const cv::Mat& image, const cv::Mat& mask);
 };
+
+#endif // OBJECTDETECTION_HPP
