@@ -106,6 +106,7 @@ struct SettingsView: View {
                                 Text("Chose Unit")
                                     .font(.custom("YuseiMagic-Regular", size: 20))
                                     .foregroundColor(Color.white)
+                                    .padding(.top, 20)
                                 Toggle("Metric Units", isOn: Binding<Bool>(
                                                get: { selectedVolumeUnit == .metric },
                                                set: { newValue in
@@ -134,7 +135,7 @@ struct SettingsView: View {
                             }//Vstack
                         }//ZStackSheet
                     }//Gemoetry Reader
-                    .presentationDetents([.medium])
+                    .presentationDetents([.height(200)])
                 }//Sheet
             }//ZStack
         }//NavigationStack
