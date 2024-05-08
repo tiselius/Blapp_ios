@@ -35,8 +35,8 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     /*
      Used for calculating the depthdata
      */
-    let height = 1080 //temporary
-    let width  = 1920 //temporary
+    let height = 180 //temporary
+    let width  = 320 //temporary
     let square_x = 5
     let square_y = 5
     let x_init : Int
@@ -188,7 +188,6 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             // Extract the depth data map
             let depthData = (depthData as AVDepthData?)!.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
             let depthDataMap = depthData.depthDataMap
-            
             // Calculate depth value at the center of the frame
             DispatchQueue.main.async{
                 self.distance = self.getDepthAtCenter(from: depthDataMap)!
@@ -211,9 +210,8 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             distanceArray.append(distance)
             if (distanceArray.count == distanceArrayMaxAmount) {
                 let sum = distanceArray.reduce(0, +)
-                let mean = Int(sum) / (distanceArrayMaxAmount)
+                let mean = sum / 10//Float(distanceArrayMaxAmount)
                 distanceArray.removeAll() // Clear the Array
-                
                 // Update mean property
                 DispatchQueue.main.async {
                     self.meanvalue = Float(mean)
@@ -253,7 +251,7 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
          */
         for x in stride(from: x_init, to: x_end, by: 1) {
             for y in stride(from: y_init, to: y_end, by: 1) {
-                let depth = depthPointer[Int(width * y + x)]
+                let depth = depthPointer[Int(self.width * y + x)]
                 depthValues.append(depth)
             }
         }
