@@ -298,3 +298,6 @@ std::string ObjectDetection::findCenterOfObject(cv::Mat image) {
 
     return ret;
 }
+
+
+

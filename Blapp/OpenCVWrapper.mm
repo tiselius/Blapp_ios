@@ -122,6 +122,23 @@
     self.image = MatToUIImage(objectDetection.getImage());
 }
 
+- (void) centerObjectNewTest: (CVImageBufferRef) pixelBuffer{
+//    cv::Mat opencvImage;
+    
+    cv::Mat opencvImage = [self matFromBuffer:pixelBuffer];
+    NSLog(@"imageSize = %d", opencvImage.size);
+    
+    cv::Mat convertedColorSpaceImage;
+//    cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_GRAY2RGB);
+//    NSLog(@"source shape = (%d, %d)", convertedColorSpaceImage.cols, convertedColorSpaceImage.rows);
+//    
+    ObjectDetection objectDetection;
+    objectDetection.centerObjectInfo(opencvImage);
+    
+    self.area = objectDetection.getArea();
+    self.image = MatToUIImage(objectDetection.getImage());
+}
+
 - (UIImage *) getObjectImage {
     return self.image;
 }
@@ -129,20 +146,33 @@
     return self.area;
 }
 
-//- (UIImage *) identifyObject: (UIImage *) image {
-//    // convert uiimage to mat
-//    cv::Mat opencvImage;
-//    UIImageToMat(image, opencvImage, true);
-//
-//    // convert colorspace to the one expected by the lane detector algorithm (RGB)
-//    cv::Mat convertedColorSpaceImage;
-//    cv::cvtColor(opencvImage, convertedColorSpaceImage, COLOR_RGBA2RGB);
-//
-//    ObjectDetection objectDetection;
-//    cv::Mat imageWithObject = objectDetection.identifyObject(convertedColorSpaceImage);
-//
-//    return MatToUIImage(imageWithObject);
-//}
+- (cv::Mat)matFromBuffer:(CVImageBufferRef)pixelBuffer {
+    CVPixelBufferLockBaseAddress(pixelBuffer, 0);
+
+    // Get pixel buffer properties
+    int bufferWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
+    int bufferHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
+    unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
+
+    // Create a temporary YUV Mat object
+    cv::Mat yuvMat(bufferHeight + bufferHeight / 2, bufferWidth, CV_8UC1, pixel);
+
+    // Deep copy the pixel data
+    cv::Mat yuvMatCopy = yuvMat.clone();
+
+    // Unlock the pixel buffer
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+
+    // Convert YUV to RGB
+    cv::Mat mat;
+    cv::cvtColor(yuvMatCopy, mat, cv::COLOR_YUV2RGB_YV12); // Assuming YUV420 format
+
+//    // Convert to grayscale
+//    cv::Mat matGray;
+//    cv::cvtColor(mat, matGray, cv::COLOR_RGB2GRAY);
+
+    return mat;
+}
 
 + (NSString *)getOpenCVVersion {
     return [NSString stringWithFormat:@"OpenCV Version %s",  CV_VERSION];

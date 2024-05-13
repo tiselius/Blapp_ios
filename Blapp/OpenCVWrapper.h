@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) centerObjectNew: (UIImage *) image;
 - (UIImage *) getObjectImage;
 - (int) getObjectArea;
+- (void) centerObjectNewTest: (CVImageBufferRef) pixelBuffer;
 
 @end
 

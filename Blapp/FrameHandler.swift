@@ -1,7 +1,3 @@
-
-
-
-
 import AVFoundation
 import CoreImage
 import Combine
@@ -44,6 +40,32 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
     let x_end : Int
     let y_end : Int
     
+    private var frameCount: Int = 0
+    private var startTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
+    private var fps: Double = 0.0
+    private let fpsUpdateInterval: TimeInterval = 1.0 // Update FPS every second
+
+    // Timer for updating FPS
+    private var fpsUpdateTimer: Timer?
+
+    private func startFPSTimer() {
+        fpsUpdateTimer = Timer.scheduledTimer(withTimeInterval: fpsUpdateInterval, repeats: true) { [weak self] timer in
+            guard let self = self else { return }
+            self.updateFPS()
+            print(fps)
+        }
+    }
+
+    private func updateFPS() {
+        let currentTime = CFAbsoluteTimeGetCurrent()
+        let elapsedTime = currentTime - startTime
+        if elapsedTime > 0 {
+            fps = Double(frameCount) / elapsedTime
+        }
+        frameCount = 0
+        startTime = currentTime
+    }
+    
     override init() {
         self.processFrame = ProcessFrame()
         self.processedFrame = (testImage?.cgImage)!
@@ -57,8 +79,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             self.setupCaptureSession()
             self.captureSession.startRunning()
         }
-
-        
+        startFPSTimer()
     }
     
     func checkPermission() {
@@ -97,7 +118,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [lidar,dualWideCamera,dualCamera], mediaType: .video, position: .back)
         
         if(discoverySession.devices.first != nil){
-            cameraDevice = discoverySession.devices.first
+            cameraDevice = discoverySession.devices.first 
             noDepthCameraAvailable = false
         }
         else{
@@ -106,7 +127,7 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             noDepthCameraAvailable = true
         }
         
-        guard let _backCamera = cameraDevice else{
+        guard cameraDevice != nil else{
             print("No suitable camera found.")
             return
         }
@@ -148,6 +169,7 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             // Skip processing if a frame is already being processed
             return
         }
+        frameCount += 1
         
         isProcessingFrame = true
         
@@ -158,8 +180,9 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
                 self.isProcessingFrame = false
                 return
             }
-            
-            let processedFrame = self.processFrame.findObject(cgImage: cgImage)
+//            guard let pixelBuffer = sampleBuffer.imageBuffer else {return}
+//            let processedFrame : CGImage = processFrame.findObjectTest(sampleBuffer: pixelBuffer)
+            let processedFrame : CGImage = processFrame.findObject(cgImage: cgImage)
             
             DispatchQueue.main.async { [weak self] in
                 self?.frame = processedFrame
@@ -177,6 +200,7 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { print("no imagebuffer :(")
             return nil }
         let ciImage = CIImage(cvPixelBuffer: imageBuffer)
+        
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {print("no cgImage :(")
             return nil }
         return cgImage
