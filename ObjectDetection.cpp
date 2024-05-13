@@ -148,9 +148,10 @@ void ObjectDetection::centerObjectInfo(cv::Mat image) {
     }
 
     // Draw the contour of the center object onto the image
-    drawWeightedContour(image, contours[centerContourIndex]);
-    //cv::drawContours(image, contours, centerContourIndex, contourColor, 1 + ((image.rows + image.cols) / 400));
-
+    if (centerContourIndex > -1) {
+        drawWeightedContour(image, contours[centerContourIndex]);
+    }
+    //    cv::drawContours(image, contours, centerContourIndex, cv::Scalar(0, 255, 0), 10);
     areaInfo = area;
     imageInfo = image;
     centerInfo = center;
