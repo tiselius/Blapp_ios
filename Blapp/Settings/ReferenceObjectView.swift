@@ -71,14 +71,14 @@ struct ReferenceObjectView: View {
                                             .frame(width: 45, height: 45)
                                             .foregroundColor(.black)
                                         Text("Add a new reference")
-                                            .font(.custom("YuseiMagic-Regular", size: 17))
+                                            .font(.system(size: 17))
                                     }//Hstack
                                 }//Button
                             }
                             }//Section
                     }//List
-                    .listStyle(.inset)
-                    .background(Color.white)
+                    .listStyle(.plain)
+                    .background(Color.clear)
                 }//VStack
                 .sheet(isPresented: $showingAddReference) {
                     GeometryReader{ geometry in
@@ -87,7 +87,7 @@ struct ReferenceObjectView: View {
                             VStack(spacing: 20) {
                         
                             Text("Add Custom Reference")
-                                .font(.custom("YuseiMagic-Regular", size: 20))
+                                .font(.system(size: 20))
                                 .foregroundColor(Color.white)
                                 TextField(
                                     "Name",
@@ -129,7 +129,7 @@ struct ReferenceObjectView: View {
                                 {
                                     HStack{
                                         Text("Add a new Reference")
-                                            .font(.custom("YuseiMagic-Regular", size: 20))
+                                            .font(.system(size: 20))
                                             .foregroundColor(Color.white)
                                             .background(Color(red: 1.0, green: 0.71, blue: 0.87))
                                             .cornerRadius(10)

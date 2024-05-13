@@ -78,7 +78,6 @@ struct ChooseLiquidView: View {
                         }//Section
                     }//List
                     .listStyle(PlainListStyle())
-                    .background(Color.white)
                     //.padding(.bottom, 200)
                 }//VStack
                 .sheet(isPresented: $showingAddLiquid) {
@@ -89,7 +88,7 @@ struct ChooseLiquidView: View {
                             VStack {
                                 Spacer()
                                 Text("Add Custom Liquid")
-                                    .font(.custom("YuseiMagic-Regular", size: 20))
+                                    .font(.system(size: 20))
                                     .foregroundColor(Color.white)
                                 Spacer()
                                 ScrollView {
@@ -103,8 +102,10 @@ struct ChooseLiquidView: View {
                                         .onSubmit {
                                             secondTextFieldFocused = true
                                         }
+                                        Text("Density in kg / m^3")
+                                            .foregroundColor(.white)
                                         TextField(
-                                            "Density in kg / m^3",
+                                            "Enter Density",
                                             value: $newLiquidDensity,
                                             formatter: NumberFormatter()
                                         )
@@ -114,8 +115,10 @@ struct ChooseLiquidView: View {
                                         .onSubmit {
                                             thirdTextFieldFocused = true
                                         }
+                                        Text("Surface tension in N/m")
+                                            .foregroundColor(.white)
                                         TextField(
-                                            "Surface tension in N/m",
+                                            "Enter Surface Tension",
                                             value: $newLiquidSurfaceTension,
                                             formatter: NumberFormatter()
                                         )
@@ -156,7 +159,7 @@ struct ChooseLiquidView: View {
                                         {
                                             HStack {
                                                 Text("Add a new liquid")
-                                                    .font(.custom("YuseiMagic-Regular", size: 20))
+                                                    .font(.system(size: 20))
                                                     .foregroundColor(Color.white)
                                                     .background(Color(red: 1.0, green: 0.71, blue: 0.87))
                                                     .cornerRadius(10)
