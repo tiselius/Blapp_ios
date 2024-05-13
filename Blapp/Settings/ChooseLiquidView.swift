@@ -23,7 +23,7 @@ struct ChooseLiquidView: View {
     @State private var showingAddLiquid = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack{
                 Image("Liquids_background")
                     .resizable()
@@ -43,7 +43,6 @@ struct ChooseLiquidView: View {
                                             .resizable()
                                             .frame(width: 40, height: 40)
                                         Text(liquid.name)
-                                            //.font(.custom("YuseiMagic-Regular", size: 17))
                                             .foregroundColor(.black)
                                         if(liquid.removeable == true){
                                                 Button(action: {
@@ -53,6 +52,7 @@ struct ChooseLiquidView: View {
                                                 }){Text("Remove").foregroundColor(.red)}
                                             }
                                             if liquidLabel == liquid.name {
+                                                Spacer()
                                                 Image(systemName: "checkmark")
                                                     .foregroundColor(.blue)
                                             }
@@ -77,9 +77,9 @@ struct ChooseLiquidView: View {
                             }//If BUTTON
                         }//Section
                     }//List
-                    .navigationTitle("Liquids")
                     .listStyle(PlainListStyle())
-                    .background(Color.clear)
+                    .background(Color.white)
+                    //.padding(.bottom, 200)
                 }//VStack
                 .sheet(isPresented: $showingAddLiquid) {
                     // Pop-up view
@@ -173,6 +173,7 @@ struct ChooseLiquidView: View {
                 }//Sheet
             }//Zstack
         }//NavigationView
+        .navigationTitle("Liquids")
     }//Body
 }//Struct
 

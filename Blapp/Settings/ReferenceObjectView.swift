@@ -20,7 +20,7 @@ struct ReferenceObjectView: View {
     @State private var showingAddReference = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack{
                 Image("Settings_background")
                     .resizable()
@@ -29,7 +29,7 @@ struct ReferenceObjectView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack{
                     List {
-                        Section(header: Text("Reference object"), footer: Text("Uses a reference object to get a real-life scale. \nCan only be turned off if a camera with depth capture is available.")) {
+                        Section(footer: Text("Uses a reference object to get a real-life scale. \nCan only be turned off if a camera with depth capture is available.")) {
                             Toggle(
                                 "Use reference object",
                                 systemImage: "skew", isOn: noDepthCameraAvailable ? .constant(true): $useReference)
@@ -77,8 +77,8 @@ struct ReferenceObjectView: View {
                             }
                             }//Section
                     }//List
-                    .listStyle(PlainListStyle())
-                    .background(Color.clear)
+                    .listStyle(.inset)
+                    .background(Color.white)
                 }//VStack
                 .sheet(isPresented: $showingAddReference) {
                     GeometryReader{ geometry in
@@ -145,5 +145,6 @@ struct ReferenceObjectView: View {
                 }//Sheet
             }//ZStack
         }//NavigationView
+        .navigationTitle("Reference Object")
     }//Body
 }//Struct
