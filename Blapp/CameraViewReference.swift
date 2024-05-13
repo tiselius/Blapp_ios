@@ -23,6 +23,14 @@ struct CameraViewReference: View {
             if let image = frameHandler.frame {
                 Image(image, scale: 1.0, orientation: .up, label: label)
                     .resizable()
+                    .gesture(
+                        MagnificationGesture()
+                            .onChanged { value in
+                                // Update the scale based on the pinch gesture
+                                scale = value.magnitude >= 1 ? value.magnitude : 1
+                                
+                            }
+                    )
                 
             } else {
                 GeometryReader { geometry in

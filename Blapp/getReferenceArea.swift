@@ -8,12 +8,16 @@
 import Foundation
 
 func getReferenceOverlay(image : CGImage) -> UIImage {
-    let referenceImage = OpenCVWrapper().referenceObjectOverlay(UIImage(cgImage: image), touchX!, touchY!)
+    let newTouchX = Int32(CGFloat(touchX!) / scale)
+    let newTouchY = Int32(CGFloat(touchY!) / scale)
+    let referenceImage = OpenCVWrapper().referenceObjectOverlay(UIImage(cgImage: image), newTouchX, newTouchY)
     return referenceImage
 }
 
 
 func getReferenceArea(image : CGImage) -> Int {
-    let referenceArea = OpenCVWrapper().referenceObjectArea(UIImage(cgImage: image), touchX!, touchY!)
+    let newTouchX = Int32(CGFloat(touchX!) / scale)
+    let newTouchY = Int32(CGFloat(touchY!) / scale)
+    let referenceArea = OpenCVWrapper().referenceObjectArea(UIImage(cgImage: image), newTouchX, newTouchY)
     return Int(referenceArea)
 }

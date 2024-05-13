@@ -12,6 +12,7 @@ var touchX : Int32?
 var touchY : Int32?
 var referenceImage : UIImage?
 var relativeAreaOfObject : Int32 = 0
+var scale: CGFloat = 1.0
 
 //Constants
 let m3ToDl : Float = 10000

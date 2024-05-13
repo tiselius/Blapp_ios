@@ -25,7 +25,6 @@ class ProcessFrame: NSObject, ObservableObject {
     
     func findRelativeArea() -> Int32 {
         let area = wrapper.getObjectArea()
-        print("number of pixels: \(area)")
         return area
     }
     

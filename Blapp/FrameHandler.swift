@@ -149,11 +149,14 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             
-            guard let cgImage = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer) else {
+            guard var cgImage = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer) else {
                 self.isProcessingFrame = false
                 return
             }
-            
+            if let croppedImage = cropImage(cgImage) {
+                cgImage = croppedImage
+            }
+            else{print("couldnt crop image")}
             let processedFrame = self.processFrame.findObject(cgImage: cgImage)
             
             DispatchQueue.main.async { [weak self] in
@@ -163,6 +166,33 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
     
+    func cropImage(_ image: CGImage) -> CGImage? {
+        let imageWidth = CGFloat(image.width)
+        let imageHeight = CGFloat(image.height)
+        
+        // Calculate the size of the cropped area based on the zoom level
+        let croppedWidth = imageWidth / scale
+        let croppedHeight = imageHeight / scale
+        
+        // Calculate the center point of the image
+        let centerX = imageWidth / 2
+        let centerY = imageHeight / 2
+        
+        // Calculate the origin of the cropping rectangle to keep the center of the image
+        let cropOriginX = max(0, centerX - croppedWidth / 2)
+        let cropOriginY = max(0, centerY - croppedHeight / 2)
+        
+        // Create the cropping rectangle
+        let croppedRect = CGRect(x: cropOriginX, y: cropOriginY, width: croppedWidth, height: croppedHeight)
+        
+        // Crop the image using the calculated rectangle
+        guard let croppedImage = image.cropping(to: croppedRect) else {
+            print("Failed to crop image")
+            return nil
+        }
+        
+        return croppedImage
+    }
     
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print("Dropped frame")

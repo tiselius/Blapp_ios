@@ -14,47 +14,45 @@ struct CameraUI: View {
     @State private var textOffset: CGFloat = 250
     @State private var showVolumeText = false // State variable to control text visibility
     @State private var useReference = UserDefaults.standard.bool(forKey: "useReference")
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack{
-            ZStack{
-                if(!self.useReference){
-                    CameraView(frameHandler: frameHandler)
-                        .frame(height: UIScreen.main.bounds.height * 0.8)
-                }
-                else{
-                    CameraViewReference(frameHandler: frameHandler)
-                        .frame(height: UIScreen.main.bounds.height * 0.8)
-                }
-                Rectangle()
-                    .strokeBorder(LinearGradient(
-                        gradient: Gradient(colors: [
-                            Color(red: 1, green: 0.39, blue: 0.39),
-                            Color(red: 1, green: 0.55, blue: 0.63),
-                            Color(red: 1, green: 0.56, blue: 0.64),
-                            Color(red: 1, green: 0.56, blue: 0.65),
-                            Color(red: 1, green: 0.57, blue: 0.66)
-                        ]),
-                        startPoint: .top,
-                        endPoint: .bottom
-                    ), lineWidth: 3)
-                
-                Text(showVolumeText ? "\(currentVolume) dl" : "")
-                        .padding(30)
-                        .font(.custom("YuseiMagic-Regular", size: 20))
-                        .foregroundColor(Color.white)
-                        .background(Color(red: 1.0, green: 0.71, blue: 0.87))
-                        .cornerRadius(10)
-                        .shadow(radius: 2)
-                        .offset(x: showVolumeText ? 0 : 1000)
+        
+        ZStack{
+            if(!self.useReference){
+                CameraView(frameHandler: frameHandler)
+                    .frame(height: UIScreen.main.bounds.height)
+                    .ignoresSafeArea()
+            }
+            else{
+                CameraViewReference(frameHandler: frameHandler)
+                    .frame(height: UIScreen.main.bounds.height)
+                    .ignoresSafeArea()
             }
 
+            Text(showVolumeText ? "\(currentVolume) dl" : "")
+                .padding(30)
+                .foregroundColor(Color.white)
+                .background(Color(red: 1.0, green: 0.71, blue: 0.87))
+                .cornerRadius(10)
+                .shadow(radius: 2)
+                .offset(x: showVolumeText ? 0 : 1000)
+            
             //Buttons
-            HStack(spacing: 20){
+            HStack(){
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image("Return")
+                        .resizable()
+                        .frame(width: 120, height: 120)
+                        .foregroundColor(.black) // Set the color of the return button
+                }
+                .offset(x: -50, y: 10) // Adjust the offset to position the button
                 Button(action: {
                     if(frameHandler.captureSession.isRunning){
                         frameHandler.captureSession.stopRunning()
-
+                        
                         
                     } else {
                         frameHandler.sessionQueue.async{
@@ -73,14 +71,11 @@ struct CameraUI: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                
+                .offset(x: -64)
             }
         }
-        .background(.white)
+        //        .background(.clear)
     }
-    
-    
 }
-
 
 
