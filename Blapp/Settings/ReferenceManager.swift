@@ -11,7 +11,7 @@ class ReferenceManager: ObservableObject {
     static let shared = ReferenceManager() // Singleton instance
     
     @Published var references: [Reference] = [
-        Reference(name: "Plastic card", image: "creditcard", area: 0.004624, removeable: false),
+        Reference(name: "Plastic card", image: "creditcard", area: 0.004675, removeable: false),
         Reference(name: "Snus tin", image: "circle.circle", area: 0.015393804, removeable: false),
         Reference(name: "Fuel pump", image: "fuelpump", area: 2.2, removeable: false)
     ]

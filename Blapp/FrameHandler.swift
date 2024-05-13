@@ -106,11 +106,12 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
             UserDefaults.standard.set(true, forKey: "usereference")
             noDepthCameraAvailable = true
         }
-        
-        guard let _backCamera = cameraDevice else{
+
+        guard cameraDevice != nil else{
             print("No suitable camera found.")
             return
         }
+        if(useReference){cameraDevice = cameraDevice.constituentDevices.last} //Prevent ultra wide
         
         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: cameraDevice) else{ return }
         guard captureSession.canAddInput(videoDeviceInput) else { return }
@@ -119,7 +120,6 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
         captureSession.addOutput(videoOutput)
         // otherwise our frame is displayed sideways on screen
         videoOutput.connection(with: .video)?.videoRotationAngle = 90
-        
         print("useReference = \(useReference)")
         if(!useReference){
         depthDataOutput = AVCaptureDepthDataOutput()
@@ -134,9 +134,6 @@ class FrameHandler: NSObject, ObservableObject, AVCaptureDepthDataOutputDelegate
                 print("Failed to add AVCaptureDepthDataOutput to capture session")
             }
         }
-        
-        
-        
     }
 }
 

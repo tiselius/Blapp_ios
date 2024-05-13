@@ -103,7 +103,7 @@ struct SettingsView: View {
                         ZStack {
                             Color(red: 1, green: 0.49, blue: 0.53).edgesIgnoringSafeArea(.all)
                             VStack(spacing: 20) {
-                                Text("Chose Unit")
+                                Text("Choose Unit")
                                     .font(.custom("YuseiMagic-Regular", size: 20))
                                     .foregroundColor(Color.white)
                                     .padding(.top, 20)

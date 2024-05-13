@@ -11,7 +11,6 @@ import Foundation
 var touchX : Int32?
 var touchY : Int32?
 var referenceImage : UIImage?
-let referenceAreaReal : Float = 0.004518791
 var relativeAreaOfObject : Int32 = 0
 
 //Constants
@@ -53,7 +52,6 @@ enum VolumeUnit: String {
     // Add more volume units as needed
 }
 
-let useOunces: Bool = false
 
 
 var surfaceTensionOfCurrentLiquid : Double = 0.060
@@ -82,6 +80,7 @@ struct Liquid : Identifiable, Equatable {
 //Flags
 var useReference : Bool = UserDefaults.standard.bool(forKey: "useReference")
 var noDepthCameraAvailable : Bool = false
+let useOunces: Bool = false
 
 //Managers
 var referenceManager = ReferenceManager.shared

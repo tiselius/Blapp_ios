@@ -72,11 +72,11 @@ struct CameraViewReference: View {
             relativeAreaOfObject = OpenCVWrapper().centerArea(referenceImage!)
 
             let referenceArea = getReferenceArea(image: frameHandler.frame!)
-            let pixelSize = currentReference.area / Float(referenceArea)
+            let pixelSize = currentReference.area / Float32(referenceArea)
             print(pixelSize)
-            let finalArea = pixelSize * Float(relativeAreaOfObject)
+            let finalArea = pixelSize * Float32(relativeAreaOfObject)
             currentArea = finalArea
-            currentVolume = calculateVolume2(area: Float(finalArea))
+            currentVolume = calculateVolume2(area: Float32(finalArea))
         }
     }
 }
