@@ -20,7 +20,7 @@ struct ReferenceObjectView: View {
     @State private var showingAddReference = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack{
                 Image("Settings_background")
                     .resizable()
@@ -29,7 +29,7 @@ struct ReferenceObjectView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack{
                     List {
-                        Section(header: Text("Reference object"), footer: Text("Uses a reference object to get a real-life scale. \nCan only be turned off if a camera with depth capture is available.")) {
+                        Section(footer: Text("Uses a reference object to get a real-life scale. \nCan only be turned off if a camera with depth capture is available.")) {
                             Toggle(
                                 "Use reference object",
                                 systemImage: "skew", isOn: noDepthCameraAvailable ? .constant(true): $useReference)
@@ -71,13 +71,13 @@ struct ReferenceObjectView: View {
                                             .frame(width: 45, height: 45)
                                             .foregroundColor(.black)
                                         Text("Add a new reference")
-                                            .font(.custom("YuseiMagic-Regular", size: 17))
+                                            .font(.system(size: 17))
                                     }//Hstack
                                 }//Button
                             }
                             }//Section
                     }//List
-                    .listStyle(PlainListStyle())
+                    .listStyle(.plain)
                     .background(Color.clear)
                 }//VStack
                 .sheet(isPresented: $showingAddReference) {
@@ -87,7 +87,7 @@ struct ReferenceObjectView: View {
                             VStack(spacing: 20) {
                         
                             Text("Add Custom Reference")
-                                .font(.custom("YuseiMagic-Regular", size: 20))
+                                .font(.system(size: 20))
                                 .foregroundColor(Color.white)
                                 TextField(
                                     "Name",
@@ -129,7 +129,7 @@ struct ReferenceObjectView: View {
                                 {
                                     HStack{
                                         Text("Add a new Reference")
-                                            .font(.custom("YuseiMagic-Regular", size: 20))
+                                            .font(.system(size: 20))
                                             .foregroundColor(Color.white)
                                             .background(Color(red: 1.0, green: 0.71, blue: 0.87))
                                             .cornerRadius(10)
@@ -145,5 +145,6 @@ struct ReferenceObjectView: View {
                 }//Sheet
             }//ZStack
         }//NavigationView
+        .navigationTitle("Reference Object")
     }//Body
 }//Struct

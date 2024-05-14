@@ -23,7 +23,7 @@ struct ChooseLiquidView: View {
     @State private var showingAddLiquid = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack{
                 Image("Liquids_background")
                     .resizable()
@@ -43,7 +43,6 @@ struct ChooseLiquidView: View {
                                             .resizable()
                                             .frame(width: 40, height: 40)
                                         Text(liquid.name)
-                                            //.font(.custom("YuseiMagic-Regular", size: 17))
                                             .foregroundColor(.black)
                                         if(liquid.removeable == true){
                                                 Button(action: {
@@ -53,6 +52,7 @@ struct ChooseLiquidView: View {
                                                 }){Text("Remove").foregroundColor(.red)}
                                             }
                                             if liquidLabel == liquid.name {
+                                                Spacer()
                                                 Image(systemName: "checkmark")
                                                     .foregroundColor(.blue)
                                             }
@@ -77,9 +77,8 @@ struct ChooseLiquidView: View {
                             }//If BUTTON
                         }//Section
                     }//List
-                    .navigationTitle("Liquids")
                     .listStyle(PlainListStyle())
-                    .background(Color.clear)
+                    //.padding(.bottom, 200)
                 }//VStack
                 .sheet(isPresented: $showingAddLiquid) {
                     // Pop-up view
@@ -89,7 +88,7 @@ struct ChooseLiquidView: View {
                             VStack {
                                 Spacer()
                                 Text("Add Custom Liquid")
-                                    .font(.custom("YuseiMagic-Regular", size: 20))
+                                    .font(.system(size: 20))
                                     .foregroundColor(Color.white)
                                 Spacer()
                                 ScrollView {
@@ -103,8 +102,10 @@ struct ChooseLiquidView: View {
                                         .onSubmit {
                                             secondTextFieldFocused = true
                                         }
+                                        Text("Density in kg / m^3")
+                                            .foregroundColor(.white)
                                         TextField(
-                                            "Density in kg / m^3",
+                                            "Enter Density",
                                             value: $newLiquidDensity,
                                             formatter: NumberFormatter()
                                         )
@@ -114,8 +115,10 @@ struct ChooseLiquidView: View {
                                         .onSubmit {
                                             thirdTextFieldFocused = true
                                         }
+                                        Text("Surface tension in N/m")
+                                            .foregroundColor(.white)
                                         TextField(
-                                            "Surface tension in N/m",
+                                            "Enter Surface Tension",
                                             value: $newLiquidSurfaceTension,
                                             formatter: NumberFormatter()
                                         )
@@ -156,7 +159,7 @@ struct ChooseLiquidView: View {
                                         {
                                             HStack {
                                                 Text("Add a new liquid")
-                                                    .font(.custom("YuseiMagic-Regular", size: 20))
+                                                    .font(.system(size: 20))
                                                     .foregroundColor(Color.white)
                                                     .background(Color(red: 1.0, green: 0.71, blue: 0.87))
                                                     .cornerRadius(10)
@@ -173,6 +176,7 @@ struct ChooseLiquidView: View {
                 }//Sheet
             }//Zstack
         }//NavigationView
+        .navigationTitle("Liquids")
     }//Body
 }//Struct
 

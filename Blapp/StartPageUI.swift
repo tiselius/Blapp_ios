@@ -48,9 +48,9 @@ struct StartPageUI: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 75, height: 75)
                     }
-                    .sheet(isPresented: $isShowingTutorial) {
-                        TutorialView(isPresented: $isShowingTutorial)
-                    }
+                 .sheet(isPresented: $isShowingTutorial) {
+                       TutorialView(isPresented: $isShowingTutorial)
+                   }
                     .padding(40)
                     Button(action: {isSettingsViewPresented.toggle()
                     }){
