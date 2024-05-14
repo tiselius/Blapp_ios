@@ -36,9 +36,9 @@ func updateSelectedVolumeUnit(_ unit: VolumeUnit) {
 
 // Update the volume calculation functions to use the selected volume unit
 func calculateVolume() {
-    let innerArg = surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity)
-    let depth = 2 * Double.squareRoot(innerArg)()
-    let volumeInDeciliters = Float(depth) * currentArea * m3ToDl
+    let innerArg = (surfaceTensionOfCurrentLiquid / (densityOfCurrentLiquid * gravity)) * (1-cos(75 * .pi / 180))
+    let depth = Double.squareRoot(2 * innerArg)()
+    let volumeInDeciliters = Float32(depth) * currentArea * m3ToDl
     
     switch selectedVolumeUnit {
     case .metric:
