@@ -42,10 +42,6 @@ var currentReference: Reference = {
     }
 }()
 
-
-
-
-
 // Define an enumeration for the volume unit
 enum VolumeUnit: String {
     case metric = "Metric"
