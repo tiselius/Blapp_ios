@@ -21,7 +21,7 @@ let densityOfBlood : Double = 1060
 let surfaceTensionOfWater : Double = 0.0725
 let densityOfWater : Double = 998
 let surfaceTensionOfCoke : Double = 0.049256
-let densityOfCoke : Double = 911
+let densityOfCoke : Double = 1045
 
 
 var currentLiquid: Liquid = {

@@ -21,8 +21,9 @@ struct CameraViewReference: View {
     var body: some View {
         ZStack{
             if let image = frameHandler.frame {
-                Image(image, scale: 1.0, orientation: .up, label: label)
+                Image(uiImage: UIImage(cgImage: image))
                     .resizable()
+                    .aspectRatio(contentMode: .fit) //.fit gör att den visar hela bilden. Den går inte utanför sin "box" och den stretchas inte.
                     .gesture(
                         MagnificationGesture()
                             .onChanged { value in
@@ -31,7 +32,6 @@ struct CameraViewReference: View {
                                 
                             }
                     )
-                
             } else {
                 GeometryReader { geometry in
                     LinearGradient(
@@ -81,7 +81,6 @@ struct CameraViewReference: View {
 
             let referenceArea = getReferenceArea(image: frameHandler.frame!)
             let pixelSize = currentReference.area / Float32(referenceArea)
-            print(pixelSize)
             let finalArea = pixelSize * Float32(relativeAreaOfObject)
             currentArea = finalArea
             currentVolume = calculateVolume2(area: Float32(finalArea))
