@@ -17,6 +17,7 @@ struct CameraUI: View {
     @State private var showVolumeSelection = false // State variable to control volume selection view visibility
     @Environment(\.dismiss) var dismiss
 
+    
     var body: some View {
             VStack {
                 ZStack {
@@ -27,6 +28,7 @@ struct CameraUI: View {
                         CameraViewReference(frameHandler: frameHandler)
                             .frame(height: UIScreen.main.bounds.height * 0.8)
                     }
+                  
                     Rectangle()
                         .strokeBorder(LinearGradient(
                             gradient: Gradient(colors: [
@@ -45,6 +47,20 @@ struct CameraUI: View {
 
                 // Buttons
                 HStack(spacing: 20) {
+                    
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image("Return")
+                            .resizable()
+                            .frame(width: 120, height: 120)
+                            .foregroundColor(.black) // Set the color of the return button
+                    }
+                    .offset(x: -10, y:-200 ) // Adjust the offset to position the button
+                    
+                    
+                    
+                    
                     // Button to get volume
                     Button(action: {
                         // Perform logic to obtain current volume from camera
@@ -55,7 +71,7 @@ struct CameraUI: View {
                      } else {frameHandler.sessionQueue.async{
                      frameHandler.captureSession.startRunning()
                           }
-                     }
+                }
                         
                 withAnimation(.easeIn) {
                          showVolumeText.toggle()
@@ -102,15 +118,6 @@ struct CameraUI: View {
                             
                         
                         }
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image("Return")
-                                .resizable()
-                                .frame(width: 120, height: 120)
-                                .foregroundColor(.black) // Set the color of the return button
-                        }
-                        .offset(x: -140, y: 320) // Adjust the offset to position the button
                     }
                 }.presentationDetents([.height(200)])
             }
