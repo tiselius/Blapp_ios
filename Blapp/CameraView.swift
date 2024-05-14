@@ -10,23 +10,25 @@ import SwiftUI
 
 
 struct CameraView: View {
-    
-    //    @StateObject var frameHandler = FrameHandler()
-    @StateObject var frameHandler : FrameHandler
-    //    @StateObject private var frameHandler : FrameHandler
-    //    @StateObject private var frameHandler : FrameHandler
-    var image: CGImage?
-    @State private var isLoading = true
-    private let label = Text("frame")
-    
+    @StateObject var frameHandler: FrameHandler
+//    @State private var scale: CGFloat = 1.0 // Track the scale for zooming
     
     var body: some View {
-        ZStack{
+        ZStack {
             if let image = frameHandler.frame {
-                Image(image, scale: 1.0, orientation: .up, label: label)
+                Image(uiImage: UIImage(cgImage: image))
                     .resizable()
-                
+                    .aspectRatio(contentMode: .fit) //.fit gör att den visar hela bilden. Den går inte utanför sin "box" och den stretchas inte.
+                    .gesture(
+                        MagnificationGesture()
+                            .onChanged { value in
+                                // Update the scale based on the pinch gesture
+                                scale = value.magnitude >= 1 ? value.magnitude : 1
+                                
+                            }
+                    )
             } else {
+                // Placeholder view if frame is not available
                 GeometryReader { geometry in
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -44,21 +46,9 @@ struct CameraView: View {
                 }
             }
         }
-        ZStack {
-            VStack {
-                Text("\(frameHandler.meanvalue) meters")
-                    .foregroundColor(Color.black)
-                Text("\(currentArea) m2")
-                    .foregroundColor(Color.black)
-                Text("\(currentVolume) dL")
-                    .foregroundColor(Color.black)
-            }
-            .padding(10)
-            .background(Color.white)
-            .cornerRadius(10) // Adjust corner radius as needed
-            .shadow(radius: 2) // Add shadow if desired
-            .offset(y: -250)
+        .onAppear {
+            scale = 1.0
         }
+//        .edgesIgnoringSafeArea(.all)
     }
 }
-

@@ -35,7 +35,7 @@ struct StartPageUI: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 75, height: 75)
                 }
-                .sheet(isPresented: $isCameraPresented) {
+                .fullScreenCover(isPresented: $isCameraPresented) {
                     // Present the camera view when the flag is true
                     CameraUI(frameHandler: FrameHandler())
                 }
