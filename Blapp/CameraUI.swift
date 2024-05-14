@@ -59,73 +59,14 @@ struct CameraUI: View {
                     Image("Return")
                         .resizable()
                         .frame(width: 80, height: 80)
-//                        .foregroundColor(.black) // Set the color of the return button
                 }
                 .offset(y: 10)// Adjust the offset to position the button
                 Spacer()
                 Button(action: {
                     if(frameHandler.captureSession.isRunning){
                         frameHandler.captureSession.stopRunning()
-                        
-                        
-                    } else {
-                        CameraViewReference(frameHandler: frameHandler)
-                            .frame(height: UIScreen.main.bounds.height * 0.8)
                     }
-                  
-                    Rectangle()
-                        .strokeBorder(LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color(red: 1, green: 0.39, blue: 0.39),
-                                Color(red: 1, green: 0.55, blue: 0.63),
-                                Color(red: 1, green: 0.56, blue: 0.64),
-                                Color(red: 1, green: 0.56, blue: 0.65),
-                                Color(red: 1, green: 0.57, blue: 0.66)
-                            ]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ), lineWidth: 3)
-                    
-                    
-                }
-
-                // Buttons
-                HStack(spacing: 20) {
-                    
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image("Return")
-                            .resizable()
-                            .frame(width: 120, height: 120)
-                            .foregroundColor(.black) // Set the color of the return button
-                    }
-                    .offset(x: -10, y: 10) // Adjust the offset to position the button
-                    
-                    
-                    
-                    
-                    // Button to get volume
-                    Button(action: {
-                        // Perform logic to obtain current volume from camera
-                        
-                        
-                  if(frameHandler.captureSession.isRunning){
-                     frameHandler.captureSession.stopRunning()
-                     } else {frameHandler.sessionQueue.async{
-                     frameHandler.captureSession.startRunning()
-                          }
-                }
-                        
-                withAnimation(.easeIn) {
-                         showVolumeText.toggle()
-                    }
-                        
-                        
-                        
-                        // For now, setting a placeholder value
-                        // Show the volume selection view
-                        showVolumeSelection = true
+                    showVolumeSelection = true
                     }) {
                         Text("Get Volume")
                             .font(.custom("YuseiMagic-Regular", size: 20))
@@ -134,11 +75,14 @@ struct CameraUI: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                }
-            }
-            .background(.white)
-             
-            
+                    .offset(x: 3)
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                }//HStack
+                .offset(y:30)
+            }//Vstack
+            .offset(y:20)
             .sheet(isPresented: $showVolumeSelection, onDismiss: dismissVolumeScreen) {
                 // Volume selection view
                 GeometryReader { geometry in
@@ -168,38 +112,15 @@ struct CameraUI: View {
                         
                         }
                     }
-                    withAnimation(.easeIn) {
-                        showVolumeText.toggle()
-                    }
-                }
-                ) {
-                    Text("Get Volume")
-                        .font(.custom("YuseiMagic-Regular", size: 20))
-                        .padding()
-                        .background(Color(red: 1.0, green: 0.71, blue: 0.87))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }//Button
-                .offset(x: 3)
-                Spacer()
-                Spacer()
-                Spacer()
-            }//Hstack
-            .offset(y:30)
-        }//Vstack
-        .offset(y:20)
-    } //View
+                }//GeometryREader
+                .presentationDetents([.height(200)])
+            } //Sheet
+    }//View
     
-}//Struct
-
-
-                }.presentationDetents([.height(200)])
-            }
-        }
-    func dismissVolumeScreen() {
+func dismissVolumeScreen() {
         showVolumeSelection = false;
         DispatchQueue.global().async{
             frameHandler.captureSession.startRunning()
         }
     }
-}
+}//Struct

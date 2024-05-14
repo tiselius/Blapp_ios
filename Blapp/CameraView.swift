@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CameraView: View {
     @StateObject var frameHandler: FrameHandler
-//    @State private var scale: CGFloat = 1.0 // Track the scale for zooming
+    //    @State private var scale: CGFloat = 1.0 // Track the scale for zooming
     
     var body: some View {
         ZStack {
@@ -48,21 +48,20 @@ struct CameraView: View {
         }
         .onAppear {
             scale = 1.0
-        ZStack {
-            VStack {
-                Text("\(frameHandler.meanvalue) meters")
-                    .foregroundColor(Color.black)
-            //    Text("\(currentArea) m2")
-           //         .foregroundColor(Color.black)
-            //    Text("\(currentVolume) dL")
-            //        .foregroundColor(Color.black)
+                VStack {
+                    Text("\(frameHandler.meanvalue) meters")
+                        .foregroundColor(Color.black)
+                    //    Text("\(currentArea) m2")
+                    //         .foregroundColor(Color.black)
+                    //    Text("\(currentVolume) dL")
+                    //        .foregroundColor(Color.black)
+                }
+                .padding(10)
+                .background(Color.white)
+                .cornerRadius(10) // Adjust corner radius as needed
+                .shadow(radius: 2) // Add shadow if desired
+            
             }
-            .padding(10)
-            .background(Color.white)
-            .cornerRadius(10) // Adjust corner radius as needed
-            .shadow(radius: 2) // Add shadow if desired
-            .offset(y: 280)
-        }
-//        .edgesIgnoringSafeArea(.all)
+            //        .edgesIgnoringSafeArea(.all)
     }
 }
