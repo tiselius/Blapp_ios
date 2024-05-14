@@ -32,17 +32,21 @@ struct CameraUI: View {
                 }
                 else{
                     CameraViewReference(frameHandler: frameHandler)
-                        .frame(height: UIScreen.main.bounds.height)
-                        .ignoresSafeArea()
+                        .frame(height: UIScreen.main.bounds.height*0.85)
+                        .clipShape(.rect(
+                            topLeadingRadius: 40,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: 40
+                        ))
                 }
-                
-//                Text(showVolumeText ? "\(currentVolume) dl" : "")
-//                    .padding(30)
-//                    .foregroundColor(Color.white)
-//                    .background(Color(red: 1.0, green: 0.71, blue: 0.87))
-//                    .cornerRadius(10)
-//                    .shadow(radius: 2)
-//                    .offset(x: showVolumeText ? 0 : 1000)
+                Text("\(frameHandler.distance) m")
+                    .padding(8)
+                    .foregroundColor(Color.white)
+                    .background(Color(red: 1.0, green: 0.71, blue: 0.87))
+                    .cornerRadius(10)
+                    .shadow(radius: 2)
+                    .offset(y: -320)
             }  //Zstack
             .padding(-50)
             .offset(y: -10)
