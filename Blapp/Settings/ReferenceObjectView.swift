@@ -12,7 +12,7 @@ struct ReferenceObjectView: View {
     @Binding var referenceLabel : String
     @ObservedObject var referenceManager = ReferenceManager.shared // Use observed object
     @State private var newReferenceName: String = ""
-    @State private var newReferenceArea: Float = 0.0
+    @State private var newReferenceArea: String = ""
     @State private var newReferenceAreaParsed: Float = 0.0
     @State private var temporaryNameForNewReference : String = ""
     @State private var couldAddReference : Bool = false
@@ -98,17 +98,17 @@ struct ReferenceObjectView: View {
                                 .disableAutocorrection(true)
                                 TextField(
                                     "Area in m^2",
-                                    value: $newReferenceArea,
-                                    formatter: NumberFormatter()
-                                    
+                                    text: $newReferenceArea
                                 )
-                                .focused($secondTextFieldFocused)
+                                .focused($secondTextFieldFocused) //Does not work anymore for some reason.
                                 .submitLabel(.done)
                                 .onSubmit {
                                     if temporaryNameForNewReference != "" && referenceManager.nameExists(referenceName: temporaryNameForNewReference) == false{
                                         newReferenceName = temporaryNameForNewReference
-                                        
-                                        if self.newReferenceArea > 0 {
+                                        if let parsedArea = Float(newReferenceArea){
+                                            self.newReferenceAreaParsed = parsedArea
+                                        }
+                                        if self.newReferenceAreaParsed > 0 {
                                             couldAddReference = true
                                         }
                                     }
@@ -121,7 +121,7 @@ struct ReferenceObjectView: View {
                                     applyReferenceSetting(for: newRef)
                                     print("added reference")
                                     couldAddReference = false
-                                    newReferenceArea = 0.0
+                                    newReferenceArea = ""
                                     temporaryNameForNewReference = ""
                                     showingAddReference = false
                                 }

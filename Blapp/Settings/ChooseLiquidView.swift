@@ -12,8 +12,8 @@ struct ChooseLiquidView: View {
     @Binding var liquidLabel: String
     @ObservedObject var liquidManager = LiquidManager.shared // Use observed object
     @State private var newLiquidName: String = ""
-    @State private var newLiquidSurfaceTension: Float = 0.0
-    @State private var newLiquidDensity: Float = 0.0
+    @State private var newLiquidSurfaceTension: String = ""
+    @State private var newLiquidDensity: String = ""
     @State private var newLiquidSurfaceTensionParsed: Float = 0.0
     @State private var newLiquidDensityParsed: Float = 0.0
     @State private var temporaryNameForNewLiquid: String = ""
@@ -106,12 +106,11 @@ struct ChooseLiquidView: View {
                                             .foregroundColor(.white)
                                         TextField(
                                             "Enter Density",
-                                            value: $newLiquidDensity,
-                                            formatter: NumberFormatter()
+                                            text: $newLiquidDensity
                                         )
                                         .padding()
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .focused($secondTextFieldFocused)
+                                        .focused($secondTextFieldFocused) //Does not work anymore for some reason.
                                         .onSubmit {
                                             thirdTextFieldFocused = true
                                         }
@@ -119,18 +118,23 @@ struct ChooseLiquidView: View {
                                             .foregroundColor(.white)
                                         TextField(
                                             "Enter Surface Tension",
-                                            value: $newLiquidSurfaceTension,
-                                            formatter: NumberFormatter()
+                                            text: $newLiquidSurfaceTension
                                         )
                                         .padding()
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .focused($thirdTextFieldFocused)
+                                        .focused($thirdTextFieldFocused) //Does not work anymore for some reason.
                                         .submitLabel(.done)
                                         .onSubmit {
                                             if temporaryNameForNewLiquid != "" && liquidManager.nameExists(liquidName: temporaryNameForNewLiquid) == false {
                                                 newLiquidName = temporaryNameForNewLiquid
                                                 }
-                                            if self.newLiquidSurfaceTension > 0.0 && self.newLiquidDensity > 0.0 {
+                                            if let surfaceTensionParsed = Float(newLiquidSurfaceTension){
+                                                self.newLiquidSurfaceTensionParsed = surfaceTensionParsed
+                                            }
+                                            if let densityParsed = Float(newLiquidDensity){
+                                                self.newLiquidDensityParsed = densityParsed
+                                            }
+                                            if newLiquidSurfaceTensionParsed > 0.0 && newLiquidDensityParsed > 0.0 {
                                                     couldAddLiquid = true
                                                 }
                                             }
@@ -149,8 +153,8 @@ struct ChooseLiquidView: View {
                                             print(newLiquidName)
                                             print(newLiquidSurfaceTensionParsed)
                                             couldAddLiquid = false
-                                            newLiquidSurfaceTension = 0.0
-                                            newLiquidDensity = 0.0
+                                            newLiquidSurfaceTension = ""
+                                            newLiquidDensity = ""
                                             temporaryNameForNewLiquid = ""
                                             newLiquidDensityParsed = 0
                                             newLiquidSurfaceTensionParsed = 0
@@ -180,6 +184,3 @@ struct ChooseLiquidView: View {
     }//Body
 }//Struct
 
-#Preview {
-    ChooseLiquidView(liquidLabel: .constant("Your initial label text"))
-}
