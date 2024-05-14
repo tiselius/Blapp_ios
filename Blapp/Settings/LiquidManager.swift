@@ -13,7 +13,7 @@ class LiquidManager: ObservableObject {
     @Published var liquids: [Liquid] = [
         Liquid(name: "Blood",surfaceTension: surfaceTensionOfBlood, density: densityOfBlood, removeable: false, image: "Blood_Liquid" ),
         Liquid(name: "Water", surfaceTension: surfaceTensionOfWater, density: densityOfWater, removeable: false,image: "Water_Liquid" ),
-        Liquid(name: "Coffee", surfaceTension: surfaceTensionOfLiquidLava, density: densityOfLiquidLava, removeable: false,image: "Water_Liquid")
+        Liquid(name: "Cola", surfaceTension: surfaceTensionOfCoke, density: densityOfCoke, removeable: false,image: "Water_Liquid")
     ]
     
     private init() {} // Private initializer to enforce singleton

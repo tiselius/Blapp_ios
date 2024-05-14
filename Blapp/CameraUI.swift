@@ -56,7 +56,7 @@ struct CameraUI: View {
                             .frame(width: 120, height: 120)
                             .foregroundColor(.black) // Set the color of the return button
                     }
-                    .offset(x: -10, y:-200 ) // Adjust the offset to position the button
+                    .offset(x: -10, y: 10) // Adjust the offset to position the button
                     
                     
                     
@@ -93,13 +93,18 @@ struct CameraUI: View {
                 }
             }
             .background(.white)
-            .sheet(isPresented: $showVolumeSelection) {
+             
+            
+            .sheet(isPresented: $showVolumeSelection, onDismiss: dismissVolumeScreen) {
                 // Volume selection view
                 GeometryReader { geometry in
                     ZStack {
+                        
                         Color(red: 1, green: 0.49, blue: 0.53)
                             .edgesIgnoringSafeArea(.all)
                         VStack {
+                           
+                            
                             Text("Volume Selection View")
                                 .font(.title)
                                 .foregroundColor(.white)
@@ -122,4 +127,10 @@ struct CameraUI: View {
                 }.presentationDetents([.height(200)])
             }
         }
+    func dismissVolumeScreen() {
+        showVolumeSelection = false;
+        DispatchQueue.global().async{
+            frameHandler.captureSession.startRunning()
+        }
+    }
 }
